@@ -9,6 +9,10 @@
   "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com)",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.4.13"
+    "electron": "^1.4.13",
+    "user-home": "^2.0.0"
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0"
   }
 }

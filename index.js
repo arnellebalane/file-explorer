@@ -1,20 +1,12 @@
-const { app, BrowserWindow } = require('electron');
+const fs = require('fs');
+const { app, BrowserWindow, ipcMain } = require('electron');
 
 // Keep a global reference to the window object, otherwise it will get closed
 // once the object gets garbage collected.
 let window;
 
 
-function createWindow() {
-  window = new BrowserWindow({ width: 800, height: 600 });
-  window.loadURL(`file://${__dirname}/index.html`);
-
-  // Dereference the window object so that it may be garbage collected.
-  window.on('closed', _ => window = null);
-}
-
-
-// Emitted when Electron has finished initialization and is not ready to
+// Emitted when Electron has finished initialization and is now ready to
 // create windows.
 app.on('ready', createWindow);
 
@@ -35,3 +27,55 @@ app.on('activate', _ => {
     createWindow();
   }
 });
+
+
+// Emitted when the renderer process requests for a path's contents to be read.
+ipcMain.on('read-path', (e, path) => {
+  readPathContents(path).then(files => e.sender.send('fs-data', files));
+});
+
+
+/**
+ *  Initialize the app's browser window and manages its lifecycle.
+ **/
+function createWindow() {
+  window = new BrowserWindow({ width: 800, height: 600 });
+  window.loadURL(`file://${__dirname}/index.html`);
+
+  window.webContents.openDevTools();
+
+  // Dereference the window object so that it may be garbage collected.
+  window.on('closed', _ => window = null);
+}
+
+
+/**
+ *  Read the contents of a given directory.
+ *  @param {String} path The path to the directory to be read.
+ *  @return A Promise object that resolves to a list of file names contained in
+ *    the given path.
+ **/
+function readPathContents(path) {
+  return new Promise((resolve, reject) => {
+    fs.readdir(path, handled(resolve));
+  });
+}
+
+
+/**
+ *  Wrap a given callback function and only call it when there are no errors
+ *  passed to the error-first callback style.
+ *  @param {Function} callback - The callback function to wrap with
+ *    error-checking logic.
+ *  @return A function that wraps the callback function with error-checking
+ *    logic.
+ **/
+function handled(callback) {
+  return function handledCallback(err) {
+    if (err) {
+      throw err;
+    }
+    const args = Array.prototype.slice.call(arguments, 1);
+    callback.apply(null, args);
+  };
+}
