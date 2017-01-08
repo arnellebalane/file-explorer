@@ -6,9 +6,51 @@
     <meta name="description" content="An Electron app for browsing your local file system">
 
     <title>File Explorer</title>
+
+    <link rel="stylesheet" href="static/vendor/photon/dist/css/photon.min.css">
+    <link rel="stylesheet" href="static/stylesheets/main.css">
   </head>
 
   <body>
+    <header class="toolbar toolbar-header">
+      <h1 class="title">File Explorer</h1>
+
+      <div class="toolbar-actions">
+        <div class="btn-group">
+          <button class="btn btn-default">
+            <span class="icon icon-left-open"></span>
+          </button>
+          <button class="btn btn-default">
+            <span class="icon icon-right-open"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Last Modified</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="icon icon-doc-text-inv"></span> script.js</td>
+            <td>45 KB</td>
+            <td>yesterday</td>
+          </tr>
+          <tr>
+            <td><span class="icon icon-folder"></span> script.js</td>
+            <td>45 KB</td>
+            <td>yesterday</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
     <script src="static/javascripts/main.js"></script>
   </body>
 </html>

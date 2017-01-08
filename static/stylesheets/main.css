@@ -1,0 +1,23 @@
+tr {
+  display: flex;
+}
+
+
+th,
+td {
+  flex: 1;
+}
+
+th:first-child,
+td:first-child {
+  flex: 2;
+}
+
+
+td .icon {
+  display: inline-block;
+  width: 1em;
+  margin-right: 0.5em;
+  text-align: center;
+  color: #777;
+}
