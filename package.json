@@ -1,0 +1,14 @@
+{
+  "name": "electron-file-explorer",
+  "version": "1.0.0",
+  "description": "File explorer app built with Electron",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron ."
+  },
+  "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com)",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.4.13"
+  }
+}
