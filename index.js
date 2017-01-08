@@ -39,7 +39,11 @@ ipcMain.on('read-path', (e, path) => {
  *  Initialize the app's browser window and manages its lifecycle.
  **/
 function createWindow() {
-  window = new BrowserWindow({ width: 800, height: 600 });
+  window = new BrowserWindow({
+    width: 800,
+    height: 600,
+    autoHideMenuBar: true
+  });
   window.loadURL(`file://${__dirname}/index.html`);
 
   window.webContents.openDevTools();
