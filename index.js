@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 // Keep a global reference to the window object, otherwise it will get closed
@@ -55,13 +56,39 @@ function createWindow() {
 
 /**
  *  Read the contents of a given directory.
- *  @param {String} path The path to the directory to be read.
- *  @return A Promise object that resolves to a list of file names contained in
- *    the given path.
+ *  @param {String} dirpath The path to the directory to be read.
+ *  @return A Promise object that resolves to a list of items contained in the
+ *    requested directory, including their properties.
  **/
-function readPathContents(path) {
+function readPathContents(dirpath) {
   return new Promise((resolve, reject) => {
-    fs.readdir(path, handled(resolve));
+    fs.readdir(dirpath, handled(files => {
+      Promise.all(files.map(file => {
+        const itempath = path.join(dirpath, file);
+        return getItemProperties(itempath).then(item => {
+          item.path = itempath;
+          return item;
+        });
+      })).then(resolve);
+    }));
+  });
+}
+
+
+/**
+ *  Get the properties of an item at the given path using `fs.stat`.
+ *
+ *  @param {String} itempath The path to the item whose properties will be
+ *    retrieved.
+ *  @return An Promise object that resolves to a `fs.Stat` object representing
+ *    the item's properties.
+ **/
+function getItemProperties(itempath) {
+  return new Promise((resolve, reject) => {
+    fs.stat(itempath, handled(stats => resolve({
+      size: stats.size,
+      mtime: stats.mtime
+    })));
   });
 }
 
