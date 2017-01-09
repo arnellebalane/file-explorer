@@ -47,8 +47,6 @@ function createWindow() {
   });
   window.loadURL(`file://${__dirname}/index.html`);
 
-  window.webContents.openDevTools();
-
   // Dereference the window object so that it may be garbage collected.
   window.on('closed', _ => window = null);
 }
