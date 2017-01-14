@@ -14,7 +14,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "photon": "^0.1.2-alpha"
-  }
+  "dependencies": {}
 }

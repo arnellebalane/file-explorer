@@ -1,40 +1,189 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+html {
+  font-family: "Aaargh", sans-serif;
+  font-size: 62.5%;
+  color: #333;
+}
+
+
 body {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 
-header {
-  flex-shrink: 0;
+a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
 }
 
 
-main {
+button {
+  font: inherit;
+  color: inherit;
+  outline: none;
+}
+
+
+
+/** Layouts **/
+
+.layout-header {
+  display: flex;
+  background-color: #f5f5f5;
+}
+
+
+.layout-sidebar {
+  width: 250px;
+}
+
+.layout-sidebar:first-child {
+  border-right: 1px solid #eaeaea;
+}
+
+
+.layout-main {
   flex-grow: 1;
-  overflow: auto;
+  padding: 0 1em;
 }
 
 
-tr {
+.layout-content {
+  flex-grow: 1;
   display: flex;
 }
 
 
-th,
-td {
-  flex: 1;
-}
 
-th:first-child,
-td:first-child {
-  flex: 2;
+/** Header Actions **/
+
+.header-actions {
+  display: flex;
 }
 
 
-td .icon {
-  display: inline-block;
-  width: 1em;
+.header-actions .btn {
+  width: 2.8em;
+  height: 2.8em;
+  border: none;
+  font-size: 1.2rem;
+  background: transparent center center no-repeat;
+  background-size: 40%;
+  cursor: pointer;
+}
+
+.header-actions .btn:hover,
+.header-actions .btn:focus {
+  background-color: #eaeaea;
+}
+
+
+.header-actions .btn--back {
+  background-image: url("../images/back.svg");
+}
+
+.header-actions .btn--forward {
+  background-image: url("../images/forward.svg");
+}
+
+
+
+/** Breadcrumbs **/
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+
+.breadcrumb {
+  margin: 0 0.75em;
+}
+
+
+a.breadcrumb {
+  position: relative;
+  color: rgba(51, 51, 51, 0.75);
+}
+
+a.breadcrumb:hover,
+a.breadcrumb:focus {
+  color: rgba(51, 51, 51, 1);
+}
+
+
+a.breadcrumb::after {
+  content: "/";
+  position: absolute;
+  top: 50%;
+  right: -1em;
+  color: rgba(51, 51, 51, 0.75);
+  transform: translateY(-40%);
+}
+
+
+span.breadcrumb {
+  font-weight: 700;
+}
+
+
+
+/** Sidebar Sections **/
+
+.sidebar-section {
+  padding: 1.6em 0;
+}
+
+
+.section-title {
+  padding: 0 1.6em;
+  margin-bottom: 0.75em;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1.6em;
+}
+
+.sidebar-item:hover,
+.sidebar-item:focus {
+  background-color: #f5f5f5;
+}
+
+
+.sidebar-item .icon {
   margin-right: 0.5em;
-  text-align: center;
-  color: #777;
+}
+
+
+
+/** Icons **/
+
+.icon {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  background: center center no-repeat;
+  background-size: contain;
+}
+
+
+.icon--folder {
+  background-image: url("../images/folder.svg");
 }

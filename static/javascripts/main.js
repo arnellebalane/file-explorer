@@ -17,18 +17,5 @@ ipcRenderer.on('fs-data', (e, files) => renderItems(files));
  *    its properties.
  **/
 function renderItems(items) {
-  // TODO: use a templating engine to render each item template
-  const container = document.querySelector('tbody');
-  container.innerHTML = '';
-
-  items.forEach(item => {
-    const rendered = `
-      <tr>
-        <td>${item.path}</td>
-        <td>${item.size}</td>
-        <td>${item.mtime}</td>
-      </tr>
-    `;
-    container.innerHTML += rendered;
-  });
+  // TODO: render directory items to the main panel
 }
