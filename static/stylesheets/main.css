@@ -222,3 +222,7 @@ span.breadcrumb {
 .icon--folder {
   background-image: url("../images/folder.svg");
 }
+
+.icon--file {
+  background-image: url("../images/file.svg");
+}

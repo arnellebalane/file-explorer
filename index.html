@@ -41,74 +41,16 @@
       </aside>
 
       <main class="layout-main">
-        <div class="directory-contents">
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Documents</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Pictures</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Music</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Videos</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Documents</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Pictures</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Music</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Videos</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Documents</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Pictures</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Music</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Videos</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Documents</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Pictures</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Music</p>
-          </a>
-          <a class="directory-item" href="#">
-            <i class="icon icon--folder item-icon"></i>
-            <p class="item-name">Videos</p>
-          </a>
-        </div>
+        <div class="directory-contents"></div>
       </main>
     </main>
+
+    <template id="directory-content">
+      <a class="directory-item" href="#">
+        <i class="icon icon--{{type}} item-icon"></i>
+        <p class="item-name">{{name}}</p>
+      </a>
+    </template>
 
     <script src="static/javascripts/main.js"></script>
   </body>
