@@ -45,6 +45,7 @@ button {
 
 
 .layout-sidebar {
+  flex: 0 0 auto;
   width: 250px;
 }
 
@@ -56,6 +57,7 @@ button {
 .layout-main {
   flex-grow: 1;
   padding: 0 1em;
+  overflow: auto;
 }
 
 
@@ -126,11 +128,13 @@ a.breadcrumb:focus {
 
 a.breadcrumb::after {
   content: "/";
+  width: 1rem;
   position: absolute;
   top: 50%;
-  right: -1em;
+  right: calc(-1em - 0.75em);
+  text-align: center;
   color: rgba(51, 51, 51, 0.75);
-  transform: translateY(-40%);
+  transform: translate(-50%, -50%);
 }
 
 
@@ -151,7 +155,6 @@ span.breadcrumb {
   padding: 0 1.6em;
   margin-bottom: 0.75em;
   font-size: 1rem;
-  text-transform: uppercase;
 }
 
 
@@ -169,6 +172,38 @@ span.breadcrumb {
 
 .sidebar-item .icon {
   margin-right: 0.5em;
+}
+
+
+
+/** Directory Contents **/
+
+.directory-contents {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 0.5em 0;
+  margin: 0.25em -0.5em;
+}
+
+
+.directory-item {
+  flex: 0 0 15rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5em 0.75em;
+  margin: 0.25em 0.5em;
+}
+
+.directory-item:hover,
+.directory-item:focus {
+  background-color: #f5f5f5;
+}
+
+
+.directory-item .icon {
+  margin-right: 0.25em;
+  font-size: 2em;
 }
 
 
