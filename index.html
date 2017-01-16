@@ -12,43 +12,43 @@
   </head>
 
   <body>
-    <header class="layout-header">
-      <aside class="layout-sidebar header-actions">
-        <button class="btn btn--back"></button>
-        <button class="btn btn--forward"></button>
-      </aside>
-      <header class="layout-main">
-        <nav class="breadcrumbs">
-          <a class="breadcrumb" href="#">home</a>
-          <a class="breadcrumb" href="#">users</a>
-          <a class="breadcrumb" href="#">arnelle</a>
-          <span class="breadcrumb">dev</span>
-        </nav>
-      </header>
-    </header>
-
-    <main id="app" class="layout-content">
-      <aside class="layout-sidebar app-sidebar">
-        <section class="sidebar-section">
-          <h1 class="section-title">Favorites</h1>
-          <nav class="sidebar-items">
-            <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Documents</a>
-            <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Pictures</a>
-            <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Music</a>
-            <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Videos</a>
+    <div id="app" class="app-wrapper">
+      <header class="layout-header">
+        <aside class="layout-sidebar header-actions">
+          <button class="btn btn--back"></button>
+          <button class="btn btn--forward"></button>
+        </aside>
+        <header class="layout-main">
+          <nav class="breadcrumbs">
+            <a class="breadcrumb" href="#" v-for="segment in pathSegments" :data-path="segment.path">{{segment.name}}</a>
+            <span class="breadcrumb">{{currentDirectory}}</span>
           </nav>
-        </section>
-      </aside>
+        </header>
+      </header>
 
-      <main class="layout-main">
-        <div class="directory-contents">
-          <a class="directory-item" href="#" v-for="item in directoryContents" :data-path="item.path">
-            <i class="icon item-icon" :class="'icon--' + item.type"></i>
-            <p class="item-name">{{item.name}}</p>
-          </a>
-        </div>
+      <main class="layout-content">
+        <aside class="layout-sidebar app-sidebar">
+          <section class="sidebar-section">
+            <h1 class="section-title">Favorites</h1>
+            <nav class="sidebar-items">
+              <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Documents</a>
+              <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Pictures</a>
+              <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Music</a>
+              <a class="sidebar-item" href="#"><i class="icon icon--folder"></i>Videos</a>
+            </nav>
+          </section>
+        </aside>
+
+        <main class="layout-main">
+          <div class="directory-contents">
+            <a class="directory-item" href="#" v-for="item in directoryContents" :data-path="item.path">
+              <i class="icon item-icon" :class="'icon--' + item.type"></i>
+              <p class="item-name">{{item.name}}</p>
+            </a>
+          </div>
+        </main>
       </main>
-    </main>
+    </div>
 
     <script src="static/vendor/vue/dist/vue.min.js"></script>
     <script src="static/javascripts/main.js"></script>

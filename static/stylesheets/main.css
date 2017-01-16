@@ -15,8 +15,6 @@ html {
 
 
 body {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
 }
 
@@ -37,6 +35,13 @@ button {
 
 
 /** Layouts **/
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 
 .layout-header {
   display: flex;
@@ -115,6 +120,11 @@ button {
 }
 
 
+.breadcrumb:first-child {
+  margin-right: 0;
+}
+
+
 a.breadcrumb {
   position: relative;
   color: rgba(51, 51, 51, 0.75);
@@ -135,6 +145,10 @@ a.breadcrumb::after {
   text-align: center;
   color: rgba(51, 51, 51, 0.75);
   transform: translate(-50%, -50%);
+}
+
+a.breadcrumb:first-child::after {
+  display: none;
 }
 
 
