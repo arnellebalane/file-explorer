@@ -31,8 +31,11 @@ app.on('activate', _ => {
 
 
 // Emitted when the renderer process requests for a path's contents to be read.
+// Contents are sorted alphabetically, but placing directories first.
 ipcMain.on('read-path', (e, path) => {
-  readPathContents(path).then(files => e.sender.send('fs-data', files));
+  readPathContents(path)
+    .then(sortItemsDirectoriesFirst)
+    .then(files => e.sender.send('fs-data', files));
 });
 
 
@@ -63,10 +66,7 @@ function readPathContents(dirpath) {
     fs.readdir(dirpath, handled(files => {
       Promise.all(files.map(file => {
         const itempath = path.join(dirpath, file);
-        return getItemProperties(itempath).then(item => {
-          item.path = itempath;
-          return item;
-        });
+        return getItemProperties(itempath);
       })).then(resolve);
     }));
   });
@@ -84,10 +84,77 @@ function readPathContents(dirpath) {
 function getItemProperties(itempath) {
   return new Promise((resolve, reject) => {
     fs.stat(itempath, handled(stats => resolve({
+      name: itempath.split('/').pop(),
+      type: getItemType(stats),
+      path: itempath,
       size: stats.size,
       mtime: stats.mtime
     })));
   });
+}
+
+
+/**
+ *  Get the item type (directory, file, etc.) from a given `fs.Stat` object.
+ *
+ *  @param {fs.Stat} item The `fs.Stat` object corresponding to an item.
+ *  @return A String representing what type the item is.
+ **/
+function getItemType(item) {
+  if (item.isFile()) {
+    return 'file';
+  } else if (item.isDirectory()) {
+    return 'directory';
+  } else if (item.isBlockDevice()) {
+    return 'blockdevice';
+  } else if (item.isCharacterDevice()) {
+    return 'characterdevice'
+  } else if (item.isSymbolicLink()) {
+    return 'symlink';
+  } else if (item.isFIFO()) {
+    return 'fifo';
+  } else if (item.isSocket()) {
+    return socket;
+  }
+  return '';
+}
+
+
+/**
+ *  Sorts the items alphabetically, but placing the directories before the
+ *  other types of items.
+ *
+ *  @param {Array} items The array of items to be sorted.
+ *  @return The sorted array of items.
+ **/
+function sortItemsDirectoriesFirst(items) {
+  return items.sort((a, b) => {
+    if ((a.type === 'directory' && b.type === 'directory')
+    || (a.type !== 'directory' && b.type !== 'directory')) {
+      return compare(a.name.toLowerCase(), b.name.toLowerCase());
+    } else if (a.type === 'directory') {
+      return -1;
+    } else if (b.type === 'directory') {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+
+/**
+ *  Compare the two given arguments, to be used as comparator for sorting.
+ *
+ *  @param {Number|String} a, b The objects to be compared.
+ *  @return A Number (-1, 0, 1) representing the sort order of the arguments.
+ **/
+function compare(a, b) {
+  if (a < b) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+  }
+  return 0;
 }
 
 

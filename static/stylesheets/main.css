@@ -180,19 +180,20 @@ span.breadcrumb {
 
 .directory-contents {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
-  padding: 0.5em 0;
-  margin: 0.25em -0.5em;
+  padding: calc(0.5em - 1px) 0;
+  margin: 0 calc(-0.5em - 1px);
 }
 
 
 .directory-item {
-  flex: 0 0 15rem;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  padding: 0.5em 0.75em;
-  margin: 0.25em 0.5em;
+  padding: 0.5em 1em;
+  width: 15rem;
+  margin: 1px;
 }
 
 .directory-item:hover,
@@ -201,9 +202,15 @@ span.breadcrumb {
 }
 
 
-.directory-item .icon {
+.item-icon {
+  flex-shrink: 0;
   margin-right: 0.25em;
   font-size: 2em;
+}
+
+
+.item-name {
+  word-break: break-all;
 }
 
 
@@ -219,7 +226,7 @@ span.breadcrumb {
 }
 
 
-.icon--folder {
+.icon--directory {
   background-image: url("../images/folder.svg");
 }
 
