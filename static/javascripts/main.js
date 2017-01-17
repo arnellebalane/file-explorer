@@ -6,7 +6,7 @@ const app = new Vue({
   el: '#app',
 
   data: {
-    path: userhome,
+    path: '',
     directoryContents: []
   },
 
@@ -30,19 +30,26 @@ const app = new Vue({
   methods: {
     open: function(path, type='directory') {
       if (type === 'directory') {
-        ipcRenderer.send('read-path', path);
+        this.path = path;
       }
+    }
+  },
+
+  watch: {
+    path: function(value, oldvalue) {
+      // Request main process to give us the contents of the home directory.
+      ipcRenderer.send('read-path', value);
+      window.localStorage.setItem('current-path', value);
     }
   }
 });
 
 
-// Request main process to give us the contents of the home directory.
-ipcRenderer.send('read-path', userhome);
+// Set initial current path to user home directory or whatever is stored in
+// LocalStorage.
+const currentPath = window.localStorage.getItem('current-path');
+app.path = currentPath || userhome;
 
 // Emitted when the main process have read the contents of the file system path
 // that is being browsed.
 ipcRenderer.on('fs-data', (e, files) => app.directoryContents = files);
-
-// Emitted when the path being displayed changes.
-ipcRenderer.on('path-change', (e, path) => app.path = path);
