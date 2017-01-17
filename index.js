@@ -35,8 +35,7 @@ app.on('activate', _ => {
 ipcMain.on('read-path', (e, path) => {
   readPathContents(path)
     .then(sortItemsDirectoriesFirst)
-    .then(files => e.sender.send('fs-data', files))
-    .then(_ => e.sender.send('path-change', path));
+    .then(files => e.sender.send('fs-data', files));
 });
 
 
