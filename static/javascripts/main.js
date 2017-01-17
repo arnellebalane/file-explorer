@@ -7,7 +7,8 @@ const app = new Vue({
 
   data: {
     path: '',
-    directoryContents: []
+    directoryContents: [],
+    showHiddenFiles: true
   },
 
   computed: {
@@ -32,6 +33,15 @@ const app = new Vue({
       if (type === 'directory') {
         this.path = path;
       }
+    },
+
+    display: function(item) {
+      return !this.showHiddenFiles && item.name[0] !== '.'
+        || this.showHiddenFiles;
+    },
+
+    toggleHiddenFiles: function() {
+      this.showHiddenFiles = !this.showHiddenFiles;
     }
   },
 

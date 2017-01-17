@@ -104,6 +104,14 @@ button {
   background-image: url("../images/forward.svg");
 }
 
+.header-actions .btn--hidden-on {
+  background-image: url("../images/hidden-on.svg");
+}
+
+.header-actions .btn--hidden-off {
+  background-image: url("../images/hidden-off.svg");
+}
+
 
 
 /** Breadcrumbs **/
