@@ -132,7 +132,9 @@ function sortItemsDirectoriesFirst(items) {
   return items.sort((a, b) => {
     if ((a.type === 'directory' && b.type === 'directory')
     || (a.type !== 'directory' && b.type !== 'directory')) {
-      return compare(a.name.toLowerCase(), b.name.toLowerCase());
+      return compare(
+        a.name.replace(/^\./, '').toLowerCase(),
+        b.name.replace(/^\./, '').toLowerCase());
     } else if (a.type === 'directory') {
       return -1;
     } else if (b.type === 'directory') {
