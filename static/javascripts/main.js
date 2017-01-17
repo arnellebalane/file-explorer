@@ -25,6 +25,14 @@ const app = new Vue({
     currentDirectory: function() {
       return this.path.split('/').pop();
     }
+  },
+
+  methods: {
+    open: function(path, type='directory') {
+      if (type === 'directory') {
+        ipcRenderer.send('read-path', path);
+      }
+    }
   }
 });
 
