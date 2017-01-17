@@ -44,6 +44,7 @@ button {
 
 
 .layout-header {
+  flex-shrink: 0;
   display: flex;
   background-color: #f5f5f5;
 }
@@ -61,7 +62,6 @@ button {
 
 .layout-main {
   flex-grow: 1;
-  padding: 0 1em;
   overflow: auto;
 }
 
@@ -112,43 +112,26 @@ button {
   display: flex;
   align-items: center;
   height: 100%;
+  padding: 0 0.5em;
 }
 
 
 .breadcrumb {
-  margin: 0 0.75em;
-}
-
-
-.breadcrumb:first-child {
-  margin-right: 0;
+  padding: 0.25em 0.75em;
+  line-height: 1.8em;
 }
 
 
 a.breadcrumb {
-  position: relative;
+  margin-right: 1px;
+  background-color: #e5e5e5;
   color: rgba(51, 51, 51, 0.75);
 }
 
 a.breadcrumb:hover,
 a.breadcrumb:focus {
   color: rgba(51, 51, 51, 1);
-}
-
-
-a.breadcrumb::after {
-  content: "/";
-  width: 1rem;
-  position: absolute;
-  top: 50%;
-  right: calc(-1em - 0.75em);
-  text-align: center;
-  color: rgba(51, 51, 51, 0.75);
-  transform: translate(-50%, -50%);
-}
-
-a.breadcrumb:first-child::after {
-  display: none;
+  background-color: #d5d5d5;
 }
 
 
@@ -196,8 +179,7 @@ span.breadcrumb {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  padding: calc(0.5em - 1px) 0;
-  margin: 0 calc(-0.5em - 1px);
+  padding: calc(0.5em - 1px);
 }
 
 

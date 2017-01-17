@@ -20,7 +20,7 @@
         </aside>
         <header class="layout-main">
           <nav class="breadcrumbs">
-            <a class="breadcrumb" href="#" v-for="segment in pathSegments" :data-path="segment.path">{{segment.name}}</a>
+            <a class="breadcrumb" v-for="segment in pathSegments" :href="segment.path">{{segment.name}}</a>
             <span class="breadcrumb">{{currentDirectory}}</span>
           </nav>
         </header>
@@ -41,7 +41,7 @@
 
         <main class="layout-main">
           <div class="directory-contents">
-            <a class="directory-item" href="#" v-for="item in directoryContents" :data-path="item.path">
+            <a class="directory-item" v-for="item in directoryContents" :href="item.path">
               <i class="icon item-icon" :class="'icon--' + item.type"></i>
               <p class="item-name">{{item.name}}</p>
             </a>
