@@ -47,18 +47,22 @@ const app = new Vue({
 
   watch: {
     path: function(value, oldvalue) {
-      // Request main process to give us the contents of the home directory.
       ipcRenderer.send('read-path', value);
       window.localStorage.setItem('current-path', value);
+    },
+
+    showHiddenFiles: function(value, oldvalue) {
+      window.localStorage.setItem('show-hidden-files', value);
     }
   }
 });
 
 
-// Set initial current path to user home directory or whatever is stored in
-// LocalStorage.
 const currentPath = window.localStorage.getItem('current-path');
 app.path = currentPath || userhome;
+
+const showHiddenFiles = window.localStorage.getItem('show-hidden-files');
+app.showHiddenFiles = JSON.parse(showHiddenFiles);
 
 // Emitted when the main process have read the contents of the file system path
 // that is being browsed.
