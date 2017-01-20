@@ -8,7 +8,7 @@ const app = new Vue({
 
   data: {
     path: '',
-    directoryContents: [],
+    items: [],
     places: [
       path.join(userhome, 'Documents'),
       path.join(userhome, 'Pictures'),
@@ -76,4 +76,4 @@ app.showHiddenFiles = JSON.parse(showHiddenFiles);
 
 // Emitted when the main process have read the contents of the file system path
 // that is being browsed.
-ipcRenderer.on('fs-data', (e, files) => app.directoryContents = files);
+ipcRenderer.on('fs-data', (e, files) => app.items = files);
