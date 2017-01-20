@@ -8,6 +8,15 @@
 }
 
 
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--text-highlight-color);
+}
+
+
 *,
 *::before,
 *::after {
@@ -20,6 +29,7 @@
 html {
   font-family: "Droid Sans", sans-serif;
   font-size: 62.5%;
+  -webkit-user-select: none;
 }
 
 
