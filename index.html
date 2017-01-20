@@ -24,7 +24,7 @@
           <nav class="path-segments">
             <a class="path-segment" href="/" @click.prevent="open('/')">root</a>
             <a class="path-segment" :href="segment.path" v-for="segment in pathSegments" @click.prevent="open(segment.path)">{{segment.name}}</a>
-            <span class="path-segment">{{currentDirectory}}</span>
+            <span class="path-segment" v-if="currentDirectory !== '/'">{{currentDirectory}}</span>
           </nav>
         </header>
       </header>

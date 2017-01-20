@@ -159,7 +159,7 @@ a.path-segment:focus {
 }
 
 
-a.path-segment::after {
+a.path-segment:not(:last-child)::after {
   content: "/";
   position: absolute;
   top: calc(50% - 1.2rem);
@@ -173,6 +173,7 @@ a.path-segment::after {
 }
 
 
+a.path-segment:first-child:last-child,
 span.path-segment {
   color: var(--text-highlight-color);
 }

@@ -23,7 +23,7 @@ const app = new Vue({
     },
 
     currentDirectory: function() {
-      return this.path.split('/').pop();
+      return this.path.split('/').pop() || '/';
     }
   },
 
