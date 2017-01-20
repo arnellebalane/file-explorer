@@ -14,11 +14,10 @@ const app = new Vue({
   computed: {
     pathSegments: function() {
       let segments = this.path.split('/');
-      segments = ['/', ...segments.slice(1, segments.length - 1)];
-      return segments.map((segment, i, array) => {
+      return segments.slice(1, segments.length - 1).map((segment, i, array) => {
         return {
           name: segment,
-          path: `/${array.slice(1, i + 1).join('/')}`
+          path: `/${array.slice(0, i + 1).join('/')}`
         };
       });
     },

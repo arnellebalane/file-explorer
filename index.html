@@ -17,12 +17,14 @@
         <aside class="layout-sidebar header-actions">
           <button class="btn btn--back"></button>
           <button class="btn btn--forward"></button>
-          <button class="btn" :class="showHiddenFiles ? 'btn--hidden-off' : 'btn--hidden-on'" @click="toggleHiddenFiles()"></button>
+          <button class="btn btn--refresh"></button>
+          <button class="btn" :class="showHiddenFiles ? 'btn--visible' : 'btn--invisible'" @click="toggleHiddenFiles()"></button>
         </aside>
         <header class="layout-main">
-          <nav class="breadcrumbs">
-            <a class="breadcrumb" :href="segment.path" v-for="segment in pathSegments" @click.prevent="open(segment.path)">{{segment.name}}</a>
-            <span class="breadcrumb">{{currentDirectory}}</span>
+          <nav class="path-segments">
+            <a class="path-segment" href="/" @click.prevent="open('/')">root</a>
+            <a class="path-segment" :href="segment.path" v-for="segment in pathSegments" @click.prevent="open(segment.path)">{{segment.name}}</a>
+            <span class="path-segment">{{currentDirectory}}</span>
           </nav>
         </header>
       </header>
