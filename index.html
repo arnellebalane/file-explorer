@@ -32,12 +32,12 @@
       <main class="layout-content">
         <aside class="layout-sidebar app-sidebar">
           <section class="sidebar-section">
-            <h1 class="section-title">Favorites</h1>
+            <h1 class="section-title">Places</h1>
             <nav class="sidebar-items">
-              <a class="sidebar-item" href="#"><i class="icon icon--directory"></i>Documents</a>
-              <a class="sidebar-item" href="#"><i class="icon icon--directory"></i>Pictures</a>
-              <a class="sidebar-item" href="#"><i class="icon icon--directory"></i>Music</a>
-              <a class="sidebar-item" href="#"><i class="icon icon--directory"></i>Videos</a>
+              <a class="sidebar-item" :href="place" v-for="place in places" @click.prevent="open(place)">
+                <i class="icon icon--directory"></i>
+                {{name(place)}}
+              </a>
             </nav>
           </section>
         </aside>

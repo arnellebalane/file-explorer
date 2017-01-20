@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+const path = require('path');
 const userhome = require('user-home');
 
 
@@ -8,6 +9,12 @@ const app = new Vue({
   data: {
     path: '',
     directoryContents: [],
+    places: [
+      path.join(userhome, 'Documents'),
+      path.join(userhome, 'Pictures'),
+      path.join(userhome, 'Music'),
+      path.join(userhome, 'Videos')
+    ],
     showHiddenFiles: true
   },
 
@@ -28,10 +35,14 @@ const app = new Vue({
   },
 
   methods: {
-    open: function(path, type='directory') {
+    open: function(itempath, type='directory') {
       if (type === 'directory') {
-        this.path = path;
+        this.path = itempath;
       }
+    },
+
+    name: function(itempath) {
+      return itempath.split('/').pop() || 'ROOT';
     },
 
     display: function(item) {
