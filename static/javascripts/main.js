@@ -28,7 +28,6 @@ const app = new Vue({
         };
       });
     },
-
     currentDirectory: function() {
       return this.path.split('/').pop() || '/';
     }
@@ -40,16 +39,13 @@ const app = new Vue({
         this.path = itempath;
       }
     },
-
     name: function(itempath) {
       return itempath.split('/').pop() || 'ROOT';
     },
-
     display: function(item) {
       return !this.showHiddenFiles && item.name[0] !== '.'
         || this.showHiddenFiles;
     },
-
     toggleHiddenFiles: function() {
       this.showHiddenFiles = !this.showHiddenFiles;
     }
@@ -60,7 +56,6 @@ const app = new Vue({
       ipcRenderer.send('read-path', value);
       window.localStorage.setItem('current-path', value);
     },
-
     showHiddenFiles: function(value, oldvalue) {
       window.localStorage.setItem('show-hidden-files', value);
     }
