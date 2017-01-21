@@ -15,10 +15,10 @@
     <div id="app" class="app-wrapper">
       <header class="layout-header">
         <aside class="layout-sidebar header-actions">
-          <button class="btn btn--back"></button>
-          <button class="btn btn--forward"></button>
+          <button class="btn btn--back" @click="back"></button>
+          <button class="btn btn--forward" @click="forward"></button>
           <button class="btn btn--refresh"></button>
-          <button class="btn" :class="showHiddenFiles ? 'btn--visible' : 'btn--invisible'" @click="toggleHiddenFiles()"></button>
+          <button class="btn" :class="showHiddenFiles ? 'btn--visible' : 'btn--invisible'" @click="toggleHiddenFiles"></button>
         </aside>
         <header class="layout-main">
           <nav class="path-segments">

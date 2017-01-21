@@ -15,7 +15,10 @@ const app = new Vue({
       path.join(userhome, 'Music'),
       path.join(userhome, 'Videos')
     ],
-    showHiddenFiles: true
+    showHiddenFiles: true,
+
+    history: [],
+    historyIndex: -1
   },
 
   computed: {
@@ -46,6 +49,16 @@ const app = new Vue({
       return !this.showHiddenFiles && item.name[0] !== '.'
         || this.showHiddenFiles;
     },
+    back: function() {
+      if (this.historyIndex > 0) {
+        this.path = this.history[--this.historyIndex];
+      }
+    },
+    forward: function() {
+      if (this.historyIndex < this.history.length - 1) {
+        this.path = this.history[++this.historyIndex];
+      }
+    },
     toggleHiddenFiles: function() {
       this.showHiddenFiles = !this.showHiddenFiles;
     }
@@ -55,6 +68,10 @@ const app = new Vue({
     path: function(value, oldvalue) {
       ipcRenderer.send('read-path', value);
       window.localStorage.setItem('current-path', value);
+
+      if (this.history[this.historyIndex] !== value) {
+        this.history = [...this.history.slice(0, ++this.historyIndex), value];
+      }
     },
     showHiddenFiles: function(value, oldvalue) {
       window.localStorage.setItem('show-hidden-files', value);
