@@ -17,7 +17,7 @@
         <aside class="layout-sidebar header-actions">
           <button class="btn btn--back" :disabled="!headerActions.back" @click="back"></button>
           <button class="btn btn--forward" :disabled="!headerActions.forward" @click="forward"></button>
-          <button class="btn btn--refresh"></button>
+          <button class="btn btn--refresh" @click="refresh"></button>
           <button class="btn" :class="showHiddenFiles ? 'btn--visible' : 'btn--invisible'" @click="toggleHiddenFiles"></button>
         </aside>
         <header class="layout-main">

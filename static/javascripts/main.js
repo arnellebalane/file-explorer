@@ -65,6 +65,9 @@ const app = new Vue({
         this.path = this.history[++this.historyIndex];
       }
     },
+    refresh: function() {
+      ipcRenderer.send('read-path', this.path);
+    },
     toggleHiddenFiles: function() {
       this.showHiddenFiles = !this.showHiddenFiles;
     }
