@@ -115,6 +115,12 @@ a {
 }
 
 
+.header-actions .btn[disabled] {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+
 .header-actions .btn--back {
   background-image: url("../images/back.png");
 }

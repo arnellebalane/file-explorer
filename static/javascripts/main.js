@@ -15,7 +15,16 @@ const app = new Vue({
       path.join(userhome, 'Music'),
       path.join(userhome, 'Videos')
     ],
-    showHiddenFiles: true
+    showHiddenFiles: true,
+    headerActions: {
+      back: false,
+      forward: false
+    },
+
+    // TODO Extract history management into a separate module so as to not
+    // clutter up the instance data.
+    history: [],
+    historyIndex: -1
   },
 
   computed: {
@@ -46,6 +55,19 @@ const app = new Vue({
       return !this.showHiddenFiles && item.name[0] !== '.'
         || this.showHiddenFiles;
     },
+    back: function() {
+      if (this.historyIndex > 0) {
+        this.path = this.history[--this.historyIndex];
+      }
+    },
+    forward: function() {
+      if (this.historyIndex < this.history.length - 1) {
+        this.path = this.history[++this.historyIndex];
+      }
+    },
+    refresh: function() {
+      ipcRenderer.send('read-path', this.path);
+    },
     toggleHiddenFiles: function() {
       this.showHiddenFiles = !this.showHiddenFiles;
     }
@@ -55,6 +77,12 @@ const app = new Vue({
     path: function(value, oldvalue) {
       ipcRenderer.send('read-path', value);
       window.localStorage.setItem('current-path', value);
+
+      if (this.history[this.historyIndex] !== value) {
+        this.history = [...this.history.slice(0, ++this.historyIndex), value];
+      }
+      this.headerActions.back = this.historyIndex > 0;
+      this.headerActions.forward = this.historyIndex < this.history.length - 1;
     },
     showHiddenFiles: function(value, oldvalue) {
       window.localStorage.setItem('show-hidden-files', value);
