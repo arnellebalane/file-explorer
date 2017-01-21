@@ -16,7 +16,13 @@ const app = new Vue({
       path.join(userhome, 'Videos')
     ],
     showHiddenFiles: true,
+    headerActions: {
+      back: false,
+      forward: false
+    },
 
+    // TODO Extract history management into a separate module so as to not
+    // clutter up the instance data.
     history: [],
     historyIndex: -1
   },
@@ -72,6 +78,8 @@ const app = new Vue({
       if (this.history[this.historyIndex] !== value) {
         this.history = [...this.history.slice(0, ++this.historyIndex), value];
       }
+      this.headerActions.back = this.historyIndex > 0;
+      this.headerActions.forward = this.historyIndex < this.history.length - 1;
     },
     showHiddenFiles: function(value, oldvalue) {
       window.localStorage.setItem('show-hidden-files', value);
