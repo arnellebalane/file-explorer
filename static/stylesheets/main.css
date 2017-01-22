@@ -251,7 +251,8 @@ span.path-segment {
 }
 
 .directory-item:hover,
-.directory-item:focus {
+.directory-item:focus,
+.directory-item.focused {
   background-color: var(--panel-secondary-highlight-color);
 }
 

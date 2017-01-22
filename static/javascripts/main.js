@@ -15,6 +15,7 @@ const app = new Vue({
       path.join(userhome, 'Music'),
       path.join(userhome, 'Videos')
     ],
+    selection: [],
     showHiddenFiles: true,
     headerActions: {
       back: false,
@@ -68,6 +69,19 @@ const app = new Vue({
     refresh: function() {
       ipcRenderer.send('read-path', this.path);
     },
+    focus: function(e, itempath) {
+      if (e.ctrlKey) {
+        this.selection.push(itempath);
+      } else {
+        this.selection = [itempath];
+      }
+    },
+    focused: function(itempath) {
+      return this.selection.includes(itempath);
+    },
+    clearSelection: function() {
+      this.selection = [];
+    },
     toggleHiddenFiles: function() {
       this.showHiddenFiles = !this.showHiddenFiles;
     }
@@ -100,3 +114,5 @@ app.showHiddenFiles = JSON.parse(showHiddenFiles);
 // Emitted when the main process have read the contents of the file system path
 // that is being browsed.
 ipcRenderer.on('fs-data', (e, files) => app.items = files);
+
+document.addEventListener('mousedown', _ => app.clearSelection());
