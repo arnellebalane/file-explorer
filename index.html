@@ -44,7 +44,7 @@
 
         <main class="layout-main">
           <div class="directory-contents">
-            <a class="directory-item" :class="{focused: focused(item.path)}" :href="item.path" v-for="item in items" v-if="display(item)" @click.prevent @dblclick.prevent="open(item.path, item.type)" @mousedown.stop.prevent="focus($event, item.path)">
+            <a class="directory-item" :class="{focused: focused(item.path)}" :href="item.path" v-for="item in items" v-if="display(item)" @click.prevent @dblclick.prevent="open(item.path, item.type)" @mousedown.stop.prevent="focus(item.path, $event)">
               <i class="icon item-icon" :class="'icon--' + item.type"></i>
               <p class="item-name">{{item.name}}</p>
             </a>

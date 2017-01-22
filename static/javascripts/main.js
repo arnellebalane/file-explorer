@@ -69,9 +69,20 @@ const app = new Vue({
     refresh: function() {
       ipcRenderer.send('read-path', this.path);
     },
-    focus: function(e, itempath) {
+    focus: function(itempath, e={}) {
       if (e.ctrlKey) {
         this.selection.push(itempath);
+      } else if (e.shiftKey) {
+        if (this.selection.length === 0) {
+          this.selection = [itempath];
+        } else {
+          let start = this.items.findIndex(item => item.path === this.selection[0]);
+          let end = this.items.findIndex(item => item.path === itempath);
+          [start, end] = [Math.min(start, end), Math.max(start, end)];
+          this.selection = this.items.slice(start, end + 1)
+            .filter(item => this.display(item))
+            .map(item => item.path);
+        }
       } else {
         this.selection = [itempath];
       }
@@ -97,9 +108,12 @@ const app = new Vue({
       }
       this.headerActions.back = this.historyIndex > 0;
       this.headerActions.forward = this.historyIndex < this.history.length - 1;
+
+      this.clearSelection();
     },
     showHiddenFiles: function(value, oldvalue) {
       window.localStorage.setItem('show-hidden-files', value);
+      this.clearSelection();
     }
   }
 });
