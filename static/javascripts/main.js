@@ -15,12 +15,14 @@ const app = new Vue({
       path.join(userhome, 'Music'),
       path.join(userhome, 'Videos')
     ],
-    selection: [],
     showHiddenFiles: true,
     headerActions: {
       back: false,
       forward: false
     },
+
+    selection: [],
+    selectionStart: '',
 
     // TODO Extract history management into a separate module so as to not
     // clutter up the instance data.
@@ -72,11 +74,15 @@ const app = new Vue({
     focus: function(itempath, e={}) {
       if (e.ctrlKey) {
         this.selection.push(itempath);
+        if (this.selection.length === 1) {
+          this.selectionStart = itempath
+        }
       } else if (e.shiftKey) {
         if (this.selection.length === 0) {
           this.selection = [itempath];
+          this.selectionStart = itempath;
         } else {
-          let start = this.items.findIndex(item => item.path === this.selection[0]);
+          let start = this.items.findIndex(item => item.path === this.selectionStart);
           let end = this.items.findIndex(item => item.path === itempath);
           [start, end] = [Math.min(start, end), Math.max(start, end)];
           this.selection = this.items.slice(start, end + 1)
@@ -85,6 +91,7 @@ const app = new Vue({
         }
       } else {
         this.selection = [itempath];
+        this.selectionStart = itempath;
       }
     },
     focused: function(itempath) {
@@ -92,6 +99,7 @@ const app = new Vue({
     },
     clearSelection: function() {
       this.selection = [];
+      this.selectionStart = '';
     },
     toggleHiddenFiles: function() {
       this.showHiddenFiles = !this.showHiddenFiles;
