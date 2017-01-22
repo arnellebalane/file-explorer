@@ -154,29 +154,26 @@ document.addEventListener('keydown', e => {
   const items = app.items.filter(item => app.display(item));
   const selection = app.selection;
   const ROW_ITEMS_COUNT = 5;
+  let index = null;
+
   if (e.keyCode === keyCodes.LEFT) {
-    const index = items.findIndex(item => item.path === selection[0]);
-    if (index > 0) {
-      const item = items[index - 1];
-      app.focus(item.path, e);
-    }
+    const i = items.findIndex(item => item.path === selection[0]);
+    index = i > 0 ? i - 1 : index;
   } else if (e.keyCode === keyCodes.RIGHT) {
-    const index = items.findIndex(item => item.path === selection[selection.length - 1]);
-    if (index < items.length - 1) {
-      const item = items[index + 1];
-      app.focus(item.path, e);
-    }
+    const i = items.findIndex(item => item.path === selection[selection.length - 1]);
+    index = i < items.length - 1 ? i + 1 : index;
   } else if (e.keyCode === keyCodes.UP) {
-    const index = items.findIndex(item => item.path === selection[0]);
-    if (index >= ROW_ITEMS_COUNT) {
-      const item = items[index - ROW_ITEMS_COUNT];
-      app.focus(item.path, e);
-    }
+    const i = items.findIndex(item => item.path === selection[0]);
+    index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
   } else if (e.keyCode === keyCodes.DOWN) {
-    const index = items.findIndex(item => item.path === selection[selection.length - 1]);
-    if (index <= items.length - ROW_ITEMS_COUNT) {
-      const item = items[index + ROW_ITEMS_COUNT];
-      app.focus(item.path, e);
-    }
+    const i = items.findIndex(item => item.path === selection[selection.length - 1]);
+    index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
+  } else {
+    return false;
+  }
+
+  if (index !== null) {
+    const item = items[index];
+    app.focus(item.path, e);
   }
 });
