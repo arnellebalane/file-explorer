@@ -137,4 +137,46 @@ app.showHiddenFiles = JSON.parse(showHiddenFiles);
 // that is being browsed.
 ipcRenderer.on('fs-data', (e, files) => app.items = files);
 
+// Clear selected items when clicking somewhere else on page.
 document.addEventListener('mousedown', _ => app.clearSelection());
+
+// Handle keyboard events for keyboard navigation and selection.
+const keyCodes = {
+  UP: 38,
+  LEFT: 37,
+  RIGHT: 39,
+  DOWN: 40
+};
+
+// TODO Make this part of the Vue instance instead of being external to keep
+// all state management inside the Vue instance.
+document.addEventListener('keydown', e => {
+  const items = app.items.filter(item => app.display(item));
+  const selection = app.selection;
+  const ROW_ITEMS_COUNT = 5;
+  if (e.keyCode === keyCodes.LEFT) {
+    const index = items.findIndex(item => item.path === selection[0]);
+    if (index > 0) {
+      const item = items[index - 1];
+      app.focus(item.path, e);
+    }
+  } else if (e.keyCode === keyCodes.RIGHT) {
+    const index = items.findIndex(item => item.path === selection[selection.length - 1]);
+    if (index < items.length - 1) {
+      const item = items[index + 1];
+      app.focus(item.path, e);
+    }
+  } else if (e.keyCode === keyCodes.UP) {
+    const index = items.findIndex(item => item.path === selection[0]);
+    if (index >= ROW_ITEMS_COUNT) {
+      const item = items[index - ROW_ITEMS_COUNT];
+      app.focus(item.path, e);
+    }
+  } else if (e.keyCode === keyCodes.DOWN) {
+    const index = items.findIndex(item => item.path === selection[selection.length - 1]);
+    if (index <= items.length - ROW_ITEMS_COUNT) {
+      const item = items[index + ROW_ITEMS_COUNT];
+      app.focus(item.path, e);
+    }
+  }
+});
