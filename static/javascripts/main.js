@@ -145,7 +145,9 @@ const keyCodes = {
   UP: 38,
   LEFT: 37,
   RIGHT: 39,
-  DOWN: 40
+  DOWN: 40,
+  HOME: 36,
+  END: 35
 };
 
 // TODO Make this part of the Vue instance instead of being external to keep
@@ -168,6 +170,10 @@ document.addEventListener('keydown', e => {
     index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
   } else if (e.keyCode === keyCodes.DOWN) {
     index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
+  } else if (e.keyCode === keyCodes.HOME) {
+    index = 0;
+  } else if (e.keyCode === keyCodes.END) {
+    index = items.length - 1;
   } else {
     return false;
   }
