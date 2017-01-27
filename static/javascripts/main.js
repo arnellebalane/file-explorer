@@ -140,18 +140,29 @@ ipcRenderer.on('fs-data', (e, files) => app.items = files);
 // Clear selected items when clicking somewhere else on page.
 document.addEventListener('mousedown', _ => app.clearSelection());
 
-// Handle keyboard events for keyboard navigation and selection.
+// Handle keyboard events for keyboard navigation, selection, and interacting
+// with the selected items.
 const keyCodes = {
   UP: 38,
   LEFT: 37,
   RIGHT: 39,
   DOWN: 40,
   HOME: 36,
-  END: 35
+  END: 35,
+  ENTER: 13
 };
 
-// TODO Make this part of the Vue instance instead of being external to keep
-// all state management inside the Vue instance.
+// Items actions.
+document.addEventListener('keydown', e => {
+  if (e.keyCode === keyCodes.ENTER) {
+    if (app.selection.length === 1) {
+      const item = app.items.find(item => item.path === app.selection[0]);
+      app.open(item.path, item.type);
+    }
+  }
+});
+
+// Items selection and navigation.
 document.addEventListener('keydown', e => {
   const items = app.items.filter(item => app.display(item));
   const selection = app.selection;
