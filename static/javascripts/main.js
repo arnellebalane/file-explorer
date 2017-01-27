@@ -149,7 +149,8 @@ const keyCodes = {
   DOWN: 40,
   HOME: 36,
   END: 35,
-  ENTER: 13
+  ENTER: 13,
+  BACKSPACE: 8
 };
 
 // Items actions.
@@ -159,6 +160,8 @@ document.addEventListener('keydown', e => {
       const item = app.items.find(item => item.path === app.selection[0]);
       app.open(item.path, item.type);
     }
+  } else if (e.keyCode === keyCodes.BACKSPACE) {
+    app.back();
   }
 });
 
