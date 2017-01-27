@@ -154,21 +154,19 @@ document.addEventListener('keydown', e => {
   const items = app.items.filter(item => app.display(item));
   const selection = app.selection;
   const selectionStart = app.selectionStart;
-  const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
   const ROW_ITEMS_COUNT = 5;
   let index = null;
 
+  const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
+  const i = items.findIndex(item => item.path === selection[ref]);
+
   if (e.keyCode === keyCodes.LEFT) {
-    const i = items.findIndex(item => item.path === selection[ref]);
     index = i > 0 ? i - 1 : index;
   } else if (e.keyCode === keyCodes.RIGHT) {
-    const i = items.findIndex(item => item.path === selection[ref]);
     index = i < items.length - 1 ? i + 1 : index;
   } else if (e.keyCode === keyCodes.UP) {
-    const i = items.findIndex(item => item.path === selection[ref]);
     index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
   } else if (e.keyCode === keyCodes.DOWN) {
-    const i = items.findIndex(item => item.path === selection[ref]);
     index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
   } else {
     return false;
