@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const trash = require('trash');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 // Keep a global reference to the window object, otherwise it will get closed
@@ -30,12 +31,44 @@ app.on('activate', _ => {
 });
 
 
-// Emitted when the renderer process requests for a path's contents to be read.
-// Contents are sorted alphabetically, but placing directories first.
+/**
+ *  Emitted when the renderer process requests for a path's contents to be
+ *  read. Contents are sorted alphabetically, but placing directories first.
+ *  @param {String} path The path to the directory to be read.
+ **/
 ipcMain.on('read-path', (e, path) => {
   readPathContents(path)
     .then(sortItemsDirectoriesFirst)
     .then(files => e.sender.send('fs-data', files));
+});
+
+
+/**
+ *  Emitted when the renderer process requests for items to be deleted. Asks
+ *  for confirmation first before actually deleting the items.
+ *  @param {Array} items The absolute paths of the items to be deleted.
+ **/
+ipcMain.on('delete-items', (e, items) => {
+  const modal = new BrowserWindow({
+    parent: window,
+    modal: true,
+    width: 400,
+    height: 120,
+    autoHideMenuBar: true
+  });
+  modal.loadURL(`file://${__dirname}/views/delete-confirmation.html`);
+
+  ipcMain.once('delete-confirmed', _ => {
+    ipcMain.removeAllListeners('delete-cancelled');
+    modal.close();
+    trash(items).then(_ => e.sender.send('delete-status', true));
+  });
+
+  ipcMain.once('delete-cancelled', _ => {
+    ipcMain.removeAllListeners('delete-confirmed');
+    modal.close();
+    e.sender.send('delete-status', false);
+  });
 });
 
 

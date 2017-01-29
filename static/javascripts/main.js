@@ -97,6 +97,14 @@ const app = new Vue({
     focused: function(itempath) {
       return this.selection.includes(itempath);
     },
+    delete: function(items) {
+      ipcRenderer.send('delete-items', items);
+      ipcRenderer.once('delete-status', (e, deleted) => {
+        if (deleted) {
+          this.refresh();
+        }
+      });
+    },
     clearSelection: function() {
       this.selection = [];
       this.selectionStart = '';
@@ -150,7 +158,8 @@ const keyCodes = {
   HOME: 36,
   END: 35,
   ENTER: 13,
-  BACKSPACE: 8
+  BACKSPACE: 8,
+  DELETE: 46
 };
 
 // Items actions.
@@ -162,6 +171,10 @@ document.addEventListener('keydown', e => {
     }
   } else if (e.keyCode === keyCodes.BACKSPACE) {
     app.back();
+  } else if (e.keyCode === keyCodes.DELETE) {
+    if (app.selection.length > 0) {
+      app.delete(app.selection);
+    }
   }
 });
 
