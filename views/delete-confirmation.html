@@ -15,8 +15,8 @@
     <div id="app" class="app-wrapper">
       <p class="modal-message">Are you sure you want to delete these items?</p>
       <div class="modal-actions">
-        <button class="btn">No</button>
-        <button class="btn" autofocus>Yes</button>
+        <button class="btn" @click="cancel">No</button>
+        <button class="btn" @click="confirm" autofocus>Yes</button>
       </div>
     </div>
 
