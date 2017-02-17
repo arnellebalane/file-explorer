@@ -4,7 +4,9 @@
   "description": "File explorer app built with Electron",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron ."
+    "start": "./node_modules/.bin/electron .",
+    "build": "./node_modules/.bin/electron-packager . --out=build --overwrite",
+    "buildall": "./node_modules/.bin/electron-packager . --out=build --overwrite --all"
   },
   "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com)",
   "license": "MIT",
