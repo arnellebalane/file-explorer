@@ -16,6 +16,7 @@
     "user-home": "^2.0.0"
   },
   "devDependencies": {
-    "devtron": "^1.4.0"
+    "devtron": "^1.4.0",
+    "electron-packager": "^8.5.1"
   }
 }
