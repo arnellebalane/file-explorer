@@ -881,6 +881,10 @@ ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
+node-deb@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/node-deb/-/node-deb-0.5.0.tgz#6bf3eeb042ab06f8a0e058dbd0fc9ab10323faa5"
+
 node-uuid@~1.4.0:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/node-uuid/-/node-uuid-1.4.7.tgz#6da5a17668c4b3dd59623bda11cf7fa4c1f60a6f"
