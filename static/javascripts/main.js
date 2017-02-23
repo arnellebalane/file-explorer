@@ -2,6 +2,8 @@ const { ipcRenderer } = require('electron');
 const path = require('path');
 const userhome = require('user-home');
 
+const Vue = require('./static/vendor/vue/dist/vue.min');
+
 
 const app = new Vue({
   el: '#app',
