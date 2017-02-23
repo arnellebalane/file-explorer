@@ -3,10 +3,15 @@ const path = require('path');
 const userhome = require('user-home');
 
 const Vue = require('./static/vendor/vue/dist/vue.min');
+const HistoryMixin = require('./static/javascripts/mixins/history');
 
 
 const app = new Vue({
   el: '#app',
+
+  mixins: [
+    HistoryMixin
+  ],
 
   data: {
     path: '',
@@ -24,12 +29,7 @@ const app = new Vue({
     },
 
     selection: [],
-    selectionStart: '',
-
-    // TODO Extract history management into a separate module so as to not
-    // clutter up the instance data.
-    history: [],
-    historyIndex: -1
+    selectionStart: ''
   },
 
   computed: {
@@ -59,16 +59,6 @@ const app = new Vue({
     display: function(item) {
       return !this.showHiddenFiles && item.name[0] !== '.'
         || this.showHiddenFiles;
-    },
-    back: function() {
-      if (this.historyIndex > 0) {
-        this.path = this.history[--this.historyIndex];
-      }
-    },
-    forward: function() {
-      if (this.historyIndex < this.history.length - 1) {
-        this.path = this.history[++this.historyIndex];
-      }
     },
     refresh: function() {
       ipcRenderer.send('read-path', this.path);
@@ -121,18 +111,22 @@ const app = new Vue({
       ipcRenderer.send('read-path', value);
       window.localStorage.setItem('current-path', value);
 
-      if (this.history[this.historyIndex] !== value) {
-        this.history = [...this.history.slice(0, ++this.historyIndex), value];
-      }
-      this.headerActions.back = this.historyIndex > 0;
-      this.headerActions.forward = this.historyIndex < this.history.length - 1;
-
+      this.push(value);
       this.clearSelection();
     },
     showHiddenFiles: function(value, oldvalue) {
       window.localStorage.setItem('show-hidden-files', value);
       this.clearSelection();
     }
+  },
+
+  created() {
+    // Listen for events from the HistoryMixin
+    this.$on('historychange', path => this.path = path);
+    this.$on('historyindexchange', e => {
+      this.headerActions.back = !e.first;
+      this.headerActions.forward = !e.last;
+    });
   }
 });
 
