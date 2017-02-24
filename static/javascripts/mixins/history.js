@@ -11,6 +11,7 @@
   const HistoryMixin = {
 
     data: {
+      path: '',
       history: [],
       historyIndex: -1
     },
@@ -25,13 +26,13 @@
 
       back() {
         if (this.historyIndex > 0) {
-          this.$emit('historychange', this.history[--this.historyIndex]);
+          this.path = this.history[--this.historyIndex];
         }
       },
 
       forward() {
         if (this.historyIndex < this.history.length - 1) {
-          this.$emit('historychange', this.history[++this.historyIndex]);
+          this.path = this.history[++this.historyIndex];
         }
       }
     },

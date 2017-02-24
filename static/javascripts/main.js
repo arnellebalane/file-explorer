@@ -122,7 +122,6 @@ const app = new Vue({
 
   created() {
     // Listen for events from the HistoryMixin
-    this.$on('historychange', path => this.path = path);
     this.$on('historyindexchange', e => {
       this.headerActions.back = !e.first;
       this.headerActions.forward = !e.last;
