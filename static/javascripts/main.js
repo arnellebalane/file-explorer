@@ -8,6 +8,8 @@ const SelectionMixin = require('./static/javascripts/mixins/selection');
 const DisplayMixin = require('./static/javascripts/mixins/display');
 const DirectoryMixin = require('./static/javascripts/mixins/directory');
 
+const keyCodes = require('./static/javascripts/utils/keycodes');
+
 
 const app = new Vue({
   el: '#app',
@@ -20,8 +22,6 @@ const app = new Vue({
   ],
 
   data: {
-    path: '',
-    items: [],
     places: [
       path.join(userhome, 'Documents'),
       path.join(userhome, 'Pictures'),
@@ -67,20 +67,6 @@ const app = new Vue({
   }
 });
 
-
-// Handle keyboard events for keyboard navigation, selection, and interacting
-// with the selected items.
-const keyCodes = {
-  UP: 38,
-  LEFT: 37,
-  RIGHT: 39,
-  DOWN: 40,
-  HOME: 36,
-  END: 35,
-  ENTER: 13,
-  BACKSPACE: 8,
-  DELETE: 46
-};
 
 // Items actions.
 document.addEventListener('keydown', e => {
