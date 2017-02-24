@@ -44,7 +44,7 @@
 
         <main class="layout-main">
           <div class="directory-contents">
-            <a class="directory-item" :class="{selected: selected(item.path)}" :href="item.path" tabindex="-1" v-for="item in items" v-if="display(item)" @click.prevent @dblclick.prevent="open(item.path, item.type)" @mousedown.stop.prevent="select(item.path, $event)">
+            <a class="directory-item" :class="{selected: selected(item.path)}" :href="item.path" tabindex="-1" v-for="item in items" v-if="visible(item)" @click.prevent @dblclick.prevent="open(item.path, item.type)" @mousedown.stop.prevent="select(item.path, $event)">
               <i class="icon item-icon" :class="'icon--' + item.type"></i>
               <p class="item-name">{{item.name}}</p>
             </a>

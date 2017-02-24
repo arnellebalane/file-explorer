@@ -5,6 +5,7 @@ const userhome = require('user-home');
 const Vue = require('./static/vendor/vue/dist/vue.min');
 const HistoryMixin = require('./static/javascripts/mixins/history');
 const SelectionMixin = require('./static/javascripts/mixins/selection');
+const DisplayMixin = require('./static/javascripts/mixins/display');
 
 
 const app = new Vue({
@@ -12,7 +13,8 @@ const app = new Vue({
 
   mixins: [
     HistoryMixin,
-    SelectionMixin
+    SelectionMixin,
+    DisplayMixin
   ],
 
   data: {
@@ -24,7 +26,6 @@ const app = new Vue({
       path.join(userhome, 'Music'),
       path.join(userhome, 'Videos')
     ],
-    showHiddenFiles: true,
     headerActions: {
       back: false,
       forward: false
@@ -52,13 +53,6 @@ const app = new Vue({
         this.path = itempath;
       }
     },
-    name: function(itempath) {
-      return itempath.split('/').pop() || 'ROOT';
-    },
-    display: function(item) {
-      return !this.showHiddenFiles && item.name[0] !== '.'
-        || this.showHiddenFiles;
-    },
     refresh: function() {
       ipcRenderer.send('read-path', this.path);
     },
@@ -69,9 +63,6 @@ const app = new Vue({
           this.refresh();
         }
       });
-    },
-    toggleHiddenFiles: function() {
-      this.showHiddenFiles = !this.showHiddenFiles;
     }
   },
 
@@ -81,10 +72,6 @@ const app = new Vue({
       window.localStorage.setItem('current-path', value);
 
       this.push(value);
-      this.clearSelection();
-    },
-    showHiddenFiles: function(value, oldvalue) {
-      window.localStorage.setItem('show-hidden-files', value);
       this.clearSelection();
     }
   },
@@ -101,9 +88,6 @@ const app = new Vue({
 
 const currentPath = window.localStorage.getItem('current-path');
 app.path = currentPath || userhome;
-
-const showHiddenFiles = window.localStorage.getItem('show-hidden-files');
-app.showHiddenFiles = JSON.parse(showHiddenFiles);
 
 // Emitted when the main process have read the contents of the file system path
 // that is being browsed.
