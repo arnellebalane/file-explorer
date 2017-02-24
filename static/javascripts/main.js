@@ -41,10 +41,6 @@ const app = new Vue({
       }
     },
 
-    refresh() {
-      ipcRenderer.send('read-path', this.path);
-    },
-
     delete(items) {
       ipcRenderer.send('delete-items', items);
       ipcRenderer.once('delete-status', (e, deleted) => {

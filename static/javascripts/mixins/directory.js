@@ -9,6 +9,12 @@ const DirectoryMixin = {
     items: []
   },
 
+  methods: {
+    refresh() {
+      ipcRenderer.send('read-path', this.path);
+    }
+  },
+
   computed: {
     pathSegments() {
       let segments = this.path.split('/');
