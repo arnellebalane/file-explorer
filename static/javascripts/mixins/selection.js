@@ -1,10 +1,8 @@
+const DisplayMixin = require('./display');
 const keyCodes = require('../utils/keycodes');
 
 
 const instances = [];
-
-
-// @TODO: import and use the mixin that will contain the app.display method
 
 
 /**
@@ -15,7 +13,7 @@ const instances = [];
  *  @param {KeyboardEvent} e
  **/
 function selectionKeyboard(app, e) {
-  const items = app.items.filter(item => app.display(item));
+  const items = app.items.filter(item => app.visible(item));
   const selection = app.selection;
   const selectionStart = app.selectionStart;
   const ROW_ITEMS_COUNT = 5;
@@ -78,7 +76,7 @@ function selectionShift(app, itempath) {
     let end = app.items.findIndex(item => item.path === itempath);
     [start, end] = [Math.min(start, end), Math.max(start, end)];
     app.selection = app.items.slice(start, end + 1)
-      .filter(item => app.display(item))
+      .filter(item => app.visible(item))
       .map(item => item.path);
   }
 }
@@ -111,6 +109,10 @@ document.addEventListener('mousedown', e => {
  *  the keyboard.
  **/
 const SelectionMixin = {
+
+  mixins: [
+    DisplayMixin
+  ],
 
   data: {
     items: [],
