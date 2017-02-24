@@ -2,7 +2,7 @@ const { ipcRenderer } = require('electron');
 const userhome = require('user-home');
 
 
-const PathMixin = {
+const DirectoryMixin = {
 
   data: {
     path: '',
@@ -44,4 +44,4 @@ const PathMixin = {
 };
 
 
-module.exports = PathMixin;
+module.exports = DirectoryMixin;

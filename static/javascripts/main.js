@@ -6,7 +6,7 @@ const Vue = require('./static/vendor/vue/dist/vue.min');
 const HistoryMixin = require('./static/javascripts/mixins/history');
 const SelectionMixin = require('./static/javascripts/mixins/selection');
 const DisplayMixin = require('./static/javascripts/mixins/display');
-const PathMixin = require('./static/javascripts/mixins/path');
+const DirectoryMixin = require('./static/javascripts/mixins/directory');
 
 
 const app = new Vue({
@@ -16,7 +16,7 @@ const app = new Vue({
     HistoryMixin,
     SelectionMixin,
     DisplayMixin,
-    PathMixin
+    DirectoryMixin
   ],
 
   data: {
@@ -35,15 +35,17 @@ const app = new Vue({
   },
 
   methods: {
-    open: function(itempath, type='directory') {
+    open(itempath, type='directory') {
       if (type === 'directory') {
         this.path = itempath;
       }
     },
-    refresh: function() {
+
+    refresh() {
       ipcRenderer.send('read-path', this.path);
     },
-    delete: function(items) {
+
+    delete(items) {
       ipcRenderer.send('delete-items', items);
       ipcRenderer.once('delete-status', (e, deleted) => {
         if (deleted) {
