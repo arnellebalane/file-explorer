@@ -6,6 +6,7 @@ const Vue = require('./static/vendor/vue/dist/vue.min');
 const HistoryMixin = require('./static/javascripts/mixins/history');
 const SelectionMixin = require('./static/javascripts/mixins/selection');
 const DisplayMixin = require('./static/javascripts/mixins/display');
+const PathMixin = require('./static/javascripts/mixins/path');
 
 
 const app = new Vue({
@@ -14,7 +15,8 @@ const app = new Vue({
   mixins: [
     HistoryMixin,
     SelectionMixin,
-    DisplayMixin
+    DisplayMixin,
+    PathMixin
   ],
 
   data: {
@@ -29,21 +31,6 @@ const app = new Vue({
     headerActions: {
       back: false,
       forward: false
-    }
-  },
-
-  computed: {
-    pathSegments: function() {
-      let segments = this.path.split('/');
-      return segments.slice(1, segments.length - 1).map((segment, i, array) => {
-        return {
-          name: segment,
-          path: `/${array.slice(0, i + 1).join('/')}`
-        };
-      });
-    },
-    currentDirectory: function() {
-      return this.path.split('/').pop() || '/';
     }
   },
 
@@ -67,10 +54,7 @@ const app = new Vue({
   },
 
   watch: {
-    path: function(value, oldvalue) {
-      ipcRenderer.send('read-path', value);
-      window.localStorage.setItem('current-path', value);
-
+    path: function(value) {
       this.push(value);
       this.clearSelection();
     }
@@ -85,13 +69,6 @@ const app = new Vue({
   }
 });
 
-
-const currentPath = window.localStorage.getItem('current-path');
-app.path = currentPath || userhome;
-
-// Emitted when the main process have read the contents of the file system path
-// that is being browsed.
-ipcRenderer.on('fs-data', (e, files) => app.items = files);
 
 // Handle keyboard events for keyboard navigation, selection, and interacting
 // with the selected items.
