@@ -4,13 +4,15 @@ const userhome = require('user-home');
 
 const Vue = require('./static/vendor/vue/dist/vue.min');
 const HistoryMixin = require('./static/javascripts/mixins/history');
+const SelectionMixin = require('./static/javascripts/mixins/selection');
 
 
 const app = new Vue({
   el: '#app',
 
   mixins: [
-    HistoryMixin
+    HistoryMixin,
+    SelectionMixin
   ],
 
   data: {
@@ -26,10 +28,7 @@ const app = new Vue({
     headerActions: {
       back: false,
       forward: false
-    },
-
-    selection: [],
-    selectionStart: ''
+    }
   },
 
   computed: {
@@ -63,32 +62,6 @@ const app = new Vue({
     refresh: function() {
       ipcRenderer.send('read-path', this.path);
     },
-    focus: function(itempath, e={}) {
-      if (e.ctrlKey) {
-        this.selection.push(itempath);
-        if (this.selection.length === 1) {
-          this.selectionStart = itempath
-        }
-      } else if (e.shiftKey) {
-        if (this.selection.length === 0) {
-          this.selection = [itempath];
-          this.selectionStart = itempath;
-        } else {
-          let start = this.items.findIndex(item => item.path === this.selectionStart);
-          let end = this.items.findIndex(item => item.path === itempath);
-          [start, end] = [Math.min(start, end), Math.max(start, end)];
-          this.selection = this.items.slice(start, end + 1)
-            .filter(item => this.display(item))
-            .map(item => item.path);
-        }
-      } else {
-        this.selection = [itempath];
-        this.selectionStart = itempath;
-      }
-    },
-    focused: function(itempath) {
-      return this.selection.includes(itempath);
-    },
     delete: function(items) {
       ipcRenderer.send('delete-items', items);
       ipcRenderer.once('delete-status', (e, deleted) => {
@@ -96,10 +69,6 @@ const app = new Vue({
           this.refresh();
         }
       });
-    },
-    clearSelection: function() {
-      this.selection = [];
-      this.selectionStart = '';
     },
     toggleHiddenFiles: function() {
       this.showHiddenFiles = !this.showHiddenFiles;
@@ -140,9 +109,6 @@ app.showHiddenFiles = JSON.parse(showHiddenFiles);
 // that is being browsed.
 ipcRenderer.on('fs-data', (e, files) => app.items = files);
 
-// Clear selected items when clicking somewhere else on page.
-document.addEventListener('mousedown', _ => app.clearSelection());
-
 // Handle keyboard events for keyboard navigation, selection, and interacting
 // with the selected items.
 const keyCodes = {
@@ -170,38 +136,5 @@ document.addEventListener('keydown', e => {
     if (app.selection.length > 0) {
       app.delete(app.selection);
     }
-  }
-});
-
-// Items selection and navigation.
-document.addEventListener('keydown', e => {
-  const items = app.items.filter(item => app.display(item));
-  const selection = app.selection;
-  const selectionStart = app.selectionStart;
-  const ROW_ITEMS_COUNT = 5;
-  let index = null;
-
-  const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
-  const i = items.findIndex(item => item.path === selection[ref]);
-
-  if (e.keyCode === keyCodes.LEFT) {
-    index = i > 0 ? i - 1 : index;
-  } else if (e.keyCode === keyCodes.RIGHT) {
-    index = i < items.length - 1 ? i + 1 : index;
-  } else if (e.keyCode === keyCodes.UP) {
-    index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
-  } else if (e.keyCode === keyCodes.DOWN) {
-    index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
-  } else if (e.keyCode === keyCodes.HOME) {
-    index = 0;
-  } else if (e.keyCode === keyCodes.END) {
-    index = items.length - 1;
-  } else {
-    return false;
-  }
-
-  if (index !== null) {
-    const item = items[index];
-    app.focus(item.path, e);
   }
 });
