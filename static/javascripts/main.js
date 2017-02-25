@@ -7,8 +7,7 @@ const HistoryMixin = require('./static/javascripts/mixins/history');
 const SelectionMixin = require('./static/javascripts/mixins/selection');
 const DisplayMixin = require('./static/javascripts/mixins/display');
 const DirectoryMixin = require('./static/javascripts/mixins/directory');
-
-const keyCodes = require('./static/javascripts/utils/keycodes');
+const ActionsMixin = require('./static/javascripts/mixins/actions');
 
 
 const app = new Vue({
@@ -18,7 +17,8 @@ const app = new Vue({
     HistoryMixin,
     SelectionMixin,
     DisplayMixin,
-    DirectoryMixin
+    DirectoryMixin,
+    ActionsMixin
   ],
 
   data: {
@@ -31,23 +31,6 @@ const app = new Vue({
     headerActions: {
       back: false,
       forward: false
-    }
-  },
-
-  methods: {
-    open(itempath, type='directory') {
-      if (type === 'directory') {
-        this.path = itempath;
-      }
-    },
-
-    delete(items) {
-      ipcRenderer.send('delete-items', items);
-      ipcRenderer.once('delete-status', (e, deleted) => {
-        if (deleted) {
-          this.refresh();
-        }
-      });
     }
   },
 
@@ -64,22 +47,5 @@ const app = new Vue({
       this.headerActions.back = !e.first;
       this.headerActions.forward = !e.last;
     });
-  }
-});
-
-
-// Items actions.
-document.addEventListener('keydown', e => {
-  if (e.keyCode === keyCodes.ENTER) {
-    if (app.selection.length === 1) {
-      const item = app.items.find(item => item.path === app.selection[0]);
-      app.open(item.path, item.type);
-    }
-  } else if (e.keyCode === keyCodes.BACKSPACE) {
-    app.back();
-  } else if (e.keyCode === keyCodes.DELETE) {
-    if (app.selection.length > 0) {
-      app.delete(app.selection);
-    }
   }
 });
