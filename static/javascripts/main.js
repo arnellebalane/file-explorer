@@ -1,6 +1,4 @@
 const { ipcRenderer } = require('electron');
-const path = require('path');
-const userhome = require('user-home');
 
 const Vue = require('./static/vendor/vue/dist/vue.min');
 const HistoryMixin = require('./static/javascripts/mixins/history');
@@ -8,6 +6,7 @@ const SelectionMixin = require('./static/javascripts/mixins/selection');
 const DisplayMixin = require('./static/javascripts/mixins/display');
 const DirectoryMixin = require('./static/javascripts/mixins/directory');
 const ActionsMixin = require('./static/javascripts/mixins/actions');
+const PlacesMixin = require('./static/javascripts/mixins/places');
 
 
 const app = new Vue({
@@ -18,16 +17,11 @@ const app = new Vue({
     SelectionMixin,
     DisplayMixin,
     DirectoryMixin,
-    ActionsMixin
+    ActionsMixin,
+    PlacesMixin
   ],
 
   data: {
-    places: [
-      path.join(userhome, 'Documents'),
-      path.join(userhome, 'Pictures'),
-      path.join(userhome, 'Music'),
-      path.join(userhome, 'Videos')
-    ],
     headerActions: {
       back: false,
       forward: false
