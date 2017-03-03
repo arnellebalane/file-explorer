@@ -10,36 +10,36 @@ const PlacesMixin = require('./static/javascripts/mixins/places');
 
 
 const app = new Vue({
-  el: '#app',
+    el: '#app',
 
-  mixins: [
-    HistoryMixin,
-    SelectionMixin,
-    DisplayMixin,
-    DirectoryMixin,
-    ActionsMixin,
-    PlacesMixin
-  ],
+    mixins: [
+        HistoryMixin,
+        SelectionMixin,
+        DisplayMixin,
+        DirectoryMixin,
+        ActionsMixin,
+        PlacesMixin
+    ],
 
-  data: {
-    headerActions: {
-      back: false,
-      forward: false
+    data: {
+        headerActions: {
+            back: false,
+            forward: false
+        }
+    },
+
+    watch: {
+        path: function(value) {
+            this.push(value);
+            this.clearSelection();
+        }
+    },
+
+    created() {
+        // Listen for events from the HistoryMixin
+        this.$on('historyindexchange', e => {
+            this.headerActions.back = !e.first;
+            this.headerActions.forward = !e.last;
+        });
     }
-  },
-
-  watch: {
-    path: function(value) {
-      this.push(value);
-      this.clearSelection();
-    }
-  },
-
-  created() {
-    // Listen for events from the HistoryMixin
-    this.$on('historyindexchange', e => {
-      this.headerActions.back = !e.first;
-      this.headerActions.forward = !e.last;
-    });
-  }
 });

@@ -13,35 +13,35 @@ const instances = [];
  *  @param {KeyboardEvent} e
  **/
 function selectionKeyboard(app, e) {
-  const items = app.items.filter(item => app.visible(item));
-  const selection = app.selection;
-  const selectionStart = app.selectionStart;
-  const ROW_ITEMS_COUNT = 5;
-  let index = null;
+    const items = app.items.filter(item => app.visible(item));
+    const selection = app.selection;
+    const selectionStart = app.selectionStart;
+    const ROW_ITEMS_COUNT = 5;
+    let index = null;
 
-  const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
-  const i = items.findIndex(item => item.path === selection[ref]);
+    const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
+    const i = items.findIndex(item => item.path === selection[ref]);
 
-  if (e.keyCode === keyCodes.LEFT) {
-    index = i > 0 ? i - 1 : index;
-  } else if (e.keyCode === keyCodes.RIGHT) {
-    index = i < items.length - 1 ? i + 1 : index;
-  } else if (e.keyCode === keyCodes.UP) {
-    index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
-  } else if (e.keyCode === keyCodes.DOWN) {
-    index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
-  } else if (e.keyCode === keyCodes.HOME) {
-    index = 0;
-  } else if (e.keyCode === keyCodes.END) {
-    index = items.length - 1;
-  } else {
-    return false;
-  }
+    if (e.keyCode === keyCodes.LEFT) {
+        index = i > 0 ? i - 1 : index;
+    } else if (e.keyCode === keyCodes.RIGHT) {
+        index = i < items.length - 1 ? i + 1 : index;
+    } else if (e.keyCode === keyCodes.UP) {
+        index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
+    } else if (e.keyCode === keyCodes.DOWN) {
+        index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
+    } else if (e.keyCode === keyCodes.HOME) {
+        index = 0;
+    } else if (e.keyCode === keyCodes.END) {
+        index = items.length - 1;
+    } else {
+        return false;
+    }
 
-  if (index !== null) {
-    const item = items[index];
-    app.select(item.path, e);
-  }
+    if (index !== null) {
+        const item = items[index];
+        app.select(item.path, e);
+    }
 }
 
 
@@ -53,10 +53,10 @@ function selectionKeyboard(app, e) {
  *    to the selection.
  **/
 function selectionCtrl(app, itempath) {
-  app.selection.push(itempath);
-  if (app.selection.length === 1) {
-    app.selectionStart = itempath;
-  }
+    app.selection.push(itempath);
+    if (app.selection.length === 1) {
+        app.selectionStart = itempath;
+    }
 }
 
 
@@ -69,16 +69,16 @@ function selectionCtrl(app, itempath) {
  *    to the selection.
  **/
 function selectionShift(app, itempath) {
-  if (app.selection.length === 0) {
-    selectionDefault(app, itempath);
-  } else {
-    let start = app.items.findIndex(item => item.path === app.selectionStart);
-    let end = app.items.findIndex(item => item.path === itempath);
-    [start, end] = [Math.min(start, end), Math.max(start, end)];
-    app.selection = app.items.slice(start, end + 1)
-      .filter(item => app.visible(item))
-      .map(item => item.path);
-  }
+    if (app.selection.length === 0) {
+        selectionDefault(app, itempath);
+    } else {
+        let start = app.items.findIndex(item => item.path === app.selectionStart);
+        let end = app.items.findIndex(item => item.path === itempath);
+        [start, end] = [Math.min(start, end), Math.max(start, end)];
+        app.selection = app.items.slice(start, end + 1)
+            .filter(item => app.visible(item))
+            .map(item => item.path);
+    }
 }
 
 
@@ -89,17 +89,17 @@ function selectionShift(app, itempath) {
  *  @param {String} itempath The path to the new item that will be selected.
  **/
 function selectionDefault(app, itempath) {
-  app.selection = [itempath];
-  app.selectionStart = itempath;
+    app.selection = [itempath];
+    app.selectionStart = itempath;
 }
 
 
 document.addEventListener('keydown', e => {
-  instances.forEach(app => selectionKeyboard(app, e));
+    instances.forEach(app => selectionKeyboard(app, e));
 });
 
 document.addEventListener('mousedown', e => {
-  instances.forEach(app => app.clearSelection());
+    instances.forEach(app => app.clearSelection());
 });
 
 
@@ -110,56 +110,56 @@ document.addEventListener('mousedown', e => {
  **/
 const SelectionMixin = {
 
-  mixins: [
-    DisplayMixin
-  ],
+    mixins: [
+        DisplayMixin
+    ],
 
-  data: {
-    items: [],
-    selection: [],
-    selectionStart: ''
-  },
-
-  methods: {
-    /**
-     *  Handles request to select an item. Delegates the task to perform the
-     *  the actual selection to specific functions based on what type of
-     *  selection should be done.
-     *  @param {String} itempath The path to the new item that is going to be
-     *    selected or added to current selection.
-     *  @param {Event} e
-     **/
-    select(itempath, e={}) {
-      if (e.ctrlKey) {
-        selectionCtrl(this, itempath);
-      } else if (e.shiftKey) {
-        selectionShift(this, itempath);
-      } else {
-        selectionDefault(this, itempath);
-      }
+    data: {
+        items: [],
+        selection: [],
+        selectionStart: ''
     },
 
-    /**
-     *  Determines whether an item is part of the current selection or not.
-     *  @param {String} itempath The path to the item to be checked.
-     *  @return {Boolean} Whether the item is part of the selection or not.
-     **/
-    selected(itempath) {
-      return this.selection.includes(itempath);
+    methods: {
+        /**
+         *  Handles request to select an item. Delegates the task to perform the
+         *  the actual selection to specific functions based on what type of
+         *  selection should be done.
+         *  @param {String} itempath The path to the new item that is going to be
+         *    selected or added to current selection.
+         *  @param {Event} e
+         **/
+        select(itempath, e={}) {
+            if (e.ctrlKey) {
+                selectionCtrl(this, itempath);
+            } else if (e.shiftKey) {
+                selectionShift(this, itempath);
+            } else {
+                selectionDefault(this, itempath);
+            }
+        },
+
+        /**
+         *  Determines whether an item is part of the current selection or not.
+         *  @param {String} itempath The path to the item to be checked.
+         *  @return {Boolean} Whether the item is part of the selection or not.
+         **/
+        selected(itempath) {
+            return this.selection.includes(itempath);
+        },
+
+        /**
+         *  Clears the current selection.
+         **/
+        clearSelection() {
+            this.selection = [];
+            this.selectionStart = '';
+        }
     },
 
-    /**
-     *  Clears the current selection.
-     **/
-    clearSelection() {
-      this.selection = [];
-      this.selectionStart = '';
+    created() {
+        instances.push(this);
     }
-  },
-
-  created() {
-    instances.push(this);
-  }
 
 };
 

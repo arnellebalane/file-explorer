@@ -7,14 +7,14 @@ const userhome = require('user-home');
  **/
 const PlacesMixin = {
 
-  data: {
-    places: [
-      path.join(userhome, 'Documents'),
-      path.join(userhome, 'Pictures'),
-      path.join(userhome, 'Music'),
-      path.join(userhome, 'Videos')
-    ]
-  }
+    data: {
+        places: [
+            path.join(userhome, 'Documents'),
+            path.join(userhome, 'Pictures'),
+            path.join(userhome, 'Music'),
+            path.join(userhome, 'Videos')
+        ]
+    }
 
 };
 
