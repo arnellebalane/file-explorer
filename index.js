@@ -63,6 +63,18 @@ ipcMain.on('delete-items', (e, items) => {
 });
 
 
+/**
+ *  Request for a new directory to be created.
+ *  @param {String} directoryPath The absolute path to the directory that is
+ *      going to be created.
+ **/
+ipcMain.on('create-directory', (e, directoryPath) => {
+    createDirectory(directoryPath)
+        .then(_ => e.sender.send('create-directory-response', true))
+        .catch(err => e.sender.send('create-directory-response', err));
+});
+
+
 function createWindow() {
     window = new BrowserWindow({
         width: 800,
@@ -161,6 +173,22 @@ function sortItemsDirectoriesFirst(items) {
             return 1;
         }
         return 0;
+    });
+}
+
+
+/**
+ *  @param {String} directoryPath The absolute path to the directory that is
+ *      going to be created.
+ **/
+function createDirectory(directoryPath) {
+    return new Promise((resolve, reject) => {
+        fs.mkdir(directoryPath, 0o775, err => {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
+        });
     });
 }
 
