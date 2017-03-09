@@ -75,7 +75,9 @@ const ActionsMixin = {
     },
 
     created() {
-        instances.push(this);
+        if (!instances.includes(this)) {
+            instances.push(this);
+        }
     }
 
 };
