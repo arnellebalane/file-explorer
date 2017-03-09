@@ -6,12 +6,26 @@ const DirectoryMixin = {
 
     data: {
         path: '',
-        items: []
+        items: [],
+        creatingNewFolder: false,
+        newFolderName: ''
     },
 
     methods: {
         refresh() {
             ipcRenderer.send('read-path', this.path);
+        },
+
+        newFolder() {
+            this.creatingNewFolder = true;
+            Vue.nextTick(_ => this.$refs.newFolderInput.focus());
+        },
+
+        createFolder() {
+            if (this.newFolderName.length > 0) {
+                this.newFolderName = '';
+            }
+            this.creatingNewFolder = false;
         }
     },
 

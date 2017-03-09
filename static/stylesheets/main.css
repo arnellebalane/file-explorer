@@ -48,6 +48,13 @@ a {
 }
 
 
+input {
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+
 
 /** Layouts **/
 
@@ -131,6 +138,10 @@ a {
 
 .header-actions .btn--refresh {
     background-image: url("../images/refresh.png");
+}
+
+.header-actions .btn--add-folder {
+    background-image: url("../images/add-folder.png");
 }
 
 .header-actions .btn--visible {
@@ -250,9 +261,10 @@ span.path-segment {
     border-radius: 0.3rem;
 }
 
-.directory-item:hover,
-.directory-item:focus,
-.directory-item.selected {
+a.directory-item:hover,
+a.directory-item:focus,
+a.directory-item.selected,
+div.directory-item {
     background-color: var(--panel-secondary-highlight-color);
 }
 
@@ -266,6 +278,12 @@ span.path-segment {
 
 .item-name {
     word-break: break-all;
+}
+
+input.item-name {
+    width: calc(100% - 1em);
+    border: none;
+    background-color: transparent;
 }
 
 

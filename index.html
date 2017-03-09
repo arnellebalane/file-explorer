@@ -18,6 +18,7 @@
                     <button class="btn btn--back" :disabled="!headerActions.back" @click="back"></button>
                     <button class="btn btn--forward" :disabled="!headerActions.forward" @click="forward"></button>
                     <button class="btn btn--refresh" @click="refresh"></button>
+                    <button class="btn btn--add-folder" @click="newFolder"></button>
                     <button class="btn" :class="showHiddenFiles ? 'btn--visible' : 'btn--invisible'" @click="toggleHiddenFiles"></button>
                 </aside>
                 <header class="layout-main">
@@ -44,6 +45,10 @@
 
                 <main class="layout-main">
                     <div class="directory-contents">
+                        <div class="directory-item" v-if="creatingNewFolder">
+                            <i class="icon item-icon icon--directory"></i>
+                            <input class="item-name" type="text" autofocus ref="newFolderInput" v-model="newFolderName" @keydown.stop @keydown.enter="createFolder" @blur="createFolder">
+                        </div>
                         <a class="directory-item" :class="{selected: selected(item.path)}" :href="item.path" tabindex="-1" v-for="item in items" v-if="visible(item)" @click.prevent @dblclick.prevent="open(item.path, item.type)" @mousedown.stop.prevent="select(item.path, $event)">
                             <i class="icon item-icon" :class="'icon--' + item.type"></i>
                             <p class="item-name">{{item.name}}</p>
