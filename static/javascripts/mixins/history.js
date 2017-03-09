@@ -1,7 +1,3 @@
-/**
- *  Vue mixin to handle history management. Provides methods for convenient
- *  addition of and navigation between history entries.
- **/
 const HistoryMixin = {
 
     data: {
@@ -13,12 +9,12 @@ const HistoryMixin = {
     methods: {
         /**
          *  Adds a new entry to the history stack, making sure that no similar
-         *  history entries are added next to each other. The new entry will always
-         *  end up being the last entry in the history, removing any entries after
-         *  it if it is attempted to be inserted at the middle of the history
-         *  stack.
-         *  @param {String} value The new entry that is requested to be added to
-         *    the history stack.
+         *  history entries are added next to each other. The new entry will
+         *  always end up being the last entry in the history, removing any
+         *  entries after it if it is attempted to be inserted at the middle
+         *  of the history stack.
+         *  @param {String} value The new entry that is requested to be added
+         *      to the history stack.
          **/
         push(value) {
             if (this.history[this.historyIndex] !== value) {
@@ -38,8 +34,8 @@ const HistoryMixin = {
         },
 
         /**
-         *  Moves forward to the next entry in history if it is not at the end of
-         *  the history stack yet.
+         *  Moves forward to the next entry in history if it is not at the end
+         *  of the history stack yet.
          **/
         forward() {
             if (this.historyIndex < this.history.length - 1) {

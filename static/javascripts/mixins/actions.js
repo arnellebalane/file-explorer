@@ -50,8 +50,8 @@ const ActionsMixin = {
     methods: {
         /**
          *  @param {String} itempath The absolute path to the item to be opened.
-         *  @param {String} type (optional) The type of the item to be opened. This
-         *    determines how the item is going to be "opened".
+         *  @param {String} type (optional) The type of the item to be opened.
+         *      This determines how the item is going to be "opened".
          **/
         open(itempath, type='directory') {
             if (type === 'directory') {
@@ -61,8 +61,8 @@ const ActionsMixin = {
 
         /**
          *  Sends request to main process to delete items.
-         *  @param {Array} items The array of absolute item paths of the items that
-         *    are to be deleted.
+         *  @param {Array} items The array of absolute item paths of the items
+         *      that are to be deleted.
          **/
         delete(items) {
             ipcRenderer.send('delete-items', items);

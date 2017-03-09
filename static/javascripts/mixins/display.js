@@ -1,6 +1,3 @@
-/**
- *  Vue mixin that deals with how directory items are being displayed.
- **/
 const DisplayMixin = {
 
     data: {
@@ -20,18 +17,14 @@ const DisplayMixin = {
 
         /**
          *  Gets an item's name from its path. The root directory "/" is
-         *  represented as "ROOT".
-         *  @param {String} itempath The path of the item whose name will be
-         *    retrieved.
+         *      represented as "ROOT".
+         *  @param {String} itempath The path of the item whose name will be retrieved.
          *  @return {String} The name of the item based on its path.
          **/
         name(itempath) {
             return itempath.split('/').pop() || 'ROOT';
         },
 
-        /**
-         *  Toggles visibility of hidden files.
-         **/
         toggleHiddenFiles() {
             this.showHiddenFiles = !this.showHiddenFiles;
         }

@@ -2,9 +2,6 @@ const path = require('path');
 const userhome = require('user-home');
 
 
-/**
- *  Vue mixin to manage bookmarked "places" in the app sidebar.
- **/
 const PlacesMixin = {
 
     data: {

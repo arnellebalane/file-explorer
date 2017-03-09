@@ -3,27 +3,18 @@ const path = require('path');
 const trash = require('trash');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
-// Keep a global reference to the window object, otherwise it will get closed
-// once the object gets garbage collected.
+
 let window;
 
 
-// Emitted when Electron has finished initialization and is now ready to
-// create windows.
 app.on('ready', createWindow);
 
-// Quit app when all windows are closed.
 app.on('windows-all-closed', _ => {
-    // On macOS it is common for the apps and their menu bar to stay active until
-    // the user explicitly quits them.
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-// macOS only, emitted when the app's dock icon is clicked. On macOS it is
-// common to recreate the app window when the dock icon is clicked and there
-// are no other windows open.
 app.on('activate', _ => {
     if (!window) {
         createWindow();
@@ -72,9 +63,6 @@ ipcMain.on('delete-items', (e, items) => {
 });
 
 
-/**
- *  Initialize the app's browser window and manages its lifecycle.
- **/
 function createWindow() {
     window = new BrowserWindow({
         width: 800,

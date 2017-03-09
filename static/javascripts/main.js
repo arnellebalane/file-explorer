@@ -36,7 +36,6 @@ const app = new Vue({
     },
 
     created() {
-        // Listen for events from the HistoryMixin
         this.$on('historyindexchange', e => {
             this.headerActions.back = !e.first;
             this.headerActions.forward = !e.last;

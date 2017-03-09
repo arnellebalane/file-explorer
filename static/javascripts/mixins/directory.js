@@ -42,8 +42,8 @@ const DirectoryMixin = {
         const currentPath = window.localStorage.getItem('current-path');
         this.path = currentPath || userhome;
 
-        // Emitted when the main process have read the contents of the file system
-        // path that is being browsed.
+        // Emitted when the main process have read the contents of the file
+        // system path that is being browsed.
         ipcRenderer.on('fs-data', (e, files) => this.items = files);
     }
 

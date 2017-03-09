@@ -103,11 +103,6 @@ document.addEventListener('mousedown', e => {
 });
 
 
-/**
- *  Vue mixin to handle items selection. Supports different selection types
- *  like when Control/Shift key is pressed, as well as item selections using
- *  the keyboard.
- **/
 const SelectionMixin = {
 
     mixins: [
@@ -122,11 +117,11 @@ const SelectionMixin = {
 
     methods: {
         /**
-         *  Handles request to select an item. Delegates the task to perform the
-         *  the actual selection to specific functions based on what type of
-         *  selection should be done.
-         *  @param {String} itempath The path to the new item that is going to be
-         *    selected or added to current selection.
+         *  Handles request to select an item. Delegates the task to perform
+         *  the the actual selection to specific functions based on what type
+         *  of selection should be done.
+         *  @param {String} itempath The path to the new item that is going to
+         *      be selected or added to current selection.
          *  @param {Event} e
          **/
         select(itempath, e={}) {
@@ -148,9 +143,6 @@ const SelectionMixin = {
             return this.selection.includes(itempath);
         },
 
-        /**
-         *  Clears the current selection.
-         **/
         clearSelection() {
             this.selection = [];
             this.selectionStart = '';
