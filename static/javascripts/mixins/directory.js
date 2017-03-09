@@ -39,6 +39,11 @@ const DirectoryMixin = {
             } else {
                 this.creatingNewFolder = false;
             }
+        },
+
+        cancelNewFolder() {
+            this.newFolderName = '';
+            this.creatingNewFolder = false;
         }
     },
 
