@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const trash = require('trash');
+const mkdirp = require('mkdirp');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 
@@ -183,7 +184,7 @@ function sortItemsDirectoriesFirst(items) {
  **/
 function createDirectory(directoryPath) {
     return new Promise((resolve, reject) => {
-        fs.mkdir(directoryPath, 0o775, err => {
+        mkdirp(directoryPath, 0o775, err => {
             if (err) {
                 return reject(err);
             }
