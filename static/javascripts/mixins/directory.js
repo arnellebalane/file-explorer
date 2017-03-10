@@ -15,7 +15,8 @@ const DirectoryMixin = {
         path: '',
         items: [],
         creatingNewFolder: false,
-        newFolderName: ''
+        newFolderName: '',
+        blocked: false
     },
 
     methods: {

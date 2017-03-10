@@ -62,6 +62,14 @@ button {
 
 
 
+/** Utilities **/
+
+.blocked {
+    pointer-events: none;
+}
+
+
+
 /** Layouts **/
 
 .app-wrapper {

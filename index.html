@@ -13,7 +13,7 @@
 
     <body>
         <div id="app" class="app-wrapper">
-            <header class="layout-header">
+            <header class="layout-header" :class="{blocked: blocked}">
                 <aside class="layout-sidebar header-actions">
                     <button class="btn btn--back" :disabled="!headerActions.back" @click="back"></button>
                     <button class="btn btn--forward" :disabled="!headerActions.forward" @click="forward"></button>
@@ -31,7 +31,7 @@
             </header>
 
             <main class="layout-content">
-                <aside class="layout-sidebar app-sidebar">
+                <aside class="layout-sidebar app-sidebar" :class="{blocked: blocked}">
                     <section class="sidebar-section">
                         <h1 class="section-title">Places</h1>
                         <nav class="sidebar-items">
@@ -51,7 +51,7 @@
                         </span>
                     </p>
 
-                    <div class="directory-contents">
+                    <div class="directory-contents" :class="{blocked: blocked}">
                         <div class="directory-item" v-if="creatingNewFolder">
                             <i class="icon item-icon icon--directory"></i>
                             <input class="item-name" type="text" autofocus ref="newFolderInput" v-model="newFolderName" @keydown.stop @keydown.enter="createFolder" @keydown.esc="cancelNewFolder" @blur="cancelNewFolder">

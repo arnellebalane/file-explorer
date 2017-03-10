@@ -69,6 +69,7 @@ const ActionsMixin = {
         delete(items) {
             this.alert('Are you sure you want to delete the selected items?', 'delete', {
                 type: 'info',
+                block: true,
                 actions: [{
                     label: 'Yes',
                     focus: true,
@@ -77,22 +78,16 @@ const ActionsMixin = {
                         ipcRenderer.once('delete-status', (e, deleted) => {
                             if (deleted) {
                                 this.refresh();
-                                this.resetDelete();
+                                this.closeAlert('delete');
                             }
                         });
                     }
                 }, {
                     label: 'No',
-                    callback: _ => {
-                        this.resetDelete();
-                    }
+                    callback: _ => this.closeAlert('delete')
                 }]
             });
         },
-
-        resetDelete() {
-            this.closeAlert('delete');
-        }
     },
 
     created() {
