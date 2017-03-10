@@ -3,7 +3,8 @@ const keyCodes = require('../utils/keycodes');
 
 const DirectoryMixin = require('./directory');
 const HistoryMixin = require('./history');
-const SelectionMixini = require('./selection');
+const SelectionMixin = require('./selection');
+const AlertsMixin = require('./alerts');
 
 
 const instances = [];
@@ -40,7 +41,8 @@ const ActionsMixin = {
     mixins: [
         HistoryMixin,
         DirectoryMixin,
-        SelectionMixin
+        SelectionMixin,
+        AlertsMixin
     ],
 
     data: {
@@ -65,12 +67,31 @@ const ActionsMixin = {
          *      that are to be deleted.
          **/
         delete(items) {
-            ipcRenderer.send('delete-items', items);
-            ipcRenderer.once('delete-status', (e, deleted) => {
-                if (deleted) {
-                    this.refresh();
-                }
+            this.alert('Are you sure you want to delete the selected items?', 'delete', {
+                type: 'info',
+                actions: [{
+                    label: 'Yes',
+                    focus: true,
+                    callback: _ => {
+                        ipcRenderer.send('delete-items', items);
+                        ipcRenderer.once('delete-status', (e, deleted) => {
+                            if (deleted) {
+                                this.refresh();
+                                this.resetDelete();
+                            }
+                        });
+                    }
+                }, {
+                    label: 'No',
+                    callback: _ => {
+                        this.resetDelete();
+                    }
+                }]
             });
+        },
+
+        resetDelete() {
+            this.closeAlert('delete');
         }
     },
 

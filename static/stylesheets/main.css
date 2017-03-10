@@ -55,6 +55,12 @@ input {
 }
 
 
+button {
+    font: inherit;
+    color: inherit;
+}
+
+
 
 /** Layouts **/
 
@@ -313,13 +319,12 @@ input.item-name {
 /** Alerts **/
 
 .alert {
-    width: 100%;
-    padding: 0 1.25em;
+    padding: 0 0 0 1.25em;
     position: fixed;
     top: 5rem;
-    line-height: 2.4em;
+    left: 25rem;
+    right: 0;
 }
-
 
 .alert.success {
     color: #085328;
@@ -339,4 +344,56 @@ input.item-name {
 
 .alert + .directory-contents {
     margin-top: 2.4em;
+}
+
+
+.alert-message {
+    line-height: 2.4em;
+}
+
+
+.alert-actions {
+    float: right;
+}
+
+
+.alert-action {
+    padding: 0 1em;
+    border: none;
+    font-size: 0.8em;
+    line-height: 3em;
+    text-transform: uppercase;
+    color: #fff;
+    background: white;
+    cursor: pointer;
+}
+
+
+.alert.success .alert-action {
+    background-color: rgba(8, 83, 40, 0.75);
+}
+
+.alert.success .alert-action:hover,
+.alert.success .alert-action:focus {
+    background-color: rgba(8, 83, 40, 0.85);
+}
+
+
+.alert.info .alert-action {
+    background-color: rgba(13, 53, 82, 0.75);
+}
+
+.alert.info .alert-action:hover,
+.alert.info .alert-action:focus {
+    background-color: rgba(13, 53, 82, 0.85);
+}
+
+
+.alert.error .alert-action {
+    background-color: rgba(111, 19, 19, 0.75);
+}
+
+.alert.error .alert-action:hover,
+.alert.error .alert-action:focus {
+    background-color: rgba(111, 19, 19, 0.85);
 }

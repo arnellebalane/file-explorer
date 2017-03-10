@@ -44,7 +44,12 @@
                 </aside>
 
                 <main class="layout-main">
-                    <p class="alert" :class="alertType" v-if="alertMessage">{{ alertMessage }}</p>
+                    <p class="alert" :class="alertType" v-if="alertMessage" ref="alert">
+                        <span class="alert-message">{{alertMessage}}</span>
+                        <span class="alert-actions">
+                            <button class="btn alert-action" v-for="action in alertActions" :autofocus="action.focus" @click="action.callback" @keydown.stop>{{action.label}}</button>
+                        </span>
+                    </p>
 
                     <div class="directory-contents">
                         <div class="directory-item" v-if="creatingNewFolder">

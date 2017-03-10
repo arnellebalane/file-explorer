@@ -3,7 +3,8 @@ const AlertsMixin = {
     data: {
         alertMessage: null,
         alertKey: null,
-        alertType: 'error'
+        alertType: 'error',
+        alertActions: []
     },
 
     methods: {
@@ -19,6 +20,11 @@ const AlertsMixin = {
             this.alertMessage = message;
             this.alertKey = key;
             this.alertType = options.type || this.alertType;
+            this.alertActions = options.actions || this.alertActions;
+
+            Vue.nextTick(_ => {
+                this.$refs.alert.querySelector('[autofocus]').focus();
+            });
         },
 
         /**
