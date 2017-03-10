@@ -184,9 +184,11 @@ function sortItemsDirectoriesFirst(items) {
  **/
 function createDirectory(directoryPath) {
     return new Promise((resolve, reject) => {
-        mkdirp(directoryPath, 0o775, err => {
+        mkdirp(directoryPath, 0o775, (err, made) => {
             if (err) {
                 return reject(err);
+            } else if (!made) {
+                return reject({ code: 'EEXIST' });
             }
             resolve();
         });
