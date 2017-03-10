@@ -44,6 +44,8 @@
                 </aside>
 
                 <main class="layout-main">
+                    <p class="alert" :class="alertType" v-if="alertMessage">{{ alertMessage }}</p>
+
                     <div class="directory-contents">
                         <div class="directory-item" v-if="creatingNewFolder">
                             <i class="icon item-icon icon--directory"></i>

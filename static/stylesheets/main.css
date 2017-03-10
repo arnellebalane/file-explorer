@@ -79,6 +79,7 @@ input {
 
 .layout-main {
     flex-grow: 1;
+    position: relative;
     overflow: auto;
 }
 
@@ -305,4 +306,37 @@ input.item-name {
 
 .icon--file {
     background-image: url("../images/file.png");
+}
+
+
+
+/** Alerts **/
+
+.alert {
+    width: 100%;
+    padding: 0 1.25em;
+    position: fixed;
+    top: 5rem;
+    line-height: 2.4em;
+}
+
+
+.alert.success {
+    color: #085328;
+    background-color: #72efa8;
+}
+
+.alert.info {
+    color: #0d3552;
+    background-color: #80cbff;
+}
+
+.alert.error {
+    color: #6f1313;
+    background-color: #e66d6d;
+}
+
+
+.alert + .directory-contents {
+    margin-top: 2.4em;
 }

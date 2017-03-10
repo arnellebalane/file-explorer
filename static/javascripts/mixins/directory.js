@@ -2,8 +2,14 @@ const path = require('path');
 const userhome = require('user-home');
 const { ipcRenderer } = require('electron');
 
+const AlertsMixin = require('./alerts');
+
 
 const DirectoryMixin = {
+
+    mixins: [
+        AlertsMixin
+    ],
 
     data: {
         path: '',
@@ -28,11 +34,13 @@ const DirectoryMixin = {
                 ipcRenderer.send('create-directory', folderPath);
                 ipcRenderer.once('create-directory-response', (e, response) => {
                     if (response === true) {
-                        this.refresh();
                         this.newFolderName = '';
                         this.creatingNewFolder = false;
+
+                        this.refresh();
+                        this.closeAlert('new-folder');
                     } else if (response.code === 'EEXIST') {
-                        console.log(`Name "${this.newFolderName}" already exists.`);
+                        this.alert(`Name "${this.newFolderName}" already exists.`, 'new-folder');
                         this.$refs.newFolderInput.select();
                     }
                 });
@@ -44,6 +52,7 @@ const DirectoryMixin = {
         cancelNewFolder() {
             this.newFolderName = '';
             this.creatingNewFolder = false;
+            this.closeAlert('new-folder');
         }
     },
 
