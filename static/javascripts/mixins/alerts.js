@@ -1,9 +1,17 @@
+const DirectoryMixin = require('./directory');
+
+
 const AlertsMixin = {
+
+    mixins: [
+        DirectoryMixin
+    ],
 
     data: {
         alertMessage: null,
         alertKey: null,
-        alertType: 'error'
+        alertType: 'error',
+        alertActions: []
     },
 
     methods: {
@@ -19,6 +27,15 @@ const AlertsMixin = {
             this.alertMessage = message;
             this.alertKey = key;
             this.alertType = options.type || this.alertType;
+            this.alertActions = options.actions || this.alertActions;
+
+            if (options.block) {
+                this.blocked = true;
+            }
+
+            Vue.nextTick(_ => {
+                this.$refs.alert.querySelector('[autofocus]').focus();
+            });
         },
 
         /**
@@ -30,6 +47,7 @@ const AlertsMixin = {
                 this.alertMessage = null;
                 this.alertKey = null;
                 this.alertType = 'error';
+                this.blocked = false;
             }
         }
     }
