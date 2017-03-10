@@ -7,6 +7,7 @@ const DisplayMixin = require('./static/javascripts/mixins/display');
 const DirectoryMixin = require('./static/javascripts/mixins/directory');
 const ActionsMixin = require('./static/javascripts/mixins/actions');
 const PlacesMixin = require('./static/javascripts/mixins/places');
+const AlertsMixin = require('./static/javascripts/mixins/alerts');
 
 
 const app = new Vue({
@@ -18,7 +19,8 @@ const app = new Vue({
         DisplayMixin,
         DirectoryMixin,
         ActionsMixin,
-        PlacesMixin
+        PlacesMixin,
+        AlertsMixin
     ],
 
     data: {

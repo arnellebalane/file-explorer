@@ -1,17 +1,58 @@
-const { ipcRenderer } = require('electron');
+const path = require('path');
 const userhome = require('user-home');
+const { ipcRenderer } = require('electron');
+
+const AlertsMixin = require('./alerts');
 
 
 const DirectoryMixin = {
 
+    mixins: [
+        AlertsMixin
+    ],
+
     data: {
         path: '',
-        items: []
+        items: [],
+        creatingNewFolder: false,
+        newFolderName: ''
     },
 
     methods: {
         refresh() {
             ipcRenderer.send('read-path', this.path);
+        },
+
+        newFolder() {
+            this.creatingNewFolder = true;
+            Vue.nextTick(_ => this.$refs.newFolderInput.focus());
+        },
+
+        createFolder() {
+            if (this.newFolderName.length > 0) {
+                const folderPath = path.join(this.path, this.newFolderName);
+                ipcRenderer.send('create-directory', folderPath);
+                ipcRenderer.once('create-directory-response', (e, response) => {
+                    if (response === true) {
+                        this.newFolderName = '';
+                        this.creatingNewFolder = false;
+
+                        this.refresh();
+                        this.closeAlert('new-folder');
+                    } else if (response.code === 'EEXIST') {
+                        this.alert(`Name "${this.newFolderName}" already exists.`, 'new-folder');
+                        this.$refs.newFolderInput.select();
+                    }
+                });
+            } else {
+                this.creatingNewFolder = false;
+            }
+        },
+
+        cancelNewFolder() {
+            this.newFolderName = '';
+            this.creatingNewFolder = false;
+            this.closeAlert('new-folder');
         }
     },
 

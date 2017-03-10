@@ -48,6 +48,13 @@ a {
 }
 
 
+input {
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+
 
 /** Layouts **/
 
@@ -72,6 +79,7 @@ a {
 
 .layout-main {
     flex-grow: 1;
+    position: relative;
     overflow: auto;
 }
 
@@ -131,6 +139,10 @@ a {
 
 .header-actions .btn--refresh {
     background-image: url("../images/refresh.png");
+}
+
+.header-actions .btn--add-folder {
+    background-image: url("../images/add-folder.png");
 }
 
 .header-actions .btn--visible {
@@ -250,9 +262,10 @@ span.path-segment {
     border-radius: 0.3rem;
 }
 
-.directory-item:hover,
-.directory-item:focus,
-.directory-item.selected {
+a.directory-item:hover,
+a.directory-item:focus,
+a.directory-item.selected,
+div.directory-item {
     background-color: var(--panel-secondary-highlight-color);
 }
 
@@ -266,6 +279,12 @@ span.path-segment {
 
 .item-name {
     word-break: break-all;
+}
+
+input.item-name {
+    width: calc(100% - 1em);
+    border: none;
+    background-color: transparent;
 }
 
 
@@ -287,4 +306,37 @@ span.path-segment {
 
 .icon--file {
     background-image: url("../images/file.png");
+}
+
+
+
+/** Alerts **/
+
+.alert {
+    width: 100%;
+    padding: 0 1.25em;
+    position: fixed;
+    top: 5rem;
+    line-height: 2.4em;
+}
+
+
+.alert.success {
+    color: #085328;
+    background-color: #72efa8;
+}
+
+.alert.info {
+    color: #0d3552;
+    background-color: #80cbff;
+}
+
+.alert.error {
+    color: #6f1313;
+    background-color: #e66d6d;
+}
+
+
+.alert + .directory-contents {
+    margin-top: 2.4em;
 }

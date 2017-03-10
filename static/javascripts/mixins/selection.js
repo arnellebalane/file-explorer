@@ -150,7 +150,9 @@ const SelectionMixin = {
     },
 
     created() {
-        instances.push(this);
+        if (!instances.includes(this)) {
+            instances.push(this);
+        }
     }
 
 };

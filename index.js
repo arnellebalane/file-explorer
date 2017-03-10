@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const trash = require('trash');
+const mkdirp = require('mkdirp');
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 
@@ -60,6 +61,18 @@ ipcMain.on('delete-items', (e, items) => {
         modal.close();
         e.sender.send('delete-status', false);
     });
+});
+
+
+/**
+ *  Request for a new directory to be created.
+ *  @param {String} directoryPath The absolute path to the directory that is
+ *      going to be created.
+ **/
+ipcMain.on('create-directory', (e, directoryPath) => {
+    createDirectory(directoryPath)
+        .then(_ => e.sender.send('create-directory-response', true))
+        .catch(err => e.sender.send('create-directory-response', err));
 });
 
 
@@ -161,6 +174,22 @@ function sortItemsDirectoriesFirst(items) {
             return 1;
         }
         return 0;
+    });
+}
+
+
+/**
+ *  @param {String} directoryPath The absolute path to the directory that is
+ *      going to be created.
+ **/
+function createDirectory(directoryPath) {
+    return new Promise((resolve, reject) => {
+        mkdirp(directoryPath, 0o775, err => {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
+        });
     });
 }
 
