@@ -51,19 +51,33 @@
                         </span>
                     </p>
 
-                    <div class="directory-contents" :class="{blocked: blocked}">
-                        <div class="directory-item" v-if="creatingNewFolder">
-                            <i class="icon item-icon icon--directory"></i>
-                            <input class="item-name" type="text" autofocus ref="newFolderInput" v-model="newFolderName" @keydown.stop @keydown.enter="createFolder" @keydown.esc="cancelNewFolder" @blur="cancelNewFolder">
-                        </div>
-                        <a class="directory-item" :class="{selected: selected(item.path)}" :href="item.path" tabindex="-1" v-for="item in items" v-if="visible(item)" @click.prevent @dblclick.prevent="open(item.path, item.type)" @mousedown.stop.prevent="select(item.path, $event)">
-                            <i class="icon item-icon" :class="'icon--' + item.type"></i>
-                            <p class="item-name">{{item.name}}</p>
-                        </a>
-                    </div>
+                    <fe-directory-contents>
+                        <fe-new-folder v-if="creatingNewFolder" @done="createFolder($event)" @cancel="cancelNewFolder"></fe-new-folder>
+                        <fe-directory-item v-for="item in items" :item="item" :selected="selected(item)" :visible="visible(item)" @open="open(item.path, item.type)" @select="select(item.path, $event)"></fe-directory-item>
+                    </fe-directory-contents>
                 </main>
             </main>
         </div>
+
+        <template id="directory-contents">
+            <div class="directory-contents">
+                <slot></slot>
+            </div>
+        </template>
+
+        <template id="new-folder">
+            <div class="directory-item">
+                <i class="icon item-icon icon--directory"></i>
+                <input class="item-name" type="text" autofocus v-model="name" ref="newFolderInput">
+            </div>
+        </template>
+
+        <template id="directory-item">
+            <a class="directory-item" :class="{selected: selected}" :href="item.path" tabindex="-1" v-if="visible" ref="item">
+                <i class="icon item-icon" :class="iconClass"></i>
+                <p class="item-name">{{item.name}}</p>
+            </a>
+        </template>
 
         <script src="static/javascripts/main.js"></script>
     </body>

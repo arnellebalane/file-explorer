@@ -10,6 +10,66 @@ const PlacesMixin = require('./static/javascripts/mixins/places');
 const AlertsMixin = require('./static/javascripts/mixins/alerts');
 
 
+Vue.component('fe-directory-contents', {
+    template: '#directory-contents',
+    props: ['items', 'selection']
+});
+
+
+Vue.component('fe-new-folder', {
+    template: '#new-folder',
+
+    data() {
+        return {
+            name: ''
+        };
+    },
+
+    mounted() {
+        const input = this.$refs.newFolderInput;
+        input.addEventListener('keydown', e => {
+            e.stopPropagation();
+            if (e.keyCode === 13) {
+                this.$emit('done', this.name);
+            } else if (e.keyCode === 27) {
+                this.$emit('cancel', e);
+            }
+        });
+        input.addEventListener('blur', e => this.$emit('cancel', e));
+    }
+});
+
+
+Vue.component('fe-directory-item', {
+    template: '#directory-item',
+    props: ['item', 'selected', 'visible'],
+
+    computed: {
+        iconClass() {
+            return `icon--${this.item.type}`;
+        }
+    },
+
+    mounted() {
+        const item = this.$refs.item;
+        if (!item) {
+            return false;
+        }
+
+        item.addEventListener('click', e => e.preventDefault());
+        item.addEventListener('dblclick', e => {
+            e.preventDefault();
+            this.$emit('open', e);
+        });
+        item.addEventListener('mousedown', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.$emit('select', e);
+        });
+    }
+});
+
+
 const app = new Vue({
     el: '#app',
 

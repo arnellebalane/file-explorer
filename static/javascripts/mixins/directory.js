@@ -26,23 +26,20 @@ const DirectoryMixin = {
 
         newFolder() {
             this.creatingNewFolder = true;
-            Vue.nextTick(_ => this.$refs.newFolderInput.focus());
         },
 
-        createFolder() {
-            if (this.newFolderName.length > 0) {
-                const folderPath = path.join(this.path, this.newFolderName);
+        createFolder(name) {
+            if (name.length > 0) {
+                const folderPath = path.join(this.path, name);
                 ipcRenderer.send('create-directory', folderPath);
                 ipcRenderer.once('create-directory-response', (e, response) => {
                     if (response === true) {
-                        this.newFolderName = '';
                         this.creatingNewFolder = false;
 
                         this.refresh();
                         this.closeAlert('new-folder');
                     } else if (response.code === 'EEXIST') {
-                        this.alert(`Name "${this.newFolderName}" already exists.`, 'new-folder');
-                        this.$refs.newFolderInput.select();
+                        this.alert(`Name "${name}" already exists.`, 'new-folder');
                     }
                 });
             } else {
@@ -51,7 +48,6 @@ const DirectoryMixin = {
         },
 
         cancelNewFolder() {
-            this.newFolderName = '';
             this.creatingNewFolder = false;
             this.closeAlert('new-folder');
         }
