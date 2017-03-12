@@ -13,13 +13,27 @@
   "license": "MIT",
   "dependencies": {
     "electron": "^1.4.13",
+    "file-loader": "^0.10.1",
     "mkdirp": "^0.5.1",
     "node-deb": "^0.5.0",
     "trash": "^4.0.0",
-    "user-home": "^2.0.0"
+    "user-home": "^2.0.0",
+    "vue": "^2.2.2"
   },
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-preset-latest": "^6.22.0",
+    "css-loader": "^0.27.1",
     "devtron": "^1.4.0",
-    "electron-packager": "^8.5.1"
+    "electron-packager": "^8.5.1",
+    "vue-loader": "^11.1.4",
+    "vue-template-compiler": "^2.2.2",
+    "webpack": "^2.2.1"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
   }
 }
