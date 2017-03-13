@@ -24,5 +24,9 @@ module.exports = {
                 outputPath: 'assets/images/'
             }
         }]
+    },
+    watch: true,
+    watchOptions: {
+        ignored: /node_modules/
     }
 };
