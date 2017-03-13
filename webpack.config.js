@@ -16,12 +16,11 @@ module.exports = {
             loader: 'babel-loader',
             exclude: /node_modules/
         }, {
-            test: /\.png/,
+            test: /\.(png|ttf)/,
             loader: 'file-loader',
             options: {
-                name: '[name]-[hash:7].[ext]',
-                publicPath: 'build/assets/images/',
-                outputPath: 'assets/images/'
+                name: '[path]/[name]-[hash:7].[ext]',
+                publicPath: 'build/'
             }
         }]
     },
