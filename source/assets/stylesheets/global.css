@@ -28,3 +28,15 @@ body {
     font-size: 1.2rem;
     color: var(--text-color);
 }
+
+
+a,
+button {
+    font: inherit;
+    color: inherit;
+}
+
+
+a {
+    text-decoration: none;
+}

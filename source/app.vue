@@ -5,7 +5,8 @@
 </template>
 
 
-<style src="./assets/stylesheets/base.css"></style>
+<style src="./assets/stylesheets/fonts.css"></style>
+<style src="./assets/stylesheets/global.css"></style>
 <style scoped>
     #app {
         display: flex;
