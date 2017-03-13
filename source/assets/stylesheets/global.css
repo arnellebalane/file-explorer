@@ -40,3 +40,19 @@ button {
 a {
     text-decoration: none;
 }
+
+
+
+/** Icons **/
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: center center no-repeat;
+    background-size: contain;
+}
+
+
+.icon--directory { background-image: url("../images/folder.png"); }
+.icon--file { background-image: url("../images/file.png"); }
