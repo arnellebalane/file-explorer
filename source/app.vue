@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <sidebar-panel></sidebar-panel>
+        <main-panel></main-panel>
     </div>
 </template>
 
@@ -14,8 +15,20 @@
         background-color: var(--panel-secondary-color);
     }
 
-    sidebar-panel {
+    /**
+     *  It seems like the `sidebar-panel` and `main-panel` components cannot be
+     *  styled here, so I am styling the root element inside these respective
+     *  components.
+     *  NOTE: Find way to style the components directly (i.e. using type
+     *  selector to style them instead of targetting elements that they are
+     *  abstracting away).
+     **/
+    .sidebar-panel {
         flex: 0 0 auto;
+    }
+
+    .main-panel {
+        flex-grow: 1;
     }
 </style>
 
@@ -25,7 +38,8 @@
         name: 'app',
 
         components: {
-            'sidebar-panel': require('./sidebar-panel.vue')
+            'sidebar-panel': require('./sidebar-panel.vue'),
+            'main-panel': require('./main-panel.vue')
         }
     };
 </script>
