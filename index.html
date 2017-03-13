@@ -3,82 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="application-name" content="File Explorer">
-        <meta name="description" content="An Electron app for browsing your local file system">
+        <meta name="description" content="An Electron app for browsing the local file system">
 
         <title>File Explorer</title>
-
-        <link rel="stylesheet" href="static/stylesheets/fonts.css">
-        <link rel="stylesheet" href="static/stylesheets/main.css">
     </head>
 
     <body>
-        <div id="app" class="app-wrapper">
-            <header class="layout-header" :class="{blocked: blocked}">
-                <aside class="layout-sidebar header-actions">
-                    <button class="btn btn--back" :disabled="!headerActions.back" @click="back"></button>
-                    <button class="btn btn--forward" :disabled="!headerActions.forward" @click="forward"></button>
-                    <button class="btn btn--refresh" @click="refresh"></button>
-                    <button class="btn btn--add-folder" @click="newFolder"></button>
-                    <button class="btn" :class="showHiddenFiles ? 'btn--visible' : 'btn--invisible'" @click="toggleHiddenFiles"></button>
-                </aside>
-                <header class="layout-main">
-                    <nav class="path-segments">
-                        <a class="path-segment" href="/" @click.prevent="open('/')">root</a>
-                        <a class="path-segment" :href="segment.path" v-for="segment in pathSegments" @click.prevent="open(segment.path)">{{segment.name}}</a>
-                        <span class="path-segment" v-if="currentDirectory !== '/'">{{currentDirectory}}</span>
-                    </nav>
-                </header>
-            </header>
-
-            <main class="layout-content">
-                <aside class="layout-sidebar app-sidebar" :class="{blocked: blocked}">
-                    <section class="sidebar-section">
-                        <h1 class="section-title">Places</h1>
-                        <nav class="sidebar-items">
-                            <a class="sidebar-item" :href="place" v-for="place in places" @click.prevent="open(place)">
-                                <i class="icon icon--directory"></i>
-                                {{name(place)}}
-                            </a>
-                        </nav>
-                    </section>
-                </aside>
-
-                <main class="layout-main">
-                    <p class="alert" :class="alertType" v-if="alertMessage" ref="alert">
-                        <span class="alert-message">{{alertMessage}}</span>
-                        <span class="alert-actions">
-                            <button class="btn alert-action" v-for="action in alertActions" :autofocus="action.focus" @click="action.callback" @keydown.stop>{{action.label}}</button>
-                        </span>
-                    </p>
-
-                    <fe-directory-contents>
-                        <fe-new-folder v-if="creatingNewFolder" @done="createFolder($event)" @cancel="cancelNewFolder"></fe-new-folder>
-                        <fe-directory-item v-for="item in items" :item="item" :selected="selected(item)" :visible="visible(item)" @open="open(item.path, item.type)" @select="select(item.path, $event)"></fe-directory-item>
-                    </fe-directory-contents>
-                </main>
-            </main>
-        </div>
-
-        <template id="directory-contents">
-            <div class="directory-contents">
-                <slot></slot>
-            </div>
-        </template>
-
-        <template id="new-folder">
-            <div class="directory-item">
-                <i class="icon item-icon icon--directory"></i>
-                <input class="item-name" type="text" autofocus v-model="name" ref="newFolderInput">
-            </div>
-        </template>
-
-        <template id="directory-item">
-            <a class="directory-item" :class="{selected: selected}" :href="item.path" tabindex="-1" v-if="visible" ref="item">
-                <i class="icon item-icon" :class="iconClass"></i>
-                <p class="item-name">{{item.name}}</p>
-            </a>
-        </template>
-
-        <script src="static/javascripts/main.js"></script>
+        <div id="app"></div>
+        <script src="build/build.js"></script>
     </body>
 </html>

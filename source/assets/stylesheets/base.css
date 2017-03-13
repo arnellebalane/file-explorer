@@ -1,0 +1,30 @@
+:root {
+    --panel-primary-color: #222d32;
+    --panel-secondary-color: #263238;
+    --panel-primary-highlight-color: #283439;
+    --panel-secondary-highlight-color: #1f292e;
+    --text-color: #8f9fa6;
+    --text-highlight-color: #80deea;
+}
+
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    font-family: "Droid Sans", sans-serif;
+    font-size: 62.5%;
+    -webkit-user-select: none;
+}
+
+
+body {
+    height: 100vh;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
