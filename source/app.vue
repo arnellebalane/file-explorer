@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <app-header></app-header>
+        <sidebar-panel></sidebar-panel>
     </div>
 </template>
 
@@ -8,7 +8,13 @@
 <style src="./assets/stylesheets/base.css"></style>
 <style scoped>
     #app {
+        display: flex;
         height: 100%;
+        background-color: var(--panel-secondary-color);
+    }
+
+    sidebar-panel {
+        flex: 0 0 auto;
     }
 </style>
 
@@ -18,7 +24,7 @@
         name: 'app',
 
         components: {
-            'app-header': require('./app-header.vue')
+            'sidebar-panel': require('./sidebar-panel.vue')
         }
     };
 </script>
