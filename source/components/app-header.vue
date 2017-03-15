@@ -6,14 +6,11 @@
 
 
 <script>
+    const { mapState } = require('vuex');
+
     module.exports = {
         name: 'app-header',
-
-        computed: {
-            path() {
-                return this.$store.state.path;
-            }
-        },
+        computed: mapState(['path']),
 
         components: {
             'path-segments': require('./path-segments.vue')

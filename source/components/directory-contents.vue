@@ -14,6 +14,7 @@
 
 <script>
     const { ipcRenderer } = require('electron');
+    const { mapState } = require('vuex');
 
     module.exports = {
         name: 'directory-contents',
@@ -24,11 +25,7 @@
             };
         },
 
-        computed: {
-            path() {
-                return this.$store.state.path;
-            }
-        },
+        computed: mapState(['path']),
 
         methods: {
             selected() {
