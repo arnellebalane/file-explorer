@@ -18,16 +18,7 @@
 
     module.exports = {
         name: 'directory-contents',
-        props: ['path'],
-
-        data() {
-            return {
-                items: [
-                    { type: 'directory', name: 'home', path: '/home' },
-                    { type: 'file', name: 'home', path: '/home' }
-                ]
-            };
-        },
+        props: ['path', 'items'],
 
         methods: {
             selected() {
@@ -36,26 +27,11 @@
 
             visible() {
                 return true;
-            },
-
-            readdir(path) {
-                ipcRenderer.send('read-path', path);
-            }
-        },
-
-        watch: {
-            path() {
-                this.readdir(this.path);
             }
         },
 
         components: {
             'directory-item': require('./directory-item.vue')
-        },
-
-        created() {
-            ipcRenderer.on('fs-data', (e, files) => this.items = files);
-            this.readdir(this.path);
         }
     };
 </script>

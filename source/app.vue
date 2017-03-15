@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <sidebar-panel></sidebar-panel>
-        <main-panel :path="path"></main-panel>
+        <main-panel :path="path" :items="items"></main-panel>
     </div>
 </template>
 
@@ -10,9 +10,14 @@
     module.exports = {
         name: 'app',
 
+        mixins: [
+            require('./mixins/directory')
+        ],
+
         data() {
             return {
-                path: require('user-home') || '/'
+                path: require('user-home') || '/',
+                items: []
             };
         },
 
