@@ -6,14 +6,6 @@
 </template>
 
 
-<style scoped>
-    .sidebar-panel {
-        width: 25rem;
-        background-color: var(--panel-primary-color);
-    }
-</style>
-
-
 <script>
     module.exports = {
         name: 'sidebar-panel',
@@ -38,3 +30,11 @@
         }
     };
 </script>
+
+
+<style scoped>
+    .sidebar-panel {
+        width: 25rem;
+        background-color: var(--panel-primary-color);
+    }
+</style>

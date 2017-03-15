@@ -6,6 +6,20 @@
 </template>
 
 
+<script>
+    module.exports = {
+        name: 'directory-item',
+        props: ['item', 'selected', 'visible'],
+
+        computed: {
+            iconClass() {
+                return 'icon--' + this.item.type;
+            }
+        }
+    };
+</script>
+
+
 <style>
     .directory-item {
         width: calc((100% - var(--columns) * 0.5rem) / var(--columns));
@@ -32,17 +46,3 @@
         word-break: break-all;
     }
 </style>
-
-
-<script>
-    module.exports = {
-        name: 'directory-item',
-        props: ['item', 'selected', 'visible'],
-
-        computed: {
-            iconClass() {
-                return 'icon--' + this.item.type;
-            }
-        }
-    };
-</script>

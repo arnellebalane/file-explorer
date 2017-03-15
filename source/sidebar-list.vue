@@ -11,6 +11,14 @@
 </template>
 
 
+<script>
+    module.exports = {
+        name: 'sidebar-list',
+        props: ['title', 'items']
+    };
+</script>
+
+
 <style scoped>
     .sidebar-list {
         padding: 2rem 0;
@@ -40,11 +48,3 @@
         font-size: 1.6rem;
     }
 </style>
-
-
-<script>
-    module.exports = {
-        name: 'sidebar-list',
-        props: ['title', 'items']
-    };
-</script>

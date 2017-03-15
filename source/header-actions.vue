@@ -9,6 +9,13 @@
 </template>
 
 
+<script>
+    module.exports = {
+        name: 'header-actions'
+    };
+</script>
+
+
 <style scoped>
     .header-actions {
         display: flex;
@@ -42,11 +49,4 @@
     .btn--add-folder { background-image: url("./assets/images/add-folder.png"); }
     .btn--visible { background-image: url("./assets/images/visible.png"); }
     .btn--invisible { background-image: url("./assets/images/invisible.png"); }
-</style
-
-
-<script>
-    module.exports = {
-        name: 'header-actions'
-    };
-</script>
+</style>

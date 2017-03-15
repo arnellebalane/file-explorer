@@ -5,15 +5,6 @@
 </template>
 
 
-<style scoped>
-    .app-header {
-        display: flex;
-        height: 5rem;
-        background-color: var(--panel-primary-color);
-    }
-</style>
-
-
 <script>
     module.exports = {
         name: 'app-header',
@@ -24,3 +15,12 @@
         }
     };
 </script>
+
+
+<style scoped>
+    .app-header {
+        display: flex;
+        height: 5rem;
+        background-color: var(--panel-primary-color);
+    }
+</style>

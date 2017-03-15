@@ -13,20 +13,6 @@
 </template>
 
 
-<style>
-    .directory-contents {
-        overflow: auto;
-    }
-
-    .directory-contents-wrapper {
-        --columns: 5;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0.5em;
-    }
-</style>
-
-
 <script>
     const { ipcRenderer } = require('electron');
 
@@ -73,3 +59,17 @@
         }
     };
 </script>
+
+
+<style>
+    .directory-contents {
+        overflow: auto;
+    }
+
+    .directory-contents-wrapper {
+        --columns: 5;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.5em;
+    }
+</style>

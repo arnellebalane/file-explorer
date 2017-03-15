@@ -6,6 +6,19 @@
 </template>
 
 
+<script>
+    module.exports = {
+        name: 'main-panel',
+        props: ['path'],
+
+        components: {
+            'app-header': require('./app-header.vue'),
+            'directory-contents': require('./directory-contents.vue')
+        }
+    };
+</script>
+
+
 <style scoped>
     .main-panel {
         display: flex;
@@ -20,16 +33,3 @@
         flex-grow: 1;
     }
 </style>
-
-
-<script>
-    module.exports = {
-        name: 'main-panel',
-        props: ['path'],
-
-        components: {
-            'app-header': require('./app-header.vue'),
-            'directory-contents': require('./directory-contents.vue')
-        }
-    };
-</script>

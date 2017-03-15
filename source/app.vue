@@ -6,6 +6,24 @@
 </template>
 
 
+<script>
+    module.exports = {
+        name: 'app',
+
+        data() {
+            return {
+                path: require('user-home') || '/'
+            };
+        },
+
+        components: {
+            'sidebar-panel': require('./sidebar-panel.vue'),
+            'main-panel': require('./main-panel.vue')
+        }
+    };
+</script>
+
+
 <style src="./assets/stylesheets/fonts.css"></style>
 <style src="./assets/stylesheets/global.css"></style>
 <style scoped>
@@ -31,21 +49,3 @@
         flex-grow: 1;
     }
 </style>
-
-
-<script>
-    module.exports = {
-        name: 'app',
-
-        data() {
-            return {
-                path: require('user-home') || '/'
-            };
-        },
-
-        components: {
-            'sidebar-panel': require('./sidebar-panel.vue'),
-            'main-panel': require('./main-panel.vue')
-        }
-    };
-</script>

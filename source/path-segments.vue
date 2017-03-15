@@ -7,6 +7,34 @@
 </template>
 
 
+<script>
+    module.exports = {
+        name: 'path-segments',
+        props: ['path'],
+
+        computed: {
+            segments() {
+                let segments = this.path.split('/');
+                return segments.slice(1, segments.length - 1).map((segment, i, array) => {
+                    return {
+                        name: segment,
+                        path: '/' + array.slice(0, i + 1).join('/')
+                    };
+                });
+            },
+
+            currentDirectory() {
+                return this.path.split('/').pop() || '/';
+            },
+
+            isRootDirectory() {
+                return this.currentDirectory === '/';
+            }
+        }
+    };
+</script>
+
+
 <style scoped>
     .path-segments {
         display: flex;
@@ -54,31 +82,3 @@
         color: var(--text-highlight-color);
     }
 </style>
-
-
-<script>
-    module.exports = {
-        name: 'path-segments',
-        props: ['path'],
-
-        computed: {
-            segments() {
-                let segments = this.path.split('/');
-                return segments.slice(1, segments.length - 1).map((segment, i, array) => {
-                    return {
-                        name: segment,
-                        path: '/' + array.slice(0, i + 1).join('/')
-                    };
-                });
-            },
-
-            currentDirectory() {
-                return this.path.split('/').pop() || '/';
-            },
-
-            isRootDirectory() {
-                return this.currentDirectory === '/';
-            }
-        }
-    };
-</script>
