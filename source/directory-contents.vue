@@ -1,23 +1,28 @@
 <template>
     <main class="directory-contents">
-        <directory-item
-            v-for="item in items"
-            :key="item.path"
-            :item="item"
-            :selected="selected(item)"
-            :visible="visible(item)">
-        </directory-item>
+        <div class="directory-contents-wrapper">
+            <directory-item
+                v-for="item in items"
+                :key="item.path"
+                :item="item"
+                :selected="selected(item)"
+                :visible="visible(item)">
+            </directory-item>
+        </div>
     </main>
 </template>
 
 
 <style>
     .directory-contents {
+        overflow: auto;
+    }
+
+    .directory-contents-wrapper {
         --columns: 5;
         display: flex;
         flex-wrap: wrap;
         padding: 0.5em;
-        overflow: auto;
     }
 </style>
 
