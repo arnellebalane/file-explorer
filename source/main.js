@@ -1,5 +1,5 @@
 const Vue = require('vue').default;
-const App = require('./app.vue');
+const App = require('./components/app.vue');
 
 
 new Vue({

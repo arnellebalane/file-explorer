@@ -11,7 +11,7 @@
         name: 'app',
 
         mixins: [
-            require('./mixins/directory')
+            require('../mixins/directory')
         ],
 
         data() {
@@ -29,8 +29,8 @@
 </script>
 
 
-<style src="./assets/stylesheets/fonts.css"></style>
-<style src="./assets/stylesheets/global.css"></style>
+<style src="../assets/stylesheets/fonts.css"></style>
+<style src="../assets/stylesheets/global.css"></style>
 <style scoped>
     #app {
         display: flex;
