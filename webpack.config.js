@@ -1,4 +1,5 @@
 const path = require('path');
+const externals = require('webpack-node-externals');
 
 
 module.exports = {
@@ -27,5 +28,6 @@ module.exports = {
     watch: true,
     watchOptions: {
         ignored: /node_modules/
-    }
+    },
+    externals: [externals({ whitelist: ['vue'] })]
 };
