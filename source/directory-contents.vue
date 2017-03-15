@@ -1,6 +1,12 @@
 <template>
     <main class="directory-contents">
-        <directory-item v-for="item in items" :item="item" :selected="selected(item)" :visible="visible(item)"></directory-item>
+        <directory-item
+            v-for="item in items"
+            :key="item.path"
+            :item="item"
+            :selected="selected(item)"
+            :visible="visible(item)">
+        </directory-item>
     </main>
 </template>
 
