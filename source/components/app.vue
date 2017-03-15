@@ -1,14 +1,17 @@
 <template>
     <div id="app">
         <sidebar-panel></sidebar-panel>
-        <main-panel></main-panel>
+        <main-panel :path="path"></main-panel>
     </div>
 </template>
 
 
 <script>
+    const { mapState } = require('vuex');
+
     module.exports = {
         name: 'app',
+        computed: mapState(['path']),
 
         components: {
             'sidebar-panel': require('./sidebar-panel.vue'),

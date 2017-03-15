@@ -14,18 +14,16 @@
 
 <script>
     const { ipcRenderer } = require('electron');
-    const { mapState } = require('vuex');
 
     module.exports = {
         name: 'directory-contents',
+        props: ['path'],
 
         data() {
             return {
                 items: []
             };
         },
-
-        computed: mapState(['path']),
 
         methods: {
             selected() {

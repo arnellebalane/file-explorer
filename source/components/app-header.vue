@@ -6,11 +6,9 @@
 
 
 <script>
-    const { mapState } = require('vuex');
-
     module.exports = {
         name: 'app-header',
-        computed: mapState(['path']),
+        props: ['path'],
 
         components: {
             'path-segments': require('./path-segments.vue')
