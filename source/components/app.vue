@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <sidebar-panel></sidebar-panel>
-        <main-panel :path="path" :items="items" :open="open"></main-panel>
+        <main-panel></main-panel>
     </div>
 </template>
 
@@ -9,17 +9,6 @@
 <script>
     module.exports = {
         name: 'app',
-
-        mixins: [
-            require('../mixins/directory')
-        ],
-
-        data() {
-            return {
-                path: require('user-home') || '/',
-                items: []
-            };
-        },
 
         components: {
             'sidebar-panel': require('./sidebar-panel.vue'),

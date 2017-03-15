@@ -5,8 +5,7 @@
                 :key="item.path"
                 :item="item"
                 :selected="selected(item)"
-                :visible="visible(item)"
-                :open="open">
+                :visible="visible(item)">
             </directory-item>
         </div>
     </main>
@@ -18,7 +17,18 @@
 
     module.exports = {
         name: 'directory-contents',
-        props: ['path', 'items', 'open'],
+
+        data() {
+            return {
+                items: []
+            };
+        },
+
+        computed: {
+            path() {
+                return this.$store.state.path;
+            }
+        },
 
         methods: {
             selected() {
@@ -27,11 +37,26 @@
 
             visible() {
                 return true;
+            },
+
+            readdir(path) {
+                ipcRenderer.send('read-path', path);
+            }
+        },
+
+        watch: {
+            path() {
+                this.readdir(this.path);
             }
         },
 
         components: {
             'directory-item': require('./directory-item.vue')
+        },
+
+        created() {
+            ipcRenderer.on('fs-data', (e, files) => this.items = files);
+            this.readdir(this.path);
         }
     };
 </script>

@@ -10,7 +10,11 @@
 <script>
     module.exports = {
         name: 'path-segments',
-        props: ['path', 'open'],
+        props: ['path'],
+
+        mixins: [
+            require('../mixins/directory')
+        ],
 
         computed: {
             segments() {

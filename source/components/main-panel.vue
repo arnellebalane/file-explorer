@@ -1,7 +1,7 @@
 <template>
     <main class="main-panel">
-        <app-header :path="path" :open="open"></app-header>
-        <directory-contents :path="path" :items="items" :open="open"></directory-contents>
+        <app-header></app-header>
+        <directory-contents></directory-contents>
     </main>
 </template>
 
@@ -9,7 +9,6 @@
 <script>
     module.exports = {
         name: 'main-panel',
-        props: ['path', 'items', 'open'],
 
         components: {
             'app-header': require('./app-header.vue'),

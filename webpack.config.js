@@ -29,5 +29,11 @@ module.exports = {
     watchOptions: {
         ignored: /node_modules/
     },
-    externals: [externals({ whitelist: ['vue', 'vuex'] })]
+
+    // NOTE: I honestly haven't figured out yet why I need to whitelist vue.
+    // Initially, I thought that packages in added to the "dependencies" should
+    // be whitelisted, but when I tried to whitelist vuex the webpack build
+    // just fails (or maybe vuex should be in "devDependencies" hmmm). Removing
+    // vue from the whitelist produces a different set of errors as well.
+    externals: [externals({ whitelist: ['vue'] })]
 };
