@@ -1,6 +1,7 @@
 <template>
     <main class="main-panel">
         <app-header :path="path"></app-header>
+        <directory-contents :path="path"></directory-contents>
     </main>
 </template>
 
@@ -11,7 +12,8 @@
         props: ['path'],
 
         components: {
-            'app-header': require('./app-header.vue')
+            'app-header': require('./app-header.vue'),
+            'directory-contents': require('./directory-contents.vue')
         }
     };
 </script>
