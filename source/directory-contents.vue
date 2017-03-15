@@ -1,12 +1,12 @@
 <template>
     <main class="directory-contents">
         <div class="directory-contents-wrapper">
-            <directory-item
-                v-for="item in items"
+            <directory-item v-for="item in items"
                 :key="item.path"
                 :item="item"
                 :selected="selected(item)"
-                :visible="visible(item)">
+                :visible="visible(item)"
+                :open="open">
             </directory-item>
         </div>
     </main>
@@ -18,7 +18,7 @@
 
     module.exports = {
         name: 'directory-contents',
-        props: ['path', 'items'],
+        props: ['path', 'items', 'open'],
 
         methods: {
             selected() {

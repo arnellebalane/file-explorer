@@ -5,6 +5,10 @@ module.exports = {
     methods: {
         readdir(path) {
             ipcRenderer.send('read-path', path);
+        },
+
+        open(path) {
+            this.path = path;
         }
     },
 

@@ -1,5 +1,5 @@
 <template>
-    <a class="directory-item" :class="{selected: selected}" :href="item.path" tabindex="-1" v-if="visible">
+    <a class="directory-item" :class="{selected: selected}" :href="item.path" tabindex="-1" v-if="visible" @click.prevent @dblclick.prevent="open(item.path)">
         <i class="icon item-icon" :class="iconClass"></i>
         <p class="item-name">{{item.name}}</p>
     </a>
@@ -9,7 +9,7 @@
 <script>
     module.exports = {
         name: 'directory-item',
-        props: ['item', 'selected', 'visible'],
+        props: ['item', 'selected', 'visible', 'open'],
 
         computed: {
             iconClass() {
@@ -31,7 +31,6 @@
     }
 
     a.directory-item:hover,
-    a.directory-item:focus,
     a.directory-item.selected {
         background-color: var(--panel-secondary-highlight-color);
     }

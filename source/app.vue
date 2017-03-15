@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <sidebar-panel></sidebar-panel>
-        <main-panel :path="path" :items="items"></main-panel>
+        <main-panel :path="path" :items="items" :open="open"></main-panel>
     </div>
 </template>
 

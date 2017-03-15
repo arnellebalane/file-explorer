@@ -1,7 +1,7 @@
 <template>
     <nav class="path-segments">
         <a class="path-segment" href="/">root</a>
-        <a class="path-segment" :href="segment.path" v-for="segment in segments">{{segment.name}}</a>
+        <a class="path-segment" :href="segment.path" v-for="segment in segments" @click.prevent="open(segment.path)">{{segment.name}}</a>
         <span class="path-segment" v-if="!isRootDirectory">{{currentDirectory}}</span>
     </nav>
 </template>
@@ -10,7 +10,7 @@
 <script>
     module.exports = {
         name: 'path-segments',
-        props: ['path'],
+        props: ['path', 'open'],
 
         computed: {
             segments() {
