@@ -22,6 +22,8 @@
 
 
 <script>
+    const { ipcRenderer } = require('electron');
+
     module.exports = {
         name: 'directory-contents',
         props: ['path'],
@@ -42,11 +44,26 @@
 
             visible() {
                 return true;
+            },
+
+            readdir(path) {
+                ipcRenderer.send('read-path', path);
+            }
+        },
+
+        watch: {
+            path() {
+                this.readdir(this.path);
             }
         },
 
         components: {
             'directory-item': require('./directory-item.vue')
+        },
+
+        created() {
+            ipcRenderer.on('fs-data', (e, files) => this.items = files);
+            this.readdir(this.path);
         }
     };
 </script>
