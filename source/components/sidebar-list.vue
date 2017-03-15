@@ -2,7 +2,7 @@
     <section class="sidebar-list">
         <h1 class="list-title">{{title}}</h1>
         <nav class="list-items">
-            <a class="list-item" :href="item.path" v-for="item in items">
+            <a class="list-item" :href="item.path" v-for="item in items" @click.prevent="open(item.path)">
                 <i class="icon icon--directory"></i>
                 {{item.name}}
             </a>
@@ -14,7 +14,11 @@
 <script>
     module.exports = {
         name: 'sidebar-list',
-        props: ['title', 'items']
+        props: ['title', 'items'],
+
+        mixins: [
+            require('../mixins/directory')
+        ]
     };
 </script>
 
