@@ -39,7 +39,7 @@
 
         data() {
             return {
-                path: require('user-home') || '/'
+                path: require('user-home') || '/home/arnelle/Downloads'
             };
         },
 

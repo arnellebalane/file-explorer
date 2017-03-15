@@ -10,6 +10,7 @@
 <style scoped>
     .path-segments {
         display: flex;
+        align-items: center;
         padding: 1rem;
     }
 

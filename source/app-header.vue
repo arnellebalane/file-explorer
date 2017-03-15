@@ -7,6 +7,8 @@
 
 <style scoped>
     .app-header {
+        display: flex;
+        height: 5rem;
         background-color: var(--panel-primary-color);
     }
 </style>
