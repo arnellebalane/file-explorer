@@ -1,6 +1,6 @@
 <template>
     <nav class="path-segments">
-        <a class="path-segment" href="/">root</a>
+        <a class="path-segment" href="/" @click.prevent="open('/')">root</a>
         <a class="path-segment" :href="segment.path" v-for="segment in segments" @click.prevent="open(segment.path)">{{segment.name}}</a>
         <span class="path-segment" v-if="!isRootDirectory">{{currentDirectory}}</span>
     </nav>

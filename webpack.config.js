@@ -21,6 +21,8 @@ module.exports = {
             loader: 'file-loader',
             options: {
                 name: '[path]/[name]-[hash:7].[ext]',
+                // NOTE: I'm also still unsure on what the right value for the
+                // publicPath option should be.
                 publicPath: 'build/'
             }
         }]
