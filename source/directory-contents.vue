@@ -13,10 +13,11 @@
 
 <style>
     .directory-contents {
+        --columns: 5;
         display: flex;
         flex-wrap: wrap;
         padding: 0.5em;
-        --columns: 5;
+        overflow: auto;
     }
 </style>
 

@@ -24,7 +24,7 @@
      *  abstracting away).
      **/
     .sidebar-panel {
-        flex: 0 0 auto;
+        flex-shrink: 0;
     }
 
     .main-panel {

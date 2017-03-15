@@ -6,6 +6,22 @@
 </template>
 
 
+<style scoped>
+    .main-panel {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .app-header {
+        flex-shrink: 0;
+    }
+
+    .directory-contents {
+        flex-grow: 1;
+    }
+</style>
+
+
 <script>
     module.exports = {
         name: 'main-panel',
