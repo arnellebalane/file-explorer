@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <sidebar-panel></sidebar-panel>
-        <main-panel></main-panel>
+        <main-panel :path="path"></main-panel>
     </div>
 </template>
 
@@ -36,6 +36,12 @@
 <script>
     module.exports = {
         name: 'app',
+
+        data() {
+            return {
+                path: require('user-home') || '/'
+            };
+        },
 
         components: {
             'sidebar-panel': require('./sidebar-panel.vue'),
