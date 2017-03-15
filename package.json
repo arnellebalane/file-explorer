@@ -20,6 +20,7 @@
     "trash": "^4.0.0",
     "user-home": "^2.0.0",
     "vue": "^2.2.2",
+    "vuex": "^2.2.1",
     "webpack-node-externals": "^1.5.4"
   },
   "devDependencies": {

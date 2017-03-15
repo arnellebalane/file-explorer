@@ -29,5 +29,5 @@ module.exports = {
     watchOptions: {
         ignored: /node_modules/
     },
-    externals: [externals({ whitelist: ['vue'] })]
+    externals: [externals({ whitelist: ['vue', 'vuex'] })]
 };
