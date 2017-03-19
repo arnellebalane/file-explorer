@@ -1,3 +1,34 @@
+function selectionKeyboard(app, e) {
+    const items = app.items.filter(item => app.visible(item));
+    const selection = app.selection;
+    const selectionStart = app.selectionStart;
+    const ROW_ITEMS_COUNT = 5; // TODO: make this responsive
+    let index = null;
+
+    const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
+    const i = items.findIndex(item => item.path === selection[ref]);
+
+    if (e.key === 'ArrowLeft') {
+        index = i > 0 ? i - 1 : index;
+    } else if (e.key === 'ArrowRight') {
+        index = i < items.length - 1 ? i + 1 : index;
+    } else if (e.key === 'ArrowUp') {
+        index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
+    } else if (e.key === 'ArrowDown') {
+        index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
+    } else if (e.key === 'Home') {
+        index = 0;
+    } else if (e.key === 'End') {
+        index = items.length - 1;
+    }
+
+    if (index != null) {
+        const item = items[index];
+        app.select(item.path, e);
+    }
+}
+
+
 function selectionCtrl(app, itempath) {
     if (app.selection.length === 0) {
         selectionDefault(app, itempath);
@@ -48,6 +79,19 @@ module.exports = {
 
         selected(itempath) {
             return this.selection.includes(itempath);
+        },
+
+        _handleDocumentKeydown(e) {
+            e.preventDefault();
+            selectionKeyboard(this, e);
         }
+    },
+
+    created() {
+        document.addEventListener('keydown', this._handleDocumentKeydown);
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('keydown', this._handleDocumentKeydown);
     }
 }
