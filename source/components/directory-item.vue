@@ -1,5 +1,12 @@
 <template>
-    <a class="directory-item" :class="{selected: selected}" :href="item.path" tabindex="-1" v-if="visible" @click.prevent @dblclick="open(item.path)">
+    <a class="directory-item"
+        :class="{selected: selected}"
+        :href="item.path"
+        tabindex="-1"
+        v-if="visible"
+        @click.prevent
+        @dblclick.prevent="$emit('dblclick', item.path, $event)">
+
         <i class="icon item-icon" :class="iconClass"></i>
         <p class="item-name">{{item.name}}</p>
     </a>
@@ -10,10 +17,6 @@
     module.exports = {
         name: 'directory-item',
         props: ['item', 'selected', 'visible'],
-
-        mixins: [
-            require('../mixins/directory')
-        ],
 
         computed: {
             iconClass() {

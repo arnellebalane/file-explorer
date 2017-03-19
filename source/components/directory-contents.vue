@@ -5,7 +5,8 @@
                 :key="item.path"
                 :item="item"
                 :selected="selected(item)"
-                :visible="visible(item)">
+                :visible="visible(item)"
+                @dblclick="open">
             </directory-item>
         </div>
     </main>
@@ -18,6 +19,10 @@
     module.exports = {
         name: 'directory-contents',
         props: ['path'],
+
+        mixins: [
+            require('../mixins/directory')
+        ],
 
         data() {
             return {
