@@ -81,6 +81,11 @@ module.exports = {
             return this.selection.includes(itempath);
         },
 
+        clearSelection() {
+            this.selection = [];
+            this.selectionStart = null;
+        },
+
         _handleDocumentKeydown(e) {
             e.preventDefault();
             selectionKeyboard(this, e);
@@ -89,9 +94,11 @@ module.exports = {
 
     created() {
         document.addEventListener('keydown', this._handleDocumentKeydown);
+        document.addEventListener('mousedown', this.clearSelection);
     },
 
     beforeDestroy() {
         document.removeEventListener('keydown', this._handleDocumentKeydown);
+        document.removeEventListener('mousedown', this.clearSelection);
     }
 }
