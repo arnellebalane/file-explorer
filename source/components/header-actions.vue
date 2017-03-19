@@ -1,7 +1,7 @@
 <template>
     <header class="header-actions">
-        <button class="btn btn--back"></button>
-        <button class="btn btn--forward"></button>
+        <button class="btn btn--back" @click="back"></button>
+        <button class="btn btn--forward" @click="forward"></button>
         <button class="btn btn--refresh"></button>
         <button class="btn btn--add-folder"></button>
         <button class="btn btn--visible"></button>
@@ -10,8 +10,26 @@
 
 
 <script>
+    const { mapState } = require('vuex');
+
     module.exports = {
-        name: 'header-actions'
+        name: 'header-actions',
+        computed: mapState(['path']),
+
+        mixins: [
+            require('../mixins/directory'),
+            require('../mixins/history')
+        ],
+
+        watch: {
+            path() {
+                this.push(this.path);
+            }
+        },
+
+        created() {
+            this.push(this.path);
+        }
     };
 </script>
 
