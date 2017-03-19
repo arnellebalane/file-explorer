@@ -1,7 +1,7 @@
 <template>
     <header class="header-actions">
-        <button class="btn btn--back" @click="back"></button>
-        <button class="btn btn--forward" @click="forward"></button>
+        <button class="btn btn--back" :disabled="backHeaderActionDisabled" @click="back"></button>
+        <button class="btn btn--forward" :disabled="forwardHeaderActionDisabled" @click="forward"></button>
         <button class="btn btn--refresh"></button>
         <button class="btn btn--add-folder"></button>
         <button class="btn btn--visible"></button>

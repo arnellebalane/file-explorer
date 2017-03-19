@@ -6,6 +6,16 @@ module.exports = {
         };
     },
 
+    computed: {
+        backHeaderActionDisabled() {
+            return this.historyIndex === 0;
+        },
+
+        forwardHeaderActionDisabled() {
+            return this.historyIndex === this.history.length - 1;
+        }
+    },
+
     methods: {
         push(value) {
             if (this.history[this.historyIndex] !== value) {
