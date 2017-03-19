@@ -5,7 +5,8 @@
         tabindex="-1"
         v-if="visible"
         @click.prevent
-        @dblclick.prevent="$emit('dblclick', item.path, $event)">
+        @dblclick.prevent="$emit('dblclick', item.path, $event)"
+        @mousedown.prevent="$emit('mousedown', item.path, $event)">
 
         <i class="icon item-icon" :class="iconClass"></i>
         <p class="item-name">{{item.name}}</p>

@@ -4,9 +4,10 @@
             <directory-item v-for="item in items"
                 :key="item.path"
                 :item="item"
-                :selected="selected(item)"
+                :selected="selected(item.path)"
                 :visible="visible(item)"
-                @dblclick="open">
+                @dblclick="open"
+                @mousedown="select">
             </directory-item>
         </div>
     </main>
@@ -21,7 +22,8 @@
         props: ['path'],
 
         mixins: [
-            require('../mixins/directory')
+            require('../mixins/directory'),
+            require('../mixins/selection')
         ],
 
         data() {
@@ -31,10 +33,6 @@
         },
 
         methods: {
-            selected() {
-                return false;
-            },
-
             visible() {
                 return true;
             },
