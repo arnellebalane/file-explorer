@@ -8,7 +8,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         path: '/',
-        items: []
+        items: [],
+        showHiddenFiles: localStorage.getItem('show-hidden-files') === 'true'
     },
 
     mutations: {
@@ -19,6 +20,11 @@ const store = new Vuex.Store({
 
         setItems(state, items) {
             state.items = items;
+        },
+
+        toggleHiddenFiles(state) {
+            state.showHiddenFiles = !state.showHiddenFiles;
+            localStorage.setItem('show-hidden-files', state.showHiddenFiles);
         }
     },
 
