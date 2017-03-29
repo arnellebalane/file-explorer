@@ -9,7 +9,8 @@ const store = new Vuex.Store({
     state: {
         path: '/',
         items: [],
-        showHiddenFiles: localStorage.getItem('show-hidden-files') === 'true'
+        showHiddenFiles: localStorage.getItem('show-hidden-files') === 'true',
+        creatingNewFolder: false
     },
 
     mutations: {
@@ -25,6 +26,10 @@ const store = new Vuex.Store({
         toggleHiddenFiles(state) {
             state.showHiddenFiles = !state.showHiddenFiles;
             localStorage.setItem('show-hidden-files', state.showHiddenFiles);
+        },
+
+        setCreatingNewFolder(state, value) {
+            state.creatingNewFolder = value;
         }
     },
 

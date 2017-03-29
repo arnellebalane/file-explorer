@@ -1,7 +1,7 @@
 <template>
     <main class="directory-contents">
         <div class="directory-contents-wrapper">
-            <new-folder></new-folder>
+            <new-folder v-if="creatingNewFolder"></new-folder>
             <directory-item v-for="item in items"
                 :key="item.path"
                 :item="item"
@@ -26,7 +26,7 @@
             require('../mixins/selection')
         ],
 
-        computed: mapState(['items', 'showHiddenFiles']),
+        computed: mapState(['items', 'showHiddenFiles', 'creatingNewFolder']),
 
         methods: {
             visible(item) {

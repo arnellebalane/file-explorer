@@ -2,6 +2,7 @@
     <div>
         <i class="icon item-icon icon--directory"></i>
         <input type="text" autofocus
+            ref="input"
             v-model="name"
             @keydown.stop.enter="createNewFolder(name)"
             @keydown.stop.escape="cancelNewFolder"
@@ -22,6 +23,10 @@
             }
         },
 
+        mixins: [
+            require('../mixins/directory')
+        ],
+
         computed: mapState(['path']),
 
         methods: {
@@ -34,6 +39,7 @@
                 ipcRenderer.once('create-directory-response', (e, response) => {
                     if (response === true) {
                         this.cancelNewFolder();
+                        this.refresh();
                     } else {
                         // show error
                     }
@@ -42,7 +48,12 @@
 
             cancelNewFolder() {
                 this.name = '';
+                this.$store.commit('setCreatingNewFolder', false);
             }
+        },
+
+        mounted() {
+            this.$refs.input.focus();
         }
     };
 </script>

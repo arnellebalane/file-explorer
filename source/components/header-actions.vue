@@ -3,7 +3,7 @@
         <button class="btn btn--back" :disabled="backHeaderActionDisabled" @click="back"></button>
         <button class="btn btn--forward" :disabled="forwardHeaderActionDisabled" @click="forward"></button>
         <button class="btn btn--refresh" @click="refresh"></button>
-        <button class="btn btn--add-folder"></button>
+        <button class="btn btn--add-folder" @click="createNewFolder"></button>
         <button class="btn" :class="toggleHiddenFilesClass" @click="toggleHiddenFiles"></button>
     </header>
 </template>
@@ -14,9 +14,16 @@
 
     module.exports = {
         name: 'header-actions',
+
+        mixins: [
+            require('../mixins/directory'),
+            require('../mixins/history')
+        ],
+
         computed: mapState({
             path: 'path',
             showHiddenFiles: 'showHiddenFiles',
+            creatingNewFolder: 'creatingNewFolder',
 
             toggleHiddenFilesClass() {
                 return this.showHiddenFiles
@@ -24,10 +31,11 @@
             }
         }),
 
-        mixins: [
-            require('../mixins/directory'),
-            require('../mixins/history')
-        ],
+        methods: {
+            createNewFolder() {
+                this.$store.commit('setCreatingNewFolder', true);
+            }
+        },
 
         watch: {
             path() {
