@@ -87,7 +87,6 @@ module.exports = {
         },
 
         _handleDocumentKeydown(e) {
-            e.preventDefault();
             selectionKeyboard(this, e);
         }
     },
