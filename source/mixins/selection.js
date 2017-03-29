@@ -23,6 +23,10 @@ function selectionKeyboard(app, e) {
     }
 
     if (index != null) {
+        // So that the directory contents panel does not scroll up or down when
+        // pressing ArrowUp or ArrowDown during selection.
+        e.preventDefault();
+
         const item = items[index];
         app.select(item.path, e);
     }
