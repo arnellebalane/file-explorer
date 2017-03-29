@@ -16,6 +16,11 @@
         components: {
             'sidebar-panel': require('./sidebar-panel.vue'),
             'main-panel': require('./main-panel.vue')
+        },
+
+        created() {
+            const path = localStorage.getItem('path') || require('user-home');
+            this.$store.dispatch('openPath', path);
         }
     };
 </script>
