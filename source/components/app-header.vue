@@ -1,6 +1,6 @@
 <template>
     <header class="app-header">
-        <path-segments :path="path"></path-segments>
+        <path-segments></path-segments>
     </header>
 </template>
 
@@ -8,7 +8,6 @@
 <script>
     module.exports = {
         name: 'app-header',
-        props: ['path'],
 
         components: {
             'path-segments': require('./path-segments.vue')

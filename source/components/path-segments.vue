@@ -8,15 +8,18 @@
 
 
 <script>
+    const { mapState } = require('vuex');
+
     module.exports = {
         name: 'path-segments',
-        props: ['path'],
 
         mixins: [
             require('../mixins/directory')
         ],
 
-        computed: {
+        computed: mapState({
+            path: 'path',
+
             segments() {
                 let segments = this.path.split('/');
                 return segments.slice(1, segments.length - 1).map((segment, i, array) => {
@@ -34,7 +37,7 @@
             isRootDirectory() {
                 return this.currentDirectory === '/';
             }
-        }
+        }),
     };
 </script>
 
