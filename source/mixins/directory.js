@@ -6,6 +6,10 @@ module.exports = {
 
         refresh() {
             this.$store.dispatch('refreshPath');
+        },
+
+        toggleHiddenFiles() {
+            this.$store.commit('toggleHiddenFiles');
         }
     }
 };

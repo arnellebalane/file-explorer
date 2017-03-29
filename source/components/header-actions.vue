@@ -4,7 +4,7 @@
         <button class="btn btn--forward" :disabled="forwardHeaderActionDisabled" @click="forward"></button>
         <button class="btn btn--refresh" @click="refresh"></button>
         <button class="btn btn--add-folder"></button>
-        <button class="btn btn--visible"></button>
+        <button class="btn" :class="toggleHiddenFilesClass" @click="toggleHiddenFiles"></button>
     </header>
 </template>
 
@@ -14,7 +14,15 @@
 
     module.exports = {
         name: 'header-actions',
-        computed: mapState(['path']),
+        computed: mapState({
+            path: 'path',
+            showHiddenFiles: 'showHiddenFiles',
+
+            toggleHiddenFilesClass() {
+                return this.showHiddenFiles
+                    ? 'btn--visible' : 'btn--invisible';
+            }
+        }),
 
         mixins: [
             require('../mixins/directory'),

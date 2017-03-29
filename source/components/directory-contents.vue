@@ -25,11 +25,12 @@
             require('../mixins/selection')
         ],
 
-        computed: mapState(['items']),
+        computed: mapState(['items', 'showHiddenFiles']),
 
         methods: {
-            visible() {
-                return true;
+            visible(item) {
+                return (!this.showHiddenFiles && item.name[0] !== '.')
+                    || this.showHiddenFiles;
             }
         },
 
