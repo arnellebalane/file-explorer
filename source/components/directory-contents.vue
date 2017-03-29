@@ -1,6 +1,7 @@
 <template>
     <main class="directory-contents">
         <div class="directory-contents-wrapper">
+            <new-folder></new-folder>
             <directory-item v-for="item in items"
                 :key="item.path"
                 :item="item"
@@ -35,13 +36,14 @@
         },
 
         components: {
+            'new-folder': require('./new-folder.vue'),
             'directory-item': require('./directory-item.vue')
         }
     };
 </script>
 
 
-<style>
+<style scoped>
     .directory-contents {
         overflow: auto;
     }

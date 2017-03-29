@@ -40,7 +40,8 @@ body {
 
 
 a,
-button {
+button,
+input {
     font: inherit;
     color: inherit;
     outline: none;

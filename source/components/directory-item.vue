@@ -28,7 +28,7 @@
 </script>
 
 
-<style>
+<style scoped>
     .directory-item {
         width: calc((100% - var(--columns) * 0.5rem) / var(--columns));
         display: flex;
