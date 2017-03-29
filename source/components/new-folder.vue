@@ -17,6 +17,8 @@
     const { mapState } = require('vuex');
 
     module.exports = {
+        name: 'new-folder',
+
         data() {
             return {
                 name: ''
