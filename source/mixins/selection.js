@@ -8,17 +8,17 @@ function selectionKeyboard(app, e) {
     const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
     const i = items.findIndex(item => item.path === selection[ref]);
 
-    if (e.key === 'ArrowLeft') {
+    if (e.code === 'ArrowLeft') {
         index = i > 0 ? i - 1 : index;
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.code === 'ArrowRight') {
         index = i < items.length - 1 ? i + 1 : index;
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.code === 'ArrowUp') {
         index = i >= ROW_ITEMS_COUNT ? i - ROW_ITEMS_COUNT : index;
-    } else if (e.key === 'ArrowDown') {
+    } else if (e.code === 'ArrowDown') {
         index = i < items.length - ROW_ITEMS_COUNT ? i + ROW_ITEMS_COUNT : index;
-    } else if (e.key === 'Home') {
+    } else if (e.code === 'Home') {
         index = 0;
-    } else if (e.key === 'End') {
+    } else if (e.code === 'End') {
         index = items.length - 1;
     }
 
