@@ -28,6 +28,11 @@ const store = new Vuex.Store({
             context.dispatch('readCurrentDirectoryContents');
         },
 
+        refreshPath(context) {
+            const path = context.state.path;
+            context.dispatch('readCurrentDirectoryContents', path);
+        },
+
         readCurrentDirectoryContents(context) {
             ipcRenderer.send('read-path', context.state.path);
             ipcRenderer.once('fs-data', (e, files) => {
