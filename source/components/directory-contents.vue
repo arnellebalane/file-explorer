@@ -1,5 +1,6 @@
 <template>
     <main class="directory-contents">
+        <alert-message :message="errorMessage" :type="errorType" v-if="errorMessage"></alert-message>
         <div class="directory-contents-wrapper">
             <new-folder v-if="creatingNewFolder"></new-folder>
             <directory-item v-for="item in items"
@@ -26,7 +27,8 @@
             require('../mixins/selection')
         ],
 
-        computed: mapState(['items', 'showHiddenFiles', 'creatingNewFolder']),
+        computed: mapState(['items', 'showHiddenFiles', 'creatingNewFolder',
+            'errorMessage', 'errorType']),
 
         methods: {
             visible(item) {
@@ -36,6 +38,7 @@
         },
 
         components: {
+            'alert-message': require('./alert-message.vue'),
             'new-folder': require('./new-folder.vue'),
             'directory-item': require('./directory-item.vue')
         }
@@ -53,5 +56,9 @@
         display: flex;
         flex-wrap: wrap;
         padding: 0.5em;
+    }
+
+    .alert-message + .directory-contents-wrapper {
+        margin-top: 2.4rem;
     }
 </style>

@@ -42,14 +42,15 @@
                     if (response === true) {
                         this.cancelNewFolder();
                         this.refresh();
-                    } else {
-                        // show error
+                    } else if (response.code === 'EEXIST') {
+                        this.alert(`Name "${name}" already exists.`);
                     }
                 });
             },
 
             cancelNewFolder() {
                 this.name = '';
+                this.hideAlert();
                 this.$store.commit('setCreatingNewFolder', false);
             }
         },
