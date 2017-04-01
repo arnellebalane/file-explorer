@@ -5,7 +5,7 @@
             ref="input"
             v-model="name"
             @keydown.stop.enter="createNewFolder(name)"
-            @keydown.stop.escape="cancelNewFolder"
+            @keydown.stop.esc="cancelNewFolder"
             @blur="cancelNewFolder">
     </div>
 </template>
