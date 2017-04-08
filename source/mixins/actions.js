@@ -8,6 +8,10 @@ module.exports = {
             this.$store.dispatch('refreshPath');
         },
 
+        delete() {
+            this.$store.dispatch('deleteSelection');
+        },
+
         alert(message, type='error') {
             this.$store.commit('setError', { message, type });
         },

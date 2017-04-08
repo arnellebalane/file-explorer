@@ -61,6 +61,16 @@ const store = new Vuex.Store({
             ipcRenderer.once('fs-data', (e, files) => {
                 context.commit('setItems', files);
             });
+        },
+
+        deleteSelection(context) {
+            ipcRenderer.send('delete-items', context.state.selection);
+            ipcRenderer.once('delete-status', (e, deleted) => {
+                if (deleted) {
+                    context.commit('setSelection', []);
+                    context.dispatch('refreshPath');
+                }
+            });
         }
     }
 });
