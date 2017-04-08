@@ -17,7 +17,7 @@
         props: ['title', 'items'],
 
         mixins: [
-            require('../mixins/directory')
+            require('../mixins/actions')
         ]
     };
 </script>

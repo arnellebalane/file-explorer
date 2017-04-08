@@ -23,7 +23,7 @@
         name: 'directory-contents',
 
         mixins: [
-            require('../mixins/directory'),
+            require('../mixins/actions'),
             require('../mixins/selection')
         ],
 

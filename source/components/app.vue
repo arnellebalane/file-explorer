@@ -11,7 +11,20 @@
 
     module.exports = {
         name: 'app',
+
+        mixins: [
+            require('../mixins/actions')
+        ],
+
         computed: mapState(['path']),
+
+        methods: {
+            handleKeydown(e) {
+                if (e.code === 'Delete') {
+                    this.delete();
+                }
+            }
+        },
 
         components: {
             'sidebar-panel': require('./sidebar-panel.vue'),
@@ -21,6 +34,12 @@
         created() {
             const path = localStorage.getItem('path') || require('user-home');
             this.$store.dispatch('openPath', path);
+
+            document.addEventListener('keydown', this.handleKeydown);
+        },
+
+        beforeDestroy() {
+            document.removeEventListener('keydown', this.handleKeydown);
         }
     };
 </script>

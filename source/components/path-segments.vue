@@ -14,7 +14,7 @@
         name: 'path-segments',
 
         mixins: [
-            require('../mixins/directory')
+            require('../mixins/actions')
         ],
 
         computed: mapState({

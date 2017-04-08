@@ -16,7 +16,7 @@
         name: 'header-actions',
 
         mixins: [
-            require('../mixins/directory'),
+            require('../mixins/actions'),
             require('../mixins/history')
         ],
 
