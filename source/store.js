@@ -12,7 +12,8 @@ const store = new Vuex.Store({
         showHiddenFiles: localStorage.getItem('show-hidden-files') === 'true',
         creatingNewFolder: false,
         errorMessage: null,
-        errorType: null
+        errorType: null,
+        selection: []
     },
 
     mutations: {
@@ -37,6 +38,10 @@ const store = new Vuex.Store({
 
         setCreatingNewFolder(state, value) {
             state.creatingNewFolder = value;
+        },
+
+        setSelection(state, value) {
+            state.selection = value;
         }
     },
 

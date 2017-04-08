@@ -95,6 +95,12 @@ module.exports = {
         }
     },
 
+    watch: {
+        selection() {
+            this.$store.commit('setSelection', this.selection);
+        }
+    },
+
     created() {
         document.addEventListener('keydown', this._handleDocumentKeydown);
         document.addEventListener('mousedown', this.clearSelection);
