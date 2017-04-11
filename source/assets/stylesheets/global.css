@@ -1,0 +1,69 @@
+:root {
+    --panel-primary-color: #222d32;
+    --panel-secondary-color: #263238;
+    --panel-primary-highlight-color: #283439;
+    --panel-secondary-highlight-color: #1f292e;
+    --text-color: #8f9fa6;
+    --text-highlight-color: #80deea;
+}
+
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+*::-webkit-scrollbar {
+    width: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--text-highlight-color);
+}
+
+
+html {
+    font-family: "Droid Sans", sans-serif;
+    font-size: 62.5%;
+    -webkit-user-select: none;
+}
+
+
+body {
+    height: 100vh;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+
+a,
+button,
+input {
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+
+/** Icons **/
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: center center no-repeat;
+    background-size: contain;
+}
+
+
+.icon--directory { background-image: url("../images/folder.png"); }
+.icon--file { background-image: url("../images/file.png"); }

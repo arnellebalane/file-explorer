@@ -5,21 +5,38 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/electron .",
-    "build": "./node_modules/.bin/electron-packager . --out=build --overwrite",
-    "buildall": "./node_modules/.bin/electron-packager . --out=build --overwrite --all",
-    "builddeb": "./node_modules/.bin/node-deb -- index.js index.html package.json node_modules static views"
+    "build": "./node_modules/.bin/webpack",
+    "pack": "./node_modules/.bin/electron-packager . --out=distribution --overwrite",
+    "pack-all": "./node_modules/.bin/electron-packager . --out=distribution --overwrite --all",
+    "pack-deb": "./node_modules/.bin/node-deb -- index.js index.html package.json node_modules static views"
   },
   "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com)",
   "license": "MIT",
   "dependencies": {
     "electron": "^1.4.13",
+    "file-loader": "^0.10.1",
     "mkdirp": "^0.5.1",
     "node-deb": "^0.5.0",
     "trash": "^4.0.0",
-    "user-home": "^2.0.0"
+    "user-home": "^2.0.0",
+    "vue": "^2.2.2",
+    "vuex": "^2.2.1",
+    "webpack-node-externals": "^1.5.4"
   },
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-preset-latest": "^6.22.0",
+    "css-loader": "^0.27.1",
     "devtron": "^1.4.0",
-    "electron-packager": "^8.5.1"
+    "electron-packager": "^8.5.1",
+    "vue-loader": "^11.1.4",
+    "vue-template-compiler": "^2.2.2",
+    "webpack": "^2.2.1"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
   }
 }
