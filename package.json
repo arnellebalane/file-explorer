@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
+    "clean": "rm -rf build",
+    "prebuild": "npm run clean",
     "build": "webpack",
+    "prebuild:watch": "npm run clean",
+    "build:watch": "webpack --watch",
     "pack": "electron-packager . --out=distribution --overwrite",
     "pack-all": "electron-packager . --out=distribution --overwrite --all",
     "pack-deb": "node-deb -- index.js index.html package.json node_modules static views"
