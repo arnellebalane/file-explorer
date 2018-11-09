@@ -4,11 +4,11 @@ import VueLoaderPlugin from 'vue-loader/lib/plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-    entry: './source/index.js',
+    entry: './source/index.renderer.js',
 
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'index.bundle.js'
+        filename: '[name].[hash:7].js'
     },
 
     mode: process.env.NODE_ENV || 'development',
@@ -28,7 +28,7 @@ export default {
             test: /\.(png|ttf)/,
             loader: 'file-loader',
             options: {
-                name: '[path]/[name]-[hash:7].[ext]'
+                name: '[path]/[name].[hash:7].[ext]'
             }
         }]
     },
@@ -40,7 +40,7 @@ export default {
      * just fails (or maybe vuex should be in "devDependencies" hmmm). Removing
      * vue from the whitelist produces a different set of errors as well.
      */
-    externals: [externals({whitelist: ['vue']})],
+    externals: [externals()],
 
     plugins: [
         new VueLoaderPlugin(),
