@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
 import ActionsMixin from '../mixins/actions';
 
 export default {
@@ -25,11 +24,9 @@ export default {
         ActionsMixin
     ],
 
-    computed: mapState({
-        path: 'path',
-
+    computed: {
         segments() {
-            const segments = this.path.split('/');
+            const segments = this.$store.state.path.split('/');
             return segments.slice(1, segments.length - 1).map((segment, i, array) => ({
                 name: segment,
                 path: `/${array.slice(0, i + 1).join('/')}`
@@ -37,13 +34,13 @@ export default {
         },
 
         currentDirectory() {
-            return this.path.split('/').pop() || '/';
+            return this.$store.state.path.split('/').pop() || '/';
         },
 
         isRootDirectory() {
             return this.currentDirectory === '/';
         }
-    })
+    }
 };
 </script>
 

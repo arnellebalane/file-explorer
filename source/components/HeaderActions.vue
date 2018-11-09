@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
 import ActionsMixin from '../mixins/actions';
 import HistoryMixin from '../mixins/history';
 
@@ -21,24 +20,21 @@ export default {
         HistoryMixin
     ],
 
-    computed: mapState({
-        path: 'path',
-        showHiddenFiles: 'showHiddenFiles',
-        creatingNewFolder: 'creatingNewFolder',
-
+    computed: {
         toggleHiddenFilesClass() {
-            return this.showHiddenFiles ? 'btn--visible' : 'btn--invisible';
-        }
-    }),
-
-    watch: {
-        path() {
-            this.push(this.path);
+            return this.$store.state.showHiddenFiles
+                ? 'btn--visible'
+                : 'btn--invisible';
         }
     },
 
-    created() {
-        this.push(this.path);
+    watch: {
+        '$store.state.path': {
+            handler() {
+                this.push(this.$store.state.path);
+            },
+            immediate: true
+        }
     },
 
     methods: {

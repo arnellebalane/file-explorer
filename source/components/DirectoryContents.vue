@@ -1,11 +1,15 @@
 <template>
     <main class="directory-contents">
-        <AlertMessage v-if="error" :message="error.message" :type="error.type" />
+        <AlertMessage
+            v-if="$store.state.error"
+            :message="$store.state.error.message"
+            :type="$store.state.error.type"
+        />
 
         <div class="directory-contents-wrapper">
-            <NewFolder v-if="creatingNewFolder" />
+            <NewFolder v-if="$store.state.creatingNewFolder" />
             <DirectoryItem
-                v-for="item in items"
+                v-for="item in $store.state.items"
                 :key="item.path"
                 :item="item"
                 :selected="selected(item.path)"
@@ -18,7 +22,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
 import AlertMessage from './AlertMessage.vue';
 import DirectoryItem from './DirectoryItem.vue';
 import NewFolder from './NewFolder.vue';
@@ -39,17 +42,10 @@ export default {
         SelectionMixin
     ],
 
-    computed: mapState([
-        'items',
-        'showHiddenFiles',
-        'creatingNewFolder',
-        'error'
-    ]),
-
     methods: {
         visible(item) {
-            return (!this.showHiddenFiles && item.name[0] !== '.')
-                || this.showHiddenFiles;
+            const showHiddenFiles = this.$store.state.showHiddenFiles;
+            return (!showHiddenFiles && item.name[0] !== '.') || showHiddenFiles;
         }
     }
 };

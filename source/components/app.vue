@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
 import userHome from 'user-home';
 import MainPanel from './MainPanel.vue';
 import SidebarPanel from './SidebarPanel.vue';
@@ -23,8 +22,6 @@ export default {
     mixins: [
         ActionsMixin
     ],
-
-    computed: mapState(['path']),
 
     created() {
         const path = localStorage.getItem('path') || userHome;

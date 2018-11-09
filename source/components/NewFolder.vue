@@ -16,7 +16,6 @@
 <script>
 import path from 'path';
 import {ipcRenderer} from 'electron';
-import {mapState} from 'vuex';
 import ActionsMixin from '../mixins/actions';
 
 export default {
@@ -32,8 +31,6 @@ export default {
         };
     },
 
-    computed: mapState(['path']),
-
     mounted() {
         this.$refs.input.focus();
     },
@@ -44,7 +41,7 @@ export default {
                 return;
             }
 
-            const directory = path.join(this.path, folderName);
+            const directory = path.join(this.$store.state.path, folderName);
 
             ipcRenderer.send('create-directory', directory);
             ipcRenderer.once('create-directory-response', (e, response) => {
