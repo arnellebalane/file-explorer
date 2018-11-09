@@ -163,10 +163,7 @@ function createDirectory(directoryPath) {
             if (err) {
                 return reject(err);
             } else if (!made) {
-                return reject(new Error({
-                    code: 'EEXIST',
-                    message: 'Directory already exists.'
-                }));
+                return reject({code: 'EEXIST'});
             }
             return resolve();
         });
