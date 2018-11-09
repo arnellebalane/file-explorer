@@ -1,39 +1,36 @@
-const fs = require('fs');
-const path = require('path');
-const trash = require('trash');
-const mkdirp = require('mkdirp');
-const {app, BrowserWindow, ipcMain} = require('electron');
+/* eslint-disable no-use-before-define */
+import fs from 'fs';
+import path from 'path';
+import trash from 'trash';
+import mkdirp from 'mkdirp';
+import {app, BrowserWindow, ipcMain} from 'electron';
 
-
-let window;
-
+let browserWindow;
 
 app.on('ready', createWindow);
 
-app.on('windows-all-closed', _ => {
+app.on('windows-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-app.on('activate', _ => {
-    if (!window) {
+app.on('activate', () => {
+    if (!browserWindow) {
         createWindow();
     }
 });
 
-
 /**
  *  Emitted when the renderer process requests for a path's contents to be
  *  read. Contents are sorted alphabetically, but placing directories first.
- *  @param {String} path The path to the directory to be read.
+ *  @param {String} directoryPath The path to the directory to be read.
  */
-ipcMain.on('read-path', (e, path) => {
-    readPathContents(path)
+ipcMain.on('read-path', (e, directoryPath) => {
+    readPathContents(directoryPath)
         .then(sortItemsDirectoriesFirst)
         .then(files => e.sender.send('fs-data', files));
 });
-
 
 /**
  *  Emitted when the renderer process requests for items to be deleted. Asks
@@ -42,8 +39,8 @@ ipcMain.on('read-path', (e, path) => {
  */
 ipcMain.on('delete-items', (e, items) => {
     trash(items)
-        .then(_ => e.sender.send('delete-status', true))
-        .catch(_ => e.sender.send('delete-status', false));
+        .then(() => e.sender.send('delete-status', true))
+        .catch(() => e.sender.send('delete-status', false));
 });
 
 
@@ -54,23 +51,21 @@ ipcMain.on('delete-items', (e, items) => {
  */
 ipcMain.on('create-directory', (e, directoryPath) => {
     createDirectory(directoryPath)
-        .then(_ => e.sender.send('create-directory-response', true))
+        .then(() => e.sender.send('create-directory-response', true))
         .catch(err => e.sender.send('create-directory-response', err));
 });
 
-
 function createWindow() {
-    window = new BrowserWindow({
+    browserWindow = new BrowserWindow({
         width: 800,
         height: 600,
         autoHideMenuBar: true
     });
-    window.loadURL(`file://${__dirname}/build/index.html`);
+    browserWindow.loadURL(`file://${__dirname}/build/index.html`);
 
     // Dereference the window object so that it may be garbage collected.
-    window.on('closed', _ => window = null);
+    browserWindow.on('closed', () => (browserWindow = null));
 }
-
 
 /**
  *  Read the contents of a given directory.
@@ -79,7 +74,7 @@ function createWindow() {
  *    requested directory, including their properties.
  */
 function readPathContents(dirpath) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         fs.readdir(dirpath, handled(files => {
             Promise.all(files.map(file => {
                 const itempath = path.join(dirpath, file);
@@ -88,7 +83,6 @@ function readPathContents(dirpath) {
         }));
     });
 }
-
 
 /**
  *  Get the properties of an item at the given path using `fs.stat`.
@@ -99,7 +93,7 @@ function readPathContents(dirpath) {
  *    the item's properties.
  */
 function getItemProperties(itempath) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         fs.stat(itempath, handled(stats => resolve({
             name: itempath.split('/').pop(),
             type: getItemType(stats),
@@ -109,7 +103,6 @@ function getItemProperties(itempath) {
         })));
     });
 }
-
 
 /**
  *  Get the item type (directory, file, etc.) from a given `fs.Stat` object.
@@ -131,11 +124,10 @@ function getItemType(item) {
     } else if (item.isFIFO()) {
         return 'fifo';
     } else if (item.isSocket()) {
-        return socket;
+        return 'socket';
     }
     return '';
 }
-
 
 /**
  *  Sorts the items alphabetically, but placing the directories before the
@@ -161,7 +153,6 @@ function sortItemsDirectoriesFirst(items) {
     });
 }
 
-
 /**
  *  @param {String} directoryPath The absolute path to the directory that is
  *      going to be created.
@@ -172,13 +163,15 @@ function createDirectory(directoryPath) {
             if (err) {
                 return reject(err);
             } else if (!made) {
-                return reject({code: 'EEXIST'});
+                return reject(new Error({
+                    code: 'EEXIST',
+                    message: 'Directory already exists.'
+                }));
             }
-            resolve();
+            return resolve();
         });
     });
 }
-
 
 /**
  *  Compare the two given arguments, to be used as comparator for sorting.
@@ -195,7 +188,6 @@ function compare(a, b) {
     return 0;
 }
 
-
 /**
  *  Wrap a given callback function and only call it when there are no errors
  *  passed to the error-first callback style.
@@ -205,11 +197,10 @@ function compare(a, b) {
  *    logic.
  */
 function handled(callback) {
-    return function handledCallback(err) {
+    return function handledCallback(err, ...args) {
         if (err) {
             throw err;
         }
-        const args = Array.prototype.slice.call(arguments, 1);
         callback(...args);
     };
 }
