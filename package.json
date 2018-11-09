@@ -75,5 +75,13 @@
         "off"
       ]
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": "npm run lint"
   }
 }
