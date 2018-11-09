@@ -26,5 +26,13 @@
     "webpack": "4.25.1",
     "webpack-cli": "3.1.2",
     "webpack-node-externals": "1.7.2"
+  },
+  "dependencies": {
+    "electron": "3.0.8",
+    "mkdirp": "0.5.1",
+    "trash": "4.3.0",
+    "user-home": "2.0.0",
+    "vue": "2.5.17",
+    "vuex": "3.0.1"
   }
 }
