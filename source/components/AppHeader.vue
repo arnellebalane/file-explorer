@@ -9,7 +9,7 @@
 import PathSegments from './PathSegments.vue';
 
 export default {
-    name: 'app-header',
+    name: 'AppHeader',
 
     components: {
         PathSegments
