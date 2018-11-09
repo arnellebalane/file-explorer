@@ -2,16 +2,19 @@
   "name": "electron-file-explorer",
   "version": "1.0.0",
   "description": "File explorer app built with Electron",
-  "main": "index.js",
+  "main": "build/index.main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron build/index.main.js",
     "clean": "rm -rf build",
+    "build:main": "webpack --config webpack/webpack.main.babel.js",
+    "build:main:watch": "npm run build:main -- --watch",
+    "build:renderer": "webpack --config webpack/webpack.renderer.babel.js",
+    "build:renderer:watch": "npm run build:renderer -- --watch",
     "prebuild": "npm run clean",
-    "build": "webpack",
-    "prebuild:watch": "npm run clean",
-    "build:watch": "webpack --watch",
-    "pack": "electron-packager . --out=distribution --overwrite",
-    "pack-all": "electron-packager . --out=distribution --overwrite --all",
+    "build": "npm-run-all --parallel build:main build:renderer",
+    "lint": "eslint --ignore-path .gitignore '**/*.{js,vue}'",
+    "pack": "electron-packager . 'File Explorer' --out=distribution --overwrite",
+    "pack-all": "electron-packager . 'File Explorer' --out=distribution --overwrite --all",
     "pack-deb": "node-deb -- index.js package.json build node_modules"
   },
   "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com)",
@@ -23,10 +26,14 @@
     "babel-loader": "8.0.4",
     "css-loader": "1.0.1",
     "devtron": "1.4.0",
+    "electron": "3.0.8",
     "electron-packager": "12.2.0",
+    "eslint": "5.8.0",
+    "eslint-config-arnellebalane": "1.7.0",
     "file-loader": "2.0.0",
     "html-webpack-plugin": "3.2.0",
     "node-deb": "0.10.7",
+    "npm-run-all": "4.1.3",
     "style-loader": "0.23.1",
     "vue-loader": "15.4.2",
     "vue-template-compiler": "2.5.17",
@@ -35,7 +42,6 @@
     "webpack-node-externals": "1.7.2"
   },
   "dependencies": {
-    "electron": "3.0.8",
     "mkdirp": "0.5.1",
     "trash": "4.3.0",
     "user-home": "2.0.0",
@@ -46,5 +52,24 @@
     "presets": [
       "@babel/preset-env"
     ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "arnellebalane",
+      "arnellebalane/rules/vue"
+    ],
+    "plugins": [
+      "eslint-plugin-vue"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "rules": {
+      "prefer-promise-reject-errors": ["off"]
+    }
   }
 }

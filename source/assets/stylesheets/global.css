@@ -7,14 +7,12 @@
     --text-highlight-color: #80deea;
 }
 
-
 *,
 *::before,
 *::after {
     margin: 0;
     box-sizing: border-box;
 }
-
 
 *::-webkit-scrollbar {
     width: 3px;
@@ -24,20 +22,17 @@
     background-color: var(--text-highlight-color);
 }
 
-
 html {
     font-family: "Droid Sans", sans-serif;
     font-size: 62.5%;
     -webkit-user-select: none;
 }
 
-
 body {
     height: 100vh;
     font-size: 1.2rem;
     color: var(--text-color);
 }
-
 
 a,
 button,
@@ -46,7 +41,6 @@ input {
     color: inherit;
     outline: none;
 }
-
 
 a {
     text-decoration: none;
@@ -64,6 +58,10 @@ a {
     background-size: contain;
 }
 
+.icon--directory {
+    background-image: url("../images/folder.png");
+}
 
-.icon--directory { background-image: url("../images/folder.png"); }
-.icon--file { background-image: url("../images/file.png"); }
+.icon--file {
+    background-image: url("../images/file.png");
+}

@@ -1,72 +1,76 @@
 <template>
     <div id="app">
-        <sidebar-panel></sidebar-panel>
-        <main-panel></main-panel>
+        <SidebarPanel />
+        <MainPanel />
     </div>
 </template>
 
 
 <script>
-    const { mapState } = require('vuex');
+import {mapState} from 'vuex';
+import userHome from 'user-home';
+import MainPanel from './MainPanel.vue';
+import SidebarPanel from './SidebarPanel.vue';
+import ActionsMixin from '../mixins/actions';
 
-    module.exports = {
-        name: 'app',
+export default {
+    name: 'App',
 
-        mixins: [
-            require('../mixins/actions')
-        ],
+    components: {
+        MainPanel,
+        SidebarPanel
+    },
 
-        computed: mapState(['path']),
+    mixins: [
+        ActionsMixin
+    ],
 
-        methods: {
-            handleKeydown(e) {
-                if (e.code === 'Delete') {
-                    this.delete();
-                }
+    computed: mapState(['path']),
+
+    created() {
+        const path = localStorage.getItem('path') || userHome;
+        this.$store.dispatch('openPath', path);
+
+        document.addEventListener('keydown', this.handleKeydown);
+    },
+
+    beforeDestroy() {
+        document.removeEventListener('keydown', this.handleKeydown);
+    },
+
+    methods: {
+        handleKeydown(e) {
+            if (e.code === 'Delete') {
+                this.delete();
             }
-        },
-
-        components: {
-            'sidebar-panel': require('./sidebar-panel.vue'),
-            'main-panel': require('./main-panel.vue')
-        },
-
-        created() {
-            const path = localStorage.getItem('path') || require('user-home');
-            this.$store.dispatch('openPath', path);
-
-            document.addEventListener('keydown', this.handleKeydown);
-        },
-
-        beforeDestroy() {
-            document.removeEventListener('keydown', this.handleKeydown);
         }
-    };
+    }
+};
 </script>
 
 
 <style src="../assets/stylesheets/fonts.css"></style>
 <style src="../assets/stylesheets/global.css"></style>
 <style scoped>
-    #app {
-        display: flex;
-        height: 100%;
-        background-color: var(--panel-secondary-color);
-    }
+#app {
+    display: flex;
+    height: 100%;
+    background-color: var(--panel-secondary-color);
+}
 
-    /**
-     *  It seems like the `sidebar-panel` and `main-panel` components cannot be
-     *  styled here, so I am styling the root element inside these respective
-     *  components.
-     *  NOTE: Find way to style the components directly (i.e. using type
-     *  selector to style them instead of targetting elements that they are
-     *  abstracting away).
-     **/
-    .sidebar-panel {
-        flex-shrink: 0;
-    }
+/**
+ *  It seems like the `sidebar-panel` and `main-panel` components cannot be
+ *  styled here, so I am styling the root element inside these respective
+ *  components.
+ *  NOTE: Find way to style the components directly (i.e. using type
+ *  selector to style them instead of targetting elements that they are
+ *  abstracting away).
+ **/
+.sidebar-panel {
+    flex-shrink: 0;
+}
 
-    .main-panel {
-        flex-grow: 1;
-    }
+.main-panel {
+    flex-grow: 1;
+}
 </style>
