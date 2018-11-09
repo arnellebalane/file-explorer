@@ -16,8 +16,7 @@ $ cd file-explorer
 $ npm install
 
 # 3. Build main/renderer process scripts
-$ npm run build:main  # or `build:main:watch`
-$ npm run build:renderer  # or `build:renderer:watch`
+$ npm run build  # or `npm run build:watch`
 
 # 4. Start the app
 $ npm start
