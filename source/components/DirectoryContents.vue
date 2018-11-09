@@ -17,7 +17,6 @@
     </main>
 </template>
 
-
 <script>
 import {mapState} from 'vuex';
 import AlertMessage from './AlertMessage.vue';
@@ -56,7 +55,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 .directory-contents {

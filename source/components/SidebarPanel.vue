@@ -5,7 +5,6 @@
     </aside>
 </template>
 
-
 <script>
 import userHome from 'user-home';
 import HeaderActions from './HeaderActions.vue';
@@ -34,7 +33,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 .sidebar-panel {

@@ -5,7 +5,6 @@
     </main>
 </template>
 
-
 <script>
 import AppHeader from './AppHeader.vue';
 import DirectoryContents from './DirectoryContents.vue';
@@ -19,7 +18,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 .main-panel {

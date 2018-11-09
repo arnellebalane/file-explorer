@@ -14,7 +14,6 @@
     </a>
 </template>
 
-
 <script>
 export default {
     name: 'DirectoryItem',
@@ -35,7 +34,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 .directory-item {

@@ -13,7 +13,6 @@
     </div>
 </template>
 
-
 <script>
 import path from 'path';
 import {ipcRenderer} from 'electron';
@@ -66,7 +65,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 div {

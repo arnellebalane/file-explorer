@@ -8,7 +8,6 @@
     </header>
 </template>
 
-
 <script>
 import {mapState} from 'vuex';
 import ActionsMixin from '../mixins/actions';
@@ -49,7 +48,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 .header-actions {

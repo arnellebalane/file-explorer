@@ -4,7 +4,6 @@
     </header>
 </template>
 
-
 <script>
 import PathSegments from './PathSegments.vue';
 

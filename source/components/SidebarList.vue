@@ -16,7 +16,6 @@
     </section>
 </template>
 
-
 <script>
 import ActionsMixin from '../mixins/actions';
 
@@ -39,7 +38,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 .sidebar-list {

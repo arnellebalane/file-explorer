@@ -4,7 +4,6 @@
     </p>
 </template>
 
-
 <script>
 export default {
     name: 'AlertMessage',
@@ -21,7 +20,6 @@ export default {
     }
 };
 </script>
-
 
 <style scoped>
 p {

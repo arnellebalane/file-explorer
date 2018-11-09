@@ -5,7 +5,6 @@
     </div>
 </template>
 
-
 <script>
 import {mapState} from 'vuex';
 import userHome from 'user-home';
@@ -47,7 +46,6 @@ export default {
     }
 };
 </script>
-
 
 <style src="../assets/stylesheets/fonts.css"></style>
 <style src="../assets/stylesheets/global.css"></style>
