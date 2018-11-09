@@ -1,6 +1,6 @@
 <template>
     <main class="directory-contents">
-        <AlertMessage v-if="errorMessage" :message="errorMessage" :type="errorType" />
+        <AlertMessage v-if="error" :message="error.message" :type="error.type" />
 
         <div class="directory-contents-wrapper">
             <NewFolder v-if="creatingNewFolder" />
@@ -43,8 +43,7 @@ export default {
         'items',
         'showHiddenFiles',
         'creatingNewFolder',
-        'errorMessage',
-        'errorType'
+        'error'
     ]),
 
     methods: {

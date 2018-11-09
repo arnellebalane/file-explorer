@@ -17,7 +17,7 @@ export default {
         },
 
         hideAlert() {
-            this.$store.commit('setError', {});
+            this.$store.commit('setError', null);
         },
 
         toggleHiddenFiles() {
