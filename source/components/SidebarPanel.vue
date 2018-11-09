@@ -7,6 +7,7 @@
 
 
 <script>
+import userHome from 'user-home';
 import HeaderActions from './HeaderActions.vue';
 import SidebarList from './SidebarList.vue';
 
@@ -23,10 +24,10 @@ export default {
             places: {
                 title: 'Places',
                 items: [
-                    {name: 'Documents', path: '/home/arnelle/Documents'},
-                    {name: 'Downloads', path: '/home/arnelle/Downloads'},
-                    {name: 'Desktop', path: '/home/arnelle/Desktop'},
-                    {name: 'Pictures', path: '/home/arnelle/Pictures'}
+                    {name: 'Documents', path: `${userHome}/Documents`},
+                    {name: 'Downloads', path: `${userHome}/Downloads`},
+                    {name: 'Desktop', path: `${userHome}/Desktop`},
+                    {name: 'Pictures', path: `${userHome}/Pictures`}
                 ]
             }
         };
