@@ -1,13 +1,13 @@
 import path from 'path';
 import externals from 'webpack-node-externals';
 import VueLoaderPlugin from 'vue-loader/lib/plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
     entry: './source/index.js',
 
     output: {
         path: path.resolve(__dirname, 'build'),
-        publicPath: 'build/',
         filename: 'index.bundle.js'
     },
 
@@ -41,6 +41,11 @@ export default {
     externals: [externals({ whitelist: ['vue'] })],
 
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+
+        new HtmlWebpackPlugin({
+            template: './source/index.html',
+            filename: 'index.html'
+        })
     ]
 };
