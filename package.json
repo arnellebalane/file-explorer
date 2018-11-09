@@ -34,5 +34,10 @@
     "user-home": "2.0.0",
     "vue": "2.5.17",
     "vuex": "3.0.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }
