@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const trash = require('trash');
 const mkdirp = require('mkdirp');
-const { app, BrowserWindow, ipcMain } = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 
 
 let window;
@@ -27,7 +27,7 @@ app.on('activate', _ => {
  *  Emitted when the renderer process requests for a path's contents to be
  *  read. Contents are sorted alphabetically, but placing directories first.
  *  @param {String} path The path to the directory to be read.
- **/
+ */
 ipcMain.on('read-path', (e, path) => {
     readPathContents(path)
         .then(sortItemsDirectoriesFirst)
@@ -39,7 +39,7 @@ ipcMain.on('read-path', (e, path) => {
  *  Emitted when the renderer process requests for items to be deleted. Asks
  *  for confirmation first before actually deleting the items.
  *  @param {Array} items The absolute paths of the items to be deleted.
- **/
+ */
 ipcMain.on('delete-items', (e, items) => {
     trash(items)
         .then(_ => e.sender.send('delete-status', true))
@@ -51,7 +51,7 @@ ipcMain.on('delete-items', (e, items) => {
  *  Request for a new directory to be created.
  *  @param {String} directoryPath The absolute path to the directory that is
  *      going to be created.
- **/
+ */
 ipcMain.on('create-directory', (e, directoryPath) => {
     createDirectory(directoryPath)
         .then(_ => e.sender.send('create-directory-response', true))
@@ -77,7 +77,7 @@ function createWindow() {
  *  @param {String} dirpath The path to the directory to be read.
  *  @return A Promise object that resolves to a list of items contained in the
  *    requested directory, including their properties.
- **/
+ */
 function readPathContents(dirpath) {
     return new Promise((resolve, reject) => {
         fs.readdir(dirpath, handled(files => {
@@ -97,7 +97,7 @@ function readPathContents(dirpath) {
  *    retrieved.
  *  @return An Promise object that resolves to a `fs.Stat` object representing
  *    the item's properties.
- **/
+ */
 function getItemProperties(itempath) {
     return new Promise((resolve, reject) => {
         fs.stat(itempath, handled(stats => resolve({
@@ -116,7 +116,7 @@ function getItemProperties(itempath) {
  *
  *  @param {fs.Stat} item The `fs.Stat` object corresponding to an item.
  *  @return A String representing what type the item is.
- **/
+ */
 function getItemType(item) {
     if (item.isFile()) {
         return 'file';
@@ -125,7 +125,7 @@ function getItemType(item) {
     } else if (item.isBlockDevice()) {
         return 'blockdevice';
     } else if (item.isCharacterDevice()) {
-        return 'characterdevice'
+        return 'characterdevice';
     } else if (item.isSymbolicLink()) {
         return 'symlink';
     } else if (item.isFIFO()) {
@@ -143,14 +143,15 @@ function getItemType(item) {
  *
  *  @param {Array} items The array of items to be sorted.
  *  @return The sorted array of items.
- **/
+ */
 function sortItemsDirectoriesFirst(items) {
     return items.sort((a, b) => {
         if ((a.type === 'directory' && b.type === 'directory')
         || (a.type !== 'directory' && b.type !== 'directory')) {
             return compare(
                 a.name.replace(/^\./, '').toLowerCase(),
-                b.name.replace(/^\./, '').toLowerCase());
+                b.name.replace(/^\./, '').toLowerCase()
+            );
         } else if (a.type === 'directory') {
             return -1;
         } else if (b.type === 'directory') {
@@ -164,14 +165,14 @@ function sortItemsDirectoriesFirst(items) {
 /**
  *  @param {String} directoryPath The absolute path to the directory that is
  *      going to be created.
- **/
+ */
 function createDirectory(directoryPath) {
     return new Promise((resolve, reject) => {
         mkdirp(directoryPath, 0o775, (err, made) => {
             if (err) {
                 return reject(err);
             } else if (!made) {
-                return reject({ code: 'EEXIST' });
+                return reject({code: 'EEXIST'});
             }
             resolve();
         });
@@ -184,7 +185,7 @@ function createDirectory(directoryPath) {
  *
  *  @param {Number|String} a, b The objects to be compared.
  *  @return A Number (-1, 0, 1) representing the sort order of the arguments.
- **/
+ */
 function compare(a, b) {
     if (a < b) {
         return -1;
@@ -202,13 +203,13 @@ function compare(a, b) {
  *    error-checking logic.
  *  @return A function that wraps the callback function with error-checking
  *    logic.
- **/
+ */
 function handled(callback) {
     return function handledCallback(err) {
         if (err) {
             throw err;
         }
         const args = Array.prototype.slice.call(arguments, 1);
-        callback.apply(null, args);
+        callback(...args);
     };
 }

@@ -1,6 +1,6 @@
 <template>
     <header class="app-header">
-        <path-segments></path-segments>
+        <PathSegments />
     </header>
 </template>
 

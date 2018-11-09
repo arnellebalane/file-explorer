@@ -1,20 +1,23 @@
 <template>
     <div>
         <i class="icon item-icon icon--directory"></i>
-        <input type="text" autofocus
+        <input
             ref="input"
             v-model="name"
+            type="text"
+            autofocus
             @keydown.stop.enter="createNewFolder(name)"
             @keydown.stop.esc="cancelNewFolder"
-            @blur="cancelNewFolder">
+            @blur="cancelNewFolder"
+        >
     </div>
 </template>
 
 
 <script>
     const path = require('path');
-    const { ipcRenderer } = require('electron');
-    const { mapState } = require('vuex');
+    const {ipcRenderer} = require('electron');
+    const {mapState} = require('vuex');
 
     module.exports = {
         name: 'new-folder',
@@ -22,7 +25,7 @@
         data() {
             return {
                 name: ''
-            }
+            };
         },
 
         mixins: [

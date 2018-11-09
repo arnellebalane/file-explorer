@@ -1,15 +1,16 @@
 <template>
-    <a class="directory-item"
+    <a
+        v-if="visible"
+        class="directory-item"
         :class="{selected: selected}"
         :href="item.path"
         tabindex="-1"
-        v-if="visible"
         @click.prevent
         @dblclick.prevent="$emit('dblclick', item.path, $event)"
-        @mousedown.stop="$emit('mousedown', item.path, $event)">
-
+        @mousedown.stop="$emit('mousedown', item.path, $event)"
+    >
         <i class="icon item-icon" :class="iconClass"></i>
-        <p class="item-name">{{item.name}}</p>
+        <p class="item-name">{{ item.name }}</p>
     </a>
 </template>
 
@@ -21,7 +22,7 @@
 
         computed: {
             iconClass() {
-                return 'icon--' + this.item.type;
+                return `icon--${this.item.type}`;
             }
         }
     };

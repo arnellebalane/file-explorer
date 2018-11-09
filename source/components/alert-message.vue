@@ -1,6 +1,6 @@
 <template>
     <p class="alert-message" :class="type">
-        <span class="message">{{message}}</span>
+        <span class="message">{{ message }}</span>
     </p>
 </template>
 

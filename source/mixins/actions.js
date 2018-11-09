@@ -13,7 +13,7 @@ module.exports = {
         },
 
         alert(message, type='error') {
-            this.$store.commit('setError', { message, type });
+            this.$store.commit('setError', {message, type});
         },
 
         hideAlert() {

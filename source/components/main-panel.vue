@@ -1,7 +1,7 @@
 <template>
     <main class="main-panel">
-        <app-header></app-header>
-        <directory-contents></directory-contents>
+        <AppHeader />
+        <DirectoryContents />
     </main>
 </template>
 

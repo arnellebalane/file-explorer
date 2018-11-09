@@ -10,7 +10,7 @@
 
 
 <script>
-    const { mapState } = require('vuex');
+    const {mapState} = require('vuex');
 
     module.exports = {
         name: 'header-actions',

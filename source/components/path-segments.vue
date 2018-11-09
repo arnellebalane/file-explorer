@@ -1,14 +1,21 @@
 <template>
     <nav class="path-segments">
         <a class="path-segment" href="/" @click.prevent="open('/')">root</a>
-        <a class="path-segment" :href="segment.path" v-for="segment in segments" @click.prevent="open(segment.path)">{{segment.name}}</a>
-        <span class="path-segment" v-if="!isRootDirectory">{{currentDirectory}}</span>
+        <a
+            v-for="segment in segments"
+            class="path-segment"
+            :href="segment.path"
+            @click.prevent="open(segment.path)"
+        >
+            {{ segment.name }}
+        </a>
+        <span v-if="!isRootDirectory" class="path-segment">{{ currentDirectory }}</span>
     </nav>
 </template>
 
 
 <script>
-    const { mapState } = require('vuex');
+    const {mapState} = require('vuex');
 
     module.exports = {
         name: 'path-segments',
@@ -22,12 +29,10 @@
 
             segments() {
                 let segments = this.path.split('/');
-                return segments.slice(1, segments.length - 1).map((segment, i, array) => {
-                    return {
-                        name: segment,
-                        path: '/' + array.slice(0, i + 1).join('/')
-                    };
-                });
+                return segments.slice(1, segments.length - 1).map((segment, i, array) => ({
+                name: segment,
+                path: `/${array.slice(0, i + 1).join('/')}`
+            }));
             },
 
             currentDirectory() {
@@ -37,7 +42,7 @@
             isRootDirectory() {
                 return this.currentDirectory === '/';
             }
-        }),
+        })
     };
 </script>
 

@@ -1,13 +1,13 @@
 <template>
     <div id="app">
-        <sidebar-panel></sidebar-panel>
-        <main-panel></main-panel>
+        <SidebarPanel />
+        <MainPanel />
     </div>
 </template>
 
 
 <script>
-    const { mapState } = require('vuex');
+    const {mapState} = require('vuex');
 
     module.exports = {
         name: 'app',

@@ -1,10 +1,15 @@
 <template>
     <section class="sidebar-list">
-        <h1 class="list-title">{{title}}</h1>
+        <h1 class="list-title">{{ title }}</h1>
         <nav class="list-items">
-            <a class="list-item" :href="item.path" v-for="item in items" @click.prevent="open(item.path)">
+            <a
+                v-for="item in items"
+                class="list-item"
+                :href="item.path"
+                @click.prevent="open(item.path)"
+            >
                 <i class="icon icon--directory"></i>
-                {{item.name}}
+                {{ item.name }}
             </a>
         </nav>
     </section>

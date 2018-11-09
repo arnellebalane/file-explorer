@@ -1,6 +1,6 @@
 const Vue = require('vue').default;
 const Vuex = require('vuex');
-const { ipcRenderer } = require('electron');
+const {ipcRenderer} = require('electron');
 
 
 Vue.use(Vuex);

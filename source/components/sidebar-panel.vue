@@ -1,7 +1,7 @@
 <template>
     <aside class="sidebar-panel">
-        <header-actions></header-actions>
-        <sidebar-list :title="places.title" :items="places.items"></sidebar-list>
+        <HeaderActions />
+        <SidebarList :title="places.title" :items="places.items" />
     </aside>
 </template>
 
@@ -15,10 +15,10 @@
                 places: {
                     title: 'Places',
                     items: [
-                        { name: 'Documents', path: '/home/arnelle/Documents' },
-                        { name: 'Downloads', path: '/home/arnelle/Downloads' },
-                        { name: 'Desktop', path: '/home/arnelle/Desktop' },
-                        { name: 'Pictures', path: '/home/arnelle/Pictures' }
+                        {name: 'Documents', path: '/home/arnelle/Documents'},
+                        {name: 'Downloads', path: '/home/arnelle/Downloads'},
+                        {name: 'Desktop', path: '/home/arnelle/Desktop'},
+                        {name: 'Pictures', path: '/home/arnelle/Pictures'}
                     ]
                 }
             };
