@@ -1,13 +1,18 @@
-const path = require('path');
-const externals = require('webpack-node-externals');
+import path from 'path';
+import externals from 'webpack-node-externals';
+import VueLoaderPlugin from 'vue-loader/lib/plugin';
 
+export default {
+    entry: './source/index.js',
 
-module.exports = {
-    entry: path.join(__dirname, 'source', 'main.js'),
     output: {
-        path: path.join(__dirname, 'build'),
-        filename: 'build.js'
+        path: path.resolve(__dirname, 'build'),
+        publicPath: 'build/',
+        filename: 'index.bundle.js'
     },
+
+    mode: process.env.NODE_ENV || 'development',
+
     module: {
         rules: [{
             test: /\.vue$/,
@@ -17,19 +22,15 @@ module.exports = {
             loader: 'babel-loader',
             exclude: /node_modules/
         }, {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+        }, {
             test: /\.(png|ttf)/,
             loader: 'file-loader',
             options: {
-                name: '[path]/[name]-[hash:7].[ext]',
-                // NOTE: I'm also still unsure on what the right value for the
-                // publicPath option should be.
-                publicPath: 'build/'
+                name: '[path]/[name]-[hash:7].[ext]'
             }
         }]
-    },
-    watch: true,
-    watchOptions: {
-        ignored: /node_modules/
     },
 
     // NOTE: I honestly haven't figured out yet why I need to whitelist vue.
@@ -37,5 +38,9 @@ module.exports = {
     // be whitelisted, but when I tried to whitelist vuex the webpack build
     // just fails (or maybe vuex should be in "devDependencies" hmmm). Removing
     // vue from the whitelist produces a different set of errors as well.
-    externals: [externals({ whitelist: ['vue'] })]
+    externals: [externals({ whitelist: ['vue'] })],
+
+    plugins: [
+        new VueLoaderPlugin()
+    ]
 };
