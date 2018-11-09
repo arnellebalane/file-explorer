@@ -11,7 +11,7 @@ import {mapState} from 'vuex';
 import userHome from 'user-home';
 import MainPanel from './MainPanel.vue';
 import SidebarPanel from './SidebarPanel.vue';
-import ActionsMixin from '../mixins/actionsMixin';
+import ActionsMixin from '../mixins/actions';
 
 export default {
     name: 'App',

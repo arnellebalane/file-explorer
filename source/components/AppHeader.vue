@@ -8,7 +8,7 @@
 <script>
 import PathSegments from './PathSegments.vue';
 
-module.exports = {
+export default {
     name: 'app-header',
 
     components: {
