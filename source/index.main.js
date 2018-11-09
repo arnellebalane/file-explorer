@@ -61,7 +61,7 @@ function createWindow() {
         height: 600,
         autoHideMenuBar: true
     });
-    browserWindow.loadURL(`file://${__dirname}/build/index.html`);
+    browserWindow.loadURL(`file://${__dirname}/index.html`);
 
     // Dereference the window object so that it may be garbage collected.
     browserWindow.on('closed', () => (browserWindow = null));
