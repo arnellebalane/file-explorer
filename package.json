@@ -4,17 +4,18 @@
   "description": "File explorer app built with Electron",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron .",
-    "build": "./node_modules/.bin/webpack",
-    "pack": "./node_modules/.bin/electron-packager . --out=distribution --overwrite",
-    "pack-all": "./node_modules/.bin/electron-packager . --out=distribution --overwrite --all",
-    "pack-deb": "./node_modules/.bin/node-deb -- index.js index.html package.json node_modules static views"
+    "start": "electron .",
+    "build": "webpack",
+    "pack": "electron-packager . --out=distribution --overwrite",
+    "pack-all": "electron-packager . --out=distribution --overwrite --all",
+    "pack-deb": "node-deb -- index.js index.html package.json node_modules static views"
   },
   "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com)",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.1.5",
     "@babel/preset-env": "7.1.5",
+    "@babel/register": "7.0.0",
     "babel-loader": "8.0.4",
     "css-loader": "1.0.1",
     "devtron": "1.4.0",
