@@ -2,7 +2,7 @@
   "name": "electron-file-explorer",
   "version": "1.0.0",
   "description": "File explorer app built with Electron",
-  "main": "index.js",
+  "main": "build/index.main.js",
   "scripts": {
     "start": "electron build/index.main.js",
     "clean": "rm -rf build",
