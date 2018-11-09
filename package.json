@@ -10,6 +10,7 @@
     "build": "webpack",
     "prebuild:watch": "npm run clean",
     "build:watch": "webpack --watch",
+    "lint": "eslint --ignore-path .gitignore '**/*.{js,vue}'",
     "pack": "electron-packager . --out=distribution --overwrite",
     "pack-all": "electron-packager . --out=distribution --overwrite --all",
     "pack-deb": "node-deb -- index.js package.json build node_modules"
@@ -48,5 +49,21 @@
     "presets": [
       "@babel/preset-env"
     ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "arnellebalane",
+      "arnellebalane/rules/vue"
+    ],
+    "plugins": [
+      "eslint-plugin-vue"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    }
   }
 }
