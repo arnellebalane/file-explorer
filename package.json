@@ -12,7 +12,7 @@
     "build:watch": "webpack --watch",
     "pack": "electron-packager . --out=distribution --overwrite",
     "pack-all": "electron-packager . --out=distribution --overwrite --all",
-    "pack-deb": "node-deb -- index.js index.html package.json node_modules static views"
+    "pack-deb": "node-deb -- index.js package.json build node_modules"
   },
   "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com)",
   "license": "MIT",
