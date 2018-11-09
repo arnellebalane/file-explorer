@@ -1,15 +1,10 @@
-/*
- * `vue` is required with a `.default` at the end to work around how Babel
- * transpiles ES6 default exports. Normally this imported using ES6 imports,
- * but I wanted to stick with using require.
- */
-const Vue = require('vue').default;
-const App = require('./components/app.vue');
-const store = require('./store');
+import Vue from 'vue';
+import App from './components/App.vue';
+import store from './store';
 
-
+// eslint-disable-next-line no-new
 new Vue({
     el: '#app',
-    store: store,
+    store,
     render: h => h(App)
 });

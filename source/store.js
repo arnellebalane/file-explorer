@@ -1,11 +1,10 @@
-const Vue = require('vue').default;
-const Vuex = require('vuex');
-const {ipcRenderer} = require('electron');
-
+import Vue from 'vue';
+import Vuex from 'vuex';
+import {ipcRenderer} from 'electron';
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
     state: {
         path: '/',
         items: [],
@@ -74,6 +73,3 @@ const store = new Vuex.Store({
         }
     }
 });
-
-
-module.exports = store;
