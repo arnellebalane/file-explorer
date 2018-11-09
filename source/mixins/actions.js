@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     methods: {
         open(path) {
             this.$store.dispatch('openPath', path);

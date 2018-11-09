@@ -2,7 +2,9 @@ function selectionKeyboard(app, e) {
     const items = app.items.filter(item => app.visible(item));
     const selection = app.selection;
     const selectionStart = app.selectionStart;
-    const ROW_ITEMS_COUNT = 5; // TODO: make this responsive
+
+    // TODO: make this responsive
+    const ROW_ITEMS_COUNT = 5;
     let index = null;
 
     const ref = selection[0] === selectionStart ? selection.length - 1 : 0;
@@ -22,7 +24,7 @@ function selectionKeyboard(app, e) {
         index = items.length - 1;
     }
 
-    if (index != null) {
+    if (index !== null) {
         /*
          * So that the directory contents panel does not scroll up or down when
          * pressing ArrowUp or ArrowDown during selection.
@@ -34,6 +36,10 @@ function selectionKeyboard(app, e) {
     }
 }
 
+function selectionDefault(app, itempath) {
+    app.selection = [itempath];
+    app.selectionStart = itempath;
+}
 
 function selectionCtrl(app, itempath) {
     if (app.selection.length === 0) {
@@ -42,7 +48,6 @@ function selectionCtrl(app, itempath) {
         app.selection.push(itempath);
     }
 }
-
 
 function selectionShift(app, itempath) {
     if (app.selection.length === 0) {
@@ -57,14 +62,7 @@ function selectionShift(app, itempath) {
     }
 }
 
-
-function selectionDefault(app, itempath) {
-    app.selection = [itempath];
-    app.selectionStart = itempath;
-}
-
-
-module.exports = {
+export default {
     data() {
         return {
             selection: [],
