@@ -54,20 +54,15 @@ export default new Vuex.Store({
 
     actions: {
         openPath(context, path) {
-            context.commit('open', path);
-            context.dispatch('readCurrentDirectoryContents');
+            ipcRenderer.send('read-path', path);
+            ipcRenderer.once('fs-data', (e, files) => {
+                context.commit('setItems', files);
+            });
         },
 
         refreshPath(context) {
             const path = context.state.path;
             context.dispatch('readCurrentDirectoryContents', path);
-        },
-
-        readCurrentDirectoryContents(context) {
-            ipcRenderer.send('read-path', context.state.path);
-            ipcRenderer.once('fs-data', (e, files) => {
-                context.commit('setItems', files);
-            });
         },
 
         deleteSelection(context) {
