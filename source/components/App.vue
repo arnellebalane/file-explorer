@@ -1,20 +1,21 @@
 <template>
     <div id="app">
         <SidebarPanel />
-        <MainPanel />
+
+        <!-- https://github.com/vuejs/vue-router/issues/2356 -->
+        <!-- eslint-disable-next-line vue/component-name-in-template-casing -->
+        <router-view />
     </div>
 </template>
 
 <script>
 import userHome from 'user-home';
-import MainPanel from './MainPanel.vue';
 import SidebarPanel from './SidebarPanel.vue';
 
 export default {
     name: 'App',
 
     components: {
-        MainPanel,
         SidebarPanel
     },
 
