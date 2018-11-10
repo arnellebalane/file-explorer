@@ -16,14 +16,9 @@
 <script>
 import path from 'path';
 import {ipcRenderer} from 'electron';
-import ActionsMixin from '../mixins/actions';
 
 export default {
     name: 'NewFolder',
-
-    mixins: [
-        ActionsMixin
-    ],
 
     data() {
         return {
@@ -47,16 +42,19 @@ export default {
             ipcRenderer.once('create-directory-response', (e, response) => {
                 if (response === true) {
                     this.cancelNewFolder();
-                    this.refresh();
+                    this.$store.dispatch('refreshPath');
                 } else if (response.code === 'EEXIST') {
-                    this.alert(`Name "${folderName}" already exists.`);
+                    this.$store.commit('setError', {
+                        message: `Name "${folderName}" already exists.`,
+                        type: 'error'
+                    });
                 }
             });
         },
 
         cancelNewFolder() {
             this.name = '';
-            this.hideAlert();
+            this.$store.commit('setError', null);
             this.$store.commit('setCreatingNewFolder', false);
         }
     }

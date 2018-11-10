@@ -1,28 +1,33 @@
 <template>
     <nav class="path-segments">
-        <a class="path-segment" href="/" @click.prevent="open('/')">root</a>
+        <a
+            class="path-segment"
+            href="/"
+            @click.prevent="$store.dispatch('openPath', '/')"
+        >
+            root
+        </a>
         <a
             v-for="segment in segments"
             :key="segment.path"
             :href="segment.path"
             class="path-segment"
-            @click.prevent="open(segment.path)"
+            @click.prevent="$store.dispatch('openPath', segment.path)"
         >
             {{ segment.name }}
         </a>
-        <span v-if="!isRootDirectory" class="path-segment">{{ currentDirectory }}</span>
+        <span
+            v-if="!isRootDirectory"
+            class="path-segment"
+        >
+            {{ currentDirectory }}
+        </span>
     </nav>
 </template>
 
 <script>
-import ActionsMixin from '../mixins/actions';
-
 export default {
     name: 'PathSegments',
-
-    mixins: [
-        ActionsMixin
-    ],
 
     computed: {
         segments() {

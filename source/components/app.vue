@@ -9,7 +9,6 @@
 import userHome from 'user-home';
 import MainPanel from './MainPanel.vue';
 import SidebarPanel from './SidebarPanel.vue';
-import ActionsMixin from '../mixins/actions';
 
 export default {
     name: 'App',
@@ -18,10 +17,6 @@ export default {
         MainPanel,
         SidebarPanel
     },
-
-    mixins: [
-        ActionsMixin
-    ],
 
     created() {
         const path = localStorage.getItem('path') || userHome;
@@ -37,7 +32,7 @@ export default {
     methods: {
         handleKeydown(e) {
             if (e.code === 'Delete') {
-                this.delete();
+                this.$store.dispatch('deleteSelection');
             }
         }
     }

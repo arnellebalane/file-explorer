@@ -14,7 +14,7 @@
                 :item="item"
                 :selected="selected(item.path)"
                 :visible="visible(item)"
-                @dblclick="open(item.path)"
+                @dblclick="$store.dispatch('openPath', item.path)"
                 @mousedown="select"
             />
         </div>
@@ -25,7 +25,6 @@
 import AlertMessage from './AlertMessage.vue';
 import DirectoryItem from './DirectoryItem.vue';
 import NewFolder from './NewFolder.vue';
-import ActionsMixin from '../mixins/actions';
 import SelectionMixin from '../mixins/selection';
 
 export default {
@@ -38,7 +37,6 @@ export default {
     },
 
     mixins: [
-        ActionsMixin,
         SelectionMixin
     ],
 

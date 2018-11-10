@@ -1,22 +1,43 @@
 <template>
     <header class="header-actions">
-        <button class="btn btn--back" :disabled="backHeaderActionDisabled" @click="back"></button>
-        <button class="btn btn--forward" :disabled="forwardHeaderActionDisabled" @click="forward"></button>
-        <button class="btn btn--refresh" @click="refresh"></button>
-        <button class="btn btn--add-folder" @click="createNewFolder"></button>
-        <button class="btn" :class="toggleHiddenFilesClass" @click="toggleHiddenFiles"></button>
+        <button
+            class="btn btn--back"
+            :disabled="backHeaderActionDisabled"
+            @click="back"
+        >
+        </button>
+        <button
+            class="btn btn--forward"
+            :disabled="forwardHeaderActionDisabled"
+            @click="forward"
+        >
+        </button>
+        <button
+            class="btn btn--refresh"
+            @click="$store.dispatch('refreshPath')"
+        >
+        </button>
+        <button
+            class="btn btn--add-folder"
+            @click="createNewFolder"
+        >
+        </button>
+        <button
+            class="btn"
+            :class="toggleHiddenFilesClass"
+            @click="$store.commit('toggleHiddenFiles')"
+        >
+        </button>
     </header>
 </template>
 
 <script>
-import ActionsMixin from '../mixins/actions';
 import HistoryMixin from '../mixins/history';
 
 export default {
     name: 'HeaderActions',
 
     mixins: [
-        ActionsMixin,
         HistoryMixin
     ],
 
