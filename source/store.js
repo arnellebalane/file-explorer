@@ -61,8 +61,7 @@ export default new Vuex.Store({
         },
 
         refreshPath(context) {
-            const path = context.state.path;
-            context.dispatch('readCurrentDirectoryContents', path);
+            context.dispatch('openPath', context.state.path);
         },
 
         deleteSelection(context) {
