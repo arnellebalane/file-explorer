@@ -21,6 +21,18 @@ app.on('activate', () => {
     }
 });
 
+function createWindow() {
+    browserWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        autoHideMenuBar: true
+    });
+    browserWindow.loadURL(`file://${__dirname}/index.html`);
+
+    // Dereference the window object so that it may be garbage collected.
+    browserWindow.on('closed', () => (browserWindow = null));
+}
+
 /**
  *  Emitted when the renderer process requests for a path's contents to be
  *  read. Contents are sorted alphabetically, but placing directories first.
@@ -54,18 +66,6 @@ ipcMain.on('create-directory', (e, directoryPath) => {
         .then(() => e.sender.send('create-directory-response', true))
         .catch(error => e.sender.send('create-directory-response', error));
 });
-
-function createWindow() {
-    browserWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        autoHideMenuBar: true
-    });
-    browserWindow.loadURL(`file://${__dirname}/index.html`);
-
-    // Dereference the window object so that it may be garbage collected.
-    browserWindow.on('closed', () => (browserWindow = null));
-}
 
 /**
  *  Read the contents of a given directory.
