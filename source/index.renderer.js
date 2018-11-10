@@ -8,5 +8,15 @@ new Vue({
     el: '#app',
     router,
     store,
+
+    watch: {
+        '$store.state.path': {
+            handler(path) {
+                this.$router.push({path});
+            },
+            immediate: true
+        }
+    },
+
     render: h => h(App)
 });
