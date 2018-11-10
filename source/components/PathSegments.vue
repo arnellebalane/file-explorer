@@ -1,35 +1,37 @@
 <template>
     <nav class="path-segments">
-        <a class="path-segment" href="/" @click.prevent="open('/')">root</a>
+        <a
+            class="path-segment"
+            href="/"
+            @click.prevent="$store.dispatch('openPath', '/')"
+        >
+            root
+        </a>
         <a
             v-for="segment in segments"
             :key="segment.path"
             :href="segment.path"
             class="path-segment"
-            @click.prevent="open(segment.path)"
+            @click.prevent="$store.dispatch('openPath', segment.path)"
         >
             {{ segment.name }}
         </a>
-        <span v-if="!isRootDirectory" class="path-segment">{{ currentDirectory }}</span>
+        <span
+            v-if="!isRootDirectory"
+            class="path-segment"
+        >
+            {{ currentDirectory }}
+        </span>
     </nav>
 </template>
 
 <script>
-import {mapState} from 'vuex';
-import ActionsMixin from '../mixins/actions';
-
 export default {
     name: 'PathSegments',
 
-    mixins: [
-        ActionsMixin
-    ],
-
-    computed: mapState({
-        path: 'path',
-
+    computed: {
         segments() {
-            const segments = this.path.split('/');
+            const segments = this.$store.state.path.split('/');
             return segments.slice(1, segments.length - 1).map((segment, i, array) => ({
                 name: segment,
                 path: `/${array.slice(0, i + 1).join('/')}`
@@ -37,13 +39,13 @@ export default {
         },
 
         currentDirectory() {
-            return this.path.split('/').pop() || '/';
+            return this.$store.state.path.split('/').pop() || '/';
         },
 
         isRootDirectory() {
             return this.currentDirectory === '/';
         }
-    })
+    }
 };
 </script>
 

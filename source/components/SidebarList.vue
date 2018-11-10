@@ -7,7 +7,7 @@
                 :key="item.path"
                 :href="item.path"
                 class="list-item"
-                @click.prevent="open(item.path)"
+                @click.prevent="$store.dispatch('openPath', item.path)"
             >
                 <i class="icon icon--directory"></i>
                 {{ item.name }}
@@ -17,14 +17,8 @@
 </template>
 
 <script>
-import ActionsMixin from '../mixins/actions';
-
 export default {
     name: 'SidebarList',
-
-    mixins: [
-        ActionsMixin
-    ],
 
     props: {
         title: {

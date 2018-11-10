@@ -1,44 +1,61 @@
 <template>
     <header class="header-actions">
-        <button class="btn btn--back" :disabled="backHeaderActionDisabled" @click="back"></button>
-        <button class="btn btn--forward" :disabled="forwardHeaderActionDisabled" @click="forward"></button>
-        <button class="btn btn--refresh" @click="refresh"></button>
-        <button class="btn btn--add-folder" @click="createNewFolder"></button>
-        <button class="btn" :class="toggleHiddenFilesClass" @click="toggleHiddenFiles"></button>
+        <button
+            class="btn btn--back"
+            :disabled="!historyCanGoBack"
+            @click="back"
+        >
+        </button>
+        <button
+            class="btn btn--forward"
+            :disabled="!historyCanGoForward"
+            @click="forward"
+        >
+        </button>
+        <button
+            class="btn btn--refresh"
+            @click="$store.dispatch('refreshPath')"
+        >
+        </button>
+        <button
+            class="btn btn--add-folder"
+            @click="createNewFolder"
+        >
+        </button>
+        <button
+            class="btn"
+            :class="toggleHiddenFilesClass"
+            @click="$store.commit('toggleHiddenFiles')"
+        >
+        </button>
     </header>
 </template>
 
 <script>
-import {mapState} from 'vuex';
-import ActionsMixin from '../mixins/actions';
 import HistoryMixin from '../mixins/history';
 
 export default {
     name: 'HeaderActions',
 
     mixins: [
-        ActionsMixin,
         HistoryMixin
     ],
 
-    computed: mapState({
-        path: 'path',
-        showHiddenFiles: 'showHiddenFiles',
-        creatingNewFolder: 'creatingNewFolder',
-
+    computed: {
         toggleHiddenFilesClass() {
-            return this.showHiddenFiles ? 'btn--visible' : 'btn--invisible';
-        }
-    }),
-
-    watch: {
-        path() {
-            this.push(this.path);
+            return this.$store.state.showHiddenFiles
+                ? 'btn--visible'
+                : 'btn--invisible';
         }
     },
 
-    created() {
-        this.push(this.path);
+    watch: {
+        '$store.state.path': {
+            handler() {
+                this.push(this.$store.state.path);
+            },
+            immediate: true
+        }
     },
 
     methods: {

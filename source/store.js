@@ -10,8 +10,7 @@ export default new Vuex.Store({
         items: [],
         showHiddenFiles: localStorage.getItem('show-hidden-files') === 'true',
         creatingNewFolder: false,
-        errorMessage: null,
-        errorType: null,
+        error: null,
         selection: []
     },
 
@@ -25,9 +24,8 @@ export default new Vuex.Store({
             state.items = items;
         },
 
-        setError(state, payload) {
-            state.errorMessage = payload.message;
-            state.errorType = payload.type;
+        setError(state, error) {
+            state.error = error;
         },
 
         toggleHiddenFiles(state) {
