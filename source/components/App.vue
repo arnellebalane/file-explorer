@@ -21,7 +21,7 @@ export default {
 
     created() {
         const path = localStorage.getItem('path') || userHome;
-        this.$store.dispatch('openPath', path);
+        this.$router.push({path});
 
         document.addEventListener('keydown', this.handleKeydown);
     },

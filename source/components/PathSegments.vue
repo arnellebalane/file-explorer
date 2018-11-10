@@ -1,21 +1,19 @@
 <template>
     <nav class="path-segments">
-        <a
-            class="path-segment"
-            href="/"
-            @click.prevent="$store.dispatch('openPath', '/')"
-        >
-            root
-        </a>
-        <a
+        <!-- https://github.com/vuejs/vue-router/issues/2356 -->
+        <!-- eslint-disable-next-line vue/component-name-in-template-casing -->
+        <router-link to="/" class="path-segment">root</router-link>
+
+        <!-- https://github.com/vuejs/vue-router/issues/2356 -->
+        <!-- eslint-disable-next-line vue/component-name-in-template-casing -->
+        <router-link
             v-for="segment in segments"
             :key="segment.path"
-            :href="segment.path"
+            :to="segment.path"
             class="path-segment"
-            @click.prevent="$store.dispatch('openPath', segment.path)"
         >
             {{ segment.name }}
-        </a>
+        </router-link>
         <span
             v-if="!isRootDirectory"
             class="path-segment"
