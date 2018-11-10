@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 
 router.afterEach(to => {
+    store.commit('setPath', to.fullPath);
     store.dispatch('openPath', to.fullPath);
 });
 
