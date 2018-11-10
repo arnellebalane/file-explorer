@@ -26,13 +26,13 @@ export default {
 
         back() {
             if (this.historyIndex > 0) {
-                this.open(this.history[--this.historyIndex]);
+                this.$store.dispatch('openPath', this.history[--this.historyIndex]);
             }
         },
 
         forward() {
             if (this.historyIndex < this.history.length - 1) {
-                this.open(this.history[++this.historyIndex]);
+                this.$store.dispatch('openPath', this.history[++this.historyIndex]);
             }
         }
     }
