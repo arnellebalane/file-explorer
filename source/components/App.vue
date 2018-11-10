@@ -4,7 +4,7 @@
 
         <!-- https://github.com/vuejs/vue-router/issues/2356 -->
         <!-- eslint-disable-next-line vue/component-name-in-template-casing -->
-        <router-view />
+        <router-view class="main-panel" />
     </div>
 </template>
 
