@@ -2,13 +2,13 @@
     <header class="header-actions">
         <button
             class="btn btn--back"
-            :disabled="backHeaderActionDisabled"
+            :disabled="!historyCanGoBack"
             @click="back"
         >
         </button>
         <button
             class="btn btn--forward"
-            :disabled="forwardHeaderActionDisabled"
+            :disabled="!historyCanGoForward"
             @click="forward"
         >
         </button>

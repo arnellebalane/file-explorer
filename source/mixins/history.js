@@ -7,12 +7,12 @@ export default {
     },
 
     computed: {
-        backHeaderActionDisabled() {
-            return this.historyIndex === 0;
+        historyCanGoBack() {
+            return this.historyIndex > 0;
         },
 
-        forwardHeaderActionDisabled() {
-            return this.historyIndex === this.history.length - 1;
+        historyCanGoForward() {
+            return this.historyIndex < this.history.length - 1;
         }
     },
 
