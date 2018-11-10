@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {ipcRenderer} from 'electron';
+import userHome from 'user-home';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        path: '/',
+        path: userHome,
         items: [],
         showHiddenFiles: localStorage.getItem('show-hidden-files') === 'true',
         creatingNewFolder: false,
