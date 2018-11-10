@@ -1,7 +1,7 @@
-function selectionKeyboard(app, e) {
-    const items = app.items.filter(item => app.visible(item));
-    const selection = app.selection;
-    const selectionStart = app.selectionStart;
+function selectionKeyboard(component, e) {
+    const items = component.$store.state.items.filter(item => component.visible(item));
+    const selection = component.selection;
+    const selectionStart = component.selectionStart;
 
     // TODO: make this responsive
     const ROW_ITEMS_COUNT = 5;
@@ -32,32 +32,33 @@ function selectionKeyboard(app, e) {
         e.preventDefault();
 
         const item = items[index];
-        app.select(item.path, e);
+        component.select(item.path, e);
     }
 }
 
-function selectionDefault(app, itempath) {
-    app.selection = [itempath];
-    app.selectionStart = itempath;
+function selectionDefault(component, itempath) {
+    component.selection = [itempath];
+    component.selectionStart = itempath;
 }
 
-function selectionCtrl(app, itempath) {
-    if (app.selection.length === 0) {
-        selectionDefault(app, itempath);
-    } else if (!app.selection.includes(itempath)) {
-        app.selection.push(itempath);
+function selectionCtrl(component, itempath) {
+    if (component.selection.length === 0) {
+        selectionDefault(component, itempath);
+    } else if (!component.selection.includes(itempath)) {
+        component.selection.push(itempath);
     }
 }
 
-function selectionShift(app, itempath) {
-    if (app.selection.length === 0) {
-        selectionDefault(app, itempath);
+function selectionShift(component, itempath) {
+    if (component.selection.length === 0) {
+        selectionDefault(component, itempath);
     } else {
-        let start = app.items.findIndex(item => item.path === app.selectionStart);
-        let end = app.items.findIndex(item => item.path === itempath);
+        const items = component.$store.state.items;
+        let start = items.findIndex(item => item.path === component.selectionStart);
+        let end = items.findIndex(item => item.path === itempath);
         [start, end] = [Math.min(start, end), Math.max(start, end)];
-        app.selection = app.items.slice(start, end + 1)
-            .filter(item => app.visible(item))
+        component.selection = items.slice(start, end + 1)
+            .filter(item => component.visible(item))
             .map(item => item.path);
     }
 }
