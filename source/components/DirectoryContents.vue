@@ -9,11 +9,10 @@
         <div class="directory-contents-wrapper">
             <NewFolder v-if="$store.state.creatingNewFolder" />
             <DirectoryItem
-                v-for="item in $store.state.items"
+                v-for="item in $store.getters.items"
                 :key="item.path"
                 :item="item"
                 :selected="selected(item.path)"
-                :visible="visible(item)"
                 @dblclick="$store.dispatch('openPath', item.path)"
                 @mousedown="select"
             />
@@ -38,14 +37,7 @@ export default {
 
     mixins: [
         SelectionMixin
-    ],
-
-    methods: {
-        visible(item) {
-            const showHiddenFiles = this.$store.state.showHiddenFiles;
-            return (!showHiddenFiles && item.name[0] !== '.') || showHiddenFiles;
-        }
-    }
+    ]
 };
 </script>
 

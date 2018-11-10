@@ -14,6 +14,15 @@ export default new Vuex.Store({
         selection: []
     },
 
+    getters: {
+        items(state) {
+            if (state.showHiddenFiles) {
+                return state.items;
+            }
+            return state.items.filter(item => !item.name.startsWith('.'));
+        }
+    },
+
     mutations: {
         open(state, path) {
             state.path = path;

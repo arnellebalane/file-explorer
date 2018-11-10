@@ -1,5 +1,5 @@
 function selectionKeyboard(component, e) {
-    const items = component.$store.state.items.filter(item => component.visible(item));
+    const items = component.$store.getters.items;
     const selection = component.selection;
     const selectionStart = component.selectionStart;
 
@@ -53,13 +53,11 @@ function selectionShift(component, itempath) {
     if (component.selection.length === 0) {
         selectionDefault(component, itempath);
     } else {
-        const items = component.$store.state.items;
+        const items = component.$store.getters.items;
         let start = items.findIndex(item => item.path === component.selectionStart);
         let end = items.findIndex(item => item.path === itempath);
         [start, end] = [Math.min(start, end), Math.max(start, end)];
-        component.selection = items.slice(start, end + 1)
-            .filter(item => component.visible(item))
-            .map(item => item.path);
+        component.selection = items.slice(start, end + 1).map(item => item.path);
     }
 }
 

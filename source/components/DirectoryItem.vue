@@ -1,6 +1,5 @@
 <template>
     <a
-        v-if="visible"
         class="directory-item"
         :class="{selected: selected}"
         :href="item.path"
@@ -23,8 +22,7 @@ export default {
             type: Object,
             required: true
         },
-        selected: Boolean,
-        visible: Boolean
+        selected: Boolean
     },
 
     computed: {
