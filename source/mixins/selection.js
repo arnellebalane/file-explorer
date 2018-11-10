@@ -36,26 +36,26 @@ function selectionKeyboard(component, e) {
     }
 }
 
-function selectionDefault(component, itempath) {
-    component.selection = [itempath];
-    component.selectionStart = itempath;
+function selectionDefault(component, itemPath) {
+    component.selection = [itemPath];
+    component.selectionStart = itemPath;
 }
 
-function selectionCtrl(component, itempath) {
+function selectionCtrl(component, itemPath) {
     if (component.selection.length === 0) {
-        selectionDefault(component, itempath);
-    } else if (!component.selection.includes(itempath)) {
-        component.selection.push(itempath);
+        selectionDefault(component, itemPath);
+    } else if (!component.selection.includes(itemPath)) {
+        component.selection.push(itemPath);
     }
 }
 
-function selectionShift(component, itempath) {
+function selectionShift(component, itemPath) {
     if (component.selection.length === 0) {
-        selectionDefault(component, itempath);
+        selectionDefault(component, itemPath);
     } else {
         const items = component.$store.getters.items;
         let start = items.findIndex(item => item.path === component.selectionStart);
-        let end = items.findIndex(item => item.path === itempath);
+        let end = items.findIndex(item => item.path === itemPath);
         [start, end] = [Math.min(start, end), Math.max(start, end)];
         component.selection = items.slice(start, end + 1).map(item => item.path);
     }
@@ -70,18 +70,18 @@ export default {
     },
 
     methods: {
-        select(itempath, e) {
+        select(itemPath, e) {
             if (e.ctrlKey) {
-                selectionCtrl(this, itempath);
+                selectionCtrl(this, itemPath);
             } else if (e.shiftKey) {
-                selectionShift(this, itempath);
+                selectionShift(this, itemPath);
             } else {
-                selectionDefault(this, itempath);
+                selectionDefault(this, itemPath);
             }
         },
 
-        selected(itempath) {
-            return this.selection.includes(itempath);
+        selected(itemPath) {
+            return this.selection.includes(itemPath);
         },
 
         clearSelection() {
