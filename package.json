@@ -60,10 +60,12 @@
   "eslintConfig": {
     "extends": [
       "arnellebalane",
-      "arnellebalane/rules/plugins/vue"
+      "arnellebalane/rules/plugins/vue",
+      "arnellebalane/rules/plugins/import"
     ],
     "plugins": [
-      "eslint-plugin-vue"
+      "vue",
+      "import"
     ],
     "parserOptions": {
       "ecmaVersion": 2017
