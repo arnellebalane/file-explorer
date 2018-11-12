@@ -52,7 +52,7 @@ ipcMain.on('delete-items', (e, items) => {
 ipcMain.on('create-directory', (e, directoryPath) => {
     createDirectory(directoryPath)
         .then(() => e.sender.send('create-directory-response', true))
-        .catch(err => e.sender.send('create-directory-response', err));
+        .catch(error => e.sender.send('create-directory-response', error));
 });
 
 function createWindow() {

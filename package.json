@@ -63,11 +63,13 @@
     "extends": [
       "arnellebalane",
       "arnellebalane/rules/plugins/vue",
-      "arnellebalane/rules/plugins/import"
+      "arnellebalane/rules/plugins/import",
+      "arnellebalane/rules/plugins/unicorn"
     ],
     "plugins": [
       "vue",
-      "import"
+      "import",
+      "unicorn"
     ],
     "parserOptions": {
       "ecmaVersion": 2017
@@ -77,9 +79,8 @@
       "node": true
     },
     "rules": {
-      "prefer-promise-reject-errors": [
-        "off"
-      ]
+      "prefer-promise-reject-errors": "off",
+      "unicorn/filename-case": "off"
     }
   },
   "husky": {
