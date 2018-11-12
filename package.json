@@ -59,7 +59,7 @@
   "eslintConfig": {
     "extends": [
       "arnellebalane",
-      "arnellebalane/rules/vue"
+      "arnellebalane/rules/plugin-vue"
     ],
     "plugins": [
       "eslint-plugin-vue"
