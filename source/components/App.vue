@@ -20,8 +20,7 @@ export default {
     },
 
     created() {
-        const path = localStorage.getItem('path') || userHome;
-        this.$router.push({path});
+        this.$router.push({path: userHome});
 
         document.addEventListener('keydown', this.handleKeydown);
     },
