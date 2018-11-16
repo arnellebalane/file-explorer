@@ -86,6 +86,11 @@
       "unicorn/filename-case": "off"
     }
   },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-arnellebalane"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
