@@ -27,6 +27,7 @@ export default new Vuex.Store({
     mutations: {
         setPath(state, path) {
             state.path = path;
+            localStorage.setItem('path', path);
         },
 
         setItems(state, items) {
