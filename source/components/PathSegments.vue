@@ -55,13 +55,13 @@ export default {
 }
 
 .path-segment {
-    padding: 2px 0.75rem 0 0.75rem;
+    padding: 2px 0.75rem 0;
     line-height: 2.4rem;
 }
 
 .path-segment:first-child {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
 }
 

@@ -77,10 +77,27 @@ export default {
     pointer-events: none;
 }
 
-.btn--back { background-image: url("../assets/images/back.png"); }
-.btn--forward { background-image: url("../assets/images/forward.png"); }
-.btn--refresh { background-image: url("../assets/images/refresh.png"); }
-.btn--add-folder { background-image: url("../assets/images/add-folder.png"); }
-.btn--visible { background-image: url("../assets/images/visible.png"); }
-.btn--invisible { background-image: url("../assets/images/invisible.png"); }
+.btn--back {
+    background-image: url("../assets/images/back.png");
+}
+
+.btn--forward {
+    background-image: url("../assets/images/forward.png");
+}
+
+.btn--refresh {
+    background-image: url("../assets/images/refresh.png");
+}
+
+.btn--add-folder {
+    background-image: url("../assets/images/add-folder.png");
+}
+
+.btn--visible {
+    background-image: url("../assets/images/visible.png");
+}
+
+.btn--invisible {
+    background-image: url("../assets/images/invisible.png");
+}
 </style>
