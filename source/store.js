@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {ipcRenderer} from 'electron';
+import userHome from 'user-home';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        path: '/',
+        path: userHome,
         items: [],
         showHiddenFiles: localStorage.getItem('show-hidden-files') === 'true',
         creatingNewFolder: false,
@@ -24,9 +25,9 @@ export default new Vuex.Store({
     },
 
     mutations: {
-        open(state, path) {
+        setPath(state, path) {
             state.path = path;
-            localStorage.setItem('path', path);
+            sessionStorage.setItem('path', path);
         },
 
         setItems(state, items) {
@@ -53,20 +54,14 @@ export default new Vuex.Store({
 
     actions: {
         openPath(context, path) {
-            context.commit('open', path);
-            context.dispatch('readCurrentDirectoryContents');
-        },
-
-        refreshPath(context) {
-            const path = context.state.path;
-            context.dispatch('readCurrentDirectoryContents', path);
-        },
-
-        readCurrentDirectoryContents(context) {
-            ipcRenderer.send('read-path', context.state.path);
+            ipcRenderer.send('read-path', path);
             ipcRenderer.once('fs-data', (e, files) => {
                 context.commit('setItems', files);
             });
+        },
+
+        refreshPath(context) {
+            context.dispatch('openPath', context.state.path);
         },
 
         deleteSelection(context) {

@@ -1,16 +1,16 @@
 <template>
-    <main class="main-panel">
+    <main class="file-system">
         <AppHeader />
         <DirectoryContents />
     </main>
 </template>
 
 <script>
-import AppHeader from './AppHeader.vue';
-import DirectoryContents from './DirectoryContents.vue';
+import AppHeader from '../components/AppHeader.vue';
+import DirectoryContents from '../components/DirectoryContents.vue';
 
 export default {
-    name: 'MainPanel',
+    name: 'FileSystem',
 
     components: {
         AppHeader,
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-.main-panel {
+.file-system {
     display: flex;
     flex-direction: column;
 }

@@ -21,6 +21,18 @@ app.on('activate', () => {
     }
 });
 
+function createWindow() {
+    browserWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        autoHideMenuBar: true
+    });
+    browserWindow.loadURL(`file://${__dirname}/index.html`);
+
+    // Dereference the window object so that it may be garbage collected.
+    browserWindow.on('closed', () => (browserWindow = null));
+}
+
 /**
  *  Emitted when the renderer process requests for a path's contents to be
  *  read. Contents are sorted alphabetically, but placing directories first.
@@ -55,18 +67,6 @@ ipcMain.on('create-directory', (e, directoryPath) => {
         .catch(error => e.sender.send('create-directory-response', error));
 });
 
-function createWindow() {
-    browserWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        autoHideMenuBar: true
-    });
-    browserWindow.loadURL(`file://${__dirname}/index.html`);
-
-    // Dereference the window object so that it may be garbage collected.
-    browserWindow.on('closed', () => (browserWindow = null));
-}
-
 /**
  *  Read the contents of a given directory.
  *  @param {String} dirpath The path to the directory to be read.
@@ -77,8 +77,8 @@ function readPathContents(dirpath) {
     return new Promise(resolve => {
         fs.readdir(dirpath, handled(files => {
             Promise.all(files.map(file => {
-                const itempath = path.join(dirpath, file);
-                return getItemProperties(itempath);
+                const itemPath = path.join(dirpath, file);
+                return getItemProperties(itemPath);
             })).then(resolve);
         }));
     });
@@ -87,17 +87,17 @@ function readPathContents(dirpath) {
 /**
  *  Get the properties of an item at the given path using `fs.stat`.
  *
- *  @param {String} itempath The path to the item whose properties will be
+ *  @param {String} itemPath The path to the item whose properties will be
  *    retrieved.
  *  @return An Promise object that resolves to a `fs.Stat` object representing
  *    the item's properties.
  */
-function getItemProperties(itempath) {
+function getItemProperties(itemPath) {
     return new Promise(resolve => {
-        fs.stat(itempath, handled(stats => resolve({
-            name: itempath.split('/').pop(),
+        fs.stat(itemPath, handled(stats => resolve({
+            name: itemPath.split('/').pop(),
             type: getItemType(stats),
-            path: itempath,
+            path: itemPath,
             size: stats.size,
             mtime: stats.mtime
         })));

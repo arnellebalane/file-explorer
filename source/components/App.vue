@@ -1,31 +1,32 @@
 <template>
     <div id="app">
         <SidebarPanel />
-        <MainPanel />
+
+        <!-- https://github.com/vuejs/vue-router/issues/2356 -->
+        <!-- eslint-disable-next-line vue/component-name-in-template-casing -->
+        <router-view class="main-panel" />
     </div>
 </template>
 
 <script>
 import userHome from 'user-home';
-import MainPanel from './MainPanel.vue';
 import SidebarPanel from './SidebarPanel.vue';
 
 export default {
     name: 'App',
 
     components: {
-        MainPanel,
         SidebarPanel
     },
 
     created() {
-        const path = localStorage.getItem('path') || userHome;
-        this.$store.dispatch('openPath', path);
+        const path = sessionStorage.getItem('path') || userHome;
+        this.$router.push({path});
 
         document.addEventListener('keydown', this.handleKeydown);
     },
 
-    beforeDestroy() {
+    destroyed() {
         document.removeEventListener('keydown', this.handleKeydown);
     },
 

@@ -2,16 +2,17 @@
     <section class="sidebar-list">
         <h1 class="list-title">{{ title }}</h1>
         <nav class="list-items">
-            <a
+            <!-- https://github.com/vuejs/vue-router/issues/2356 -->
+            <!-- eslint-disable-next-line vue/component-name-in-template-casing -->
+            <router-link
                 v-for="item in items"
                 :key="item.path"
-                :href="item.path"
+                :to="item.path"
                 class="list-item"
-                @click.prevent="$store.dispatch('openPath', item.path)"
             >
                 <i class="icon icon--directory"></i>
                 {{ item.name }}
-            </a>
+            </router-link>
         </nav>
     </section>
 </template>

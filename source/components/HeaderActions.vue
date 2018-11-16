@@ -2,14 +2,12 @@
     <header class="header-actions">
         <button
             class="btn btn--back"
-            :disabled="!historyCanGoBack"
-            @click="back"
+            @click="$router.back()"
         >
         </button>
         <button
             class="btn btn--forward"
-            :disabled="!historyCanGoForward"
-            @click="forward"
+            @click="$router.forward()"
         >
         </button>
         <button
@@ -32,29 +30,15 @@
 </template>
 
 <script>
-import HistoryMixin from '../mixins/history';
 
 export default {
     name: 'HeaderActions',
-
-    mixins: [
-        HistoryMixin
-    ],
 
     computed: {
         toggleHiddenFilesClass() {
             return this.$store.state.showHiddenFiles
                 ? 'btn--visible'
                 : 'btn--invisible';
-        }
-    },
-
-    watch: {
-        '$store.state.path': {
-            handler() {
-                this.push(this.$store.state.path);
-            },
-            immediate: true
         }
     },
 

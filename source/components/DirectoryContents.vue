@@ -13,7 +13,7 @@
                 :key="item.path"
                 :item="item"
                 :selected="selected(item.path)"
-                @dblclick="$store.dispatch('openPath', item.path)"
+                @dblclick="$router.push({path: item.path})"
                 @mousedown="select"
             />
         </div>
